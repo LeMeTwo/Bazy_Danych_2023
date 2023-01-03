@@ -53,12 +53,22 @@ const main = async () => {
 
 main().catch(console.error);
 
-app.get('/GetAllAnime',  async function (req, res) {
+app.get('/GetAnimeTitles',  async function (req, res) {
 
-    var result = (await clientA.query("SELECT * FROM anime;"));
-    console.log("/GetAllAnime");
+    var result = (await clientA.query("SELECT title FROM anime;"));
+    console.log("/GetAnimeTitles");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
 
   })
+
+app.get('/GetDetailTitle',  async function (req, res) {
+    var result = (await clientA.query("SELECT title FROM anime where title = 'Toradora!' ;"));
+    console.log("/GetAnimeTitles");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+
