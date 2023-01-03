@@ -1,5 +1,6 @@
-const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
+const express = require('express')
 const app = express()
 const port = 8081
 
@@ -9,17 +10,16 @@ const {Client} = require('pg');
 const { connectionString } = require('pg/lib/defaults');
 const DATABASE_HOST='localhost';
 const DATABASE_USER='postgres';
-const DATABASE_PASSWORD='test';
-const DATABASE_NAME='shinden';
+const DATABASE_PASSWORD='admin';
+const DATABASE_NAME='postgres';
 
 const clientA = new Client({
   user: DATABASE_USER,
   password: DATABASE_PASSWORD,
   database: DATABASE_NAME,
   host: DATABASE_HOST,
-  port: 5433
-  }); 
-
+  port: 5432
+  });
 
 app.use(bodyParser.json())
 app.use(
@@ -28,7 +28,9 @@ app.use(
   })
 )
 
-app.get('/', (request, response) => {
+app.use(cors())
+
+app.get('/info', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
@@ -36,30 +38,27 @@ app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
 
+// Connection to the database
 const main = async () => {
   await clientA.connect();
   try {
-      //Test połączenia z bazą
-      console.log('Łączność nawiązana');
+    //test connection to the database
+    console.log('Connection established');
   } finally {
-      //Módl się, żeby ta linijka się nie załączyła
-      //await clientA.end();
-      console.log("Głośno i wyraźnie")
+    // pray this line doesn't connect
+    //await clientA.end();
+    console.log('Loud and clear')
   }
 }
 
 main().catch(console.error);
 
 app.get('/GetAllAnime',  async function (req, res) {
-  console.log(req) 
-  console.log("/AddToDB?")
-    //await clientA.connect();
 
-    const body = req.body;
     var result = (await clientA.query("SELECT * FROM anime;"));
     console.log("/GetAllAnime");
-    console.log(JSON.parse(JSON.stringify(result.rows)));
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+
   })
