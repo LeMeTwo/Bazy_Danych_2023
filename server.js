@@ -62,8 +62,12 @@ app.get('/GetAnimeTitles',  async function (req, res) {
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
   })
 
-app.post('/GetAnimeName', async function(req, res) {
+app.post('/GetAnimeTest', async function(req, res) {
+    const body = req.body;
+    console.log(body);
+})
 
+app.post('/GetAnimeName', async function(req, res) {
     const body = req.body;
     console.log(body);
     var result = (await clientA.query("SELECT * FROM anime WHERE title = " + body.title + ";"))
@@ -71,7 +75,6 @@ app.post('/GetAnimeName', async function(req, res) {
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
-
 })
 
 app.get('/GetDetailTitle',  async function (req, res) {
