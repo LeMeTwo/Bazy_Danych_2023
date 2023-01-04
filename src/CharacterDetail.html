@@ -2,9 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Character</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-
+<body class="body">
+<nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://shinden.pl/">Shinden</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:63343/Bazy_Danych/src/HomePage.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:63343/Bazy_Danych/src/AnimePage.html">Anime</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:63343/Bazy_Danych/src/HomePage.html">Account</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:63343/Bazy_Danych/src/HomePage.html">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="entry p-4">
+    <div class="container">
+        <p class="display-5">Character Detail</p>
+        <hr class="my-0">
+    </div>
+</div>
+<div class="container content">
+    <div class="col-6">
+        <div class="card" id="name-card">
+            <h5 class="card-header">Name</h5>
+            <div class="card-body">
+                <p class="card-text" id="name"></p>
+            </div>
+        </div>
+        <div class="card" id="surname-card">
+            <h5 class="card-header">Surname</h5>
+            <div class="card-body">
+                <p class="card-text" id="surname"></p>
+            </div>
+        </div>
+        <div class="card" id="movie-card">
+            <h5 class="card-header">Titles</h5>
+            <div class="card-body">
+                <ul class='list-group'>
+                    <li class="list-group-item" id="title"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card" id="age-card">
+            <h5 class="card-header">Age</h5>
+            <div class="card-body">
+                <p class="card-text" id="age"></p>
+            </div>
+        </div>
+        <div class="card" id="sex-card">
+            <h5 class="card-header">Sex</h5>
+            <div class="card-body">
+                <p class="card-text" id="sex"></p>
+            </div>
+        </div>
+        <div class="card" id="voice-actor-card">
+            <h5 class="card-header">Voice actor</h5>
+            <div class="card-body">
+                <p class="card-text" id="voiceActor"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer mt-auto py-2">
+    <div class="container text-center">
+        <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
+    </div>
+</footer>
+<script src="scripts/title.js"></script>
+<script src="scripts/genre.js"></script>
+<script src="scripts/target.js"></script>
+<script src="scripts/form.js"></script>
+<script src="scripts/place.js"></script>
+<script src="scripts/otherTags.js"></script>
+<script src="scripts/origin.js"></script>
+<script src="scripts/epNum.js"></script>
+<script src="scripts/character.js"></script>
 </body>
 </html>
