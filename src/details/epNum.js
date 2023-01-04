@@ -6,7 +6,7 @@ fetch(epNumUrl)
     //.then(data => console.log(data))
     .then(data => {
         data.forEach(anime => {
-            const epNum = '<p>' + anime.ep_num + '</p>'
+            const epNum = anime.ep_num
             epNumDisplay.insertAdjacentHTML("beforeend", epNum)
         })
     })
