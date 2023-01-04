@@ -6,7 +6,11 @@ fetch(titleUrl)
     //.then(data => console.log(data))
     .then(data => {
         data.forEach(anime => {
-            const title = anime.title
+            const title =
+                '<a href ="http://localhost:63343/Bazy_Danych/src/AnimeDetail.html" ' +
+                'class="text-secondary">' +
+                anime.title +
+                '</a>'
             titleDisplay.insertAdjacentHTML("beforeend", title)
         })
     })
