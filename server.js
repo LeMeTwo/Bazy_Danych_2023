@@ -75,7 +75,7 @@ app.post('/GetAnimeName', async function(req, res) {
 })
 
 app.get('/GetDetailTitle',  async function (req, res) {
-    var result = (await clientA.query("SELECT title FROM anime WHERE title = 'Toradora!' ;"));
+    var result = (await clientA.query("SELECT title FROM anime WHERE title = 'Trinity Seven' ;"));
     console.log("/GetDetailTitle");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
@@ -84,7 +84,7 @@ app.get('/GetDetailTitle',  async function (req, res) {
 
 app.get('/GetDetailGenre',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE title = 'Toradora!' ;"
+        "SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailGenre");
     jresponse = result.rows;
@@ -94,7 +94,7 @@ app.get('/GetDetailGenre',  async function (req, res) {
 
 app.get('/GetDetailTarget',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE title = 'Toradora!' ;"
+        "SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailTarget");
     jresponse = result.rows;
@@ -104,7 +104,7 @@ app.get('/GetDetailTarget',  async function (req, res) {
 
 app.get('/GetDetailForm',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE title = 'Toradora!' ;"
+        "SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailForm");
     jresponse = result.rows;
@@ -114,7 +114,7 @@ app.get('/GetDetailForm',  async function (req, res) {
 
 app.get('/GetDetailPlace',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE title = 'Toradora!' ;"
+        "SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailPlace");
     jresponse = result.rows;
@@ -124,7 +124,7 @@ app.get('/GetDetailPlace',  async function (req, res) {
 
 app.get('/GetDetailOtherTags',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE title = 'Toradora!' ;"
+        "SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailOtherTags");
     jresponse = result.rows;
@@ -134,7 +134,7 @@ app.get('/GetDetailOtherTags',  async function (req, res) {
 
 app.get('/GetDetailOrigin',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE title = 'Toradora!' ;"
+        "SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailOrigin");
     jresponse = result.rows;
@@ -144,7 +144,7 @@ app.get('/GetDetailOrigin',  async function (req, res) {
 
 app.get('/GetDetailEpNum',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT ep_num FROM anime WHERE title = 'Toradora!' ;"
+        "SELECT ep_num FROM anime WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailEpNum");
     jresponse = result.rows;
@@ -154,7 +154,7 @@ app.get('/GetDetailEpNum',  async function (req, res) {
 
 app.get('/GetDetailCharacter',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Toradora!' ;"
+        "SELECT c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailCharacter");
     jresponse = result.rows;
