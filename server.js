@@ -60,11 +60,20 @@ app.get('/GetAnimeTitles',  async function (req, res) {
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
-
   })
 
 app.get('/GetDetailTitle',  async function (req, res) {
-    var result = (await clientA.query("SELECT title FROM anime where title = 'Toradora!' ;"));
+    var result = (await clientA.query("SELECT title FROM anime WHERE title = 'Toradora!' ;"));
+    console.log("/GetAnimeTitles");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetDetailCharacter',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Toradora!' ;"
+    ));
     console.log("/GetAnimeTitles");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
