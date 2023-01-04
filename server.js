@@ -63,14 +63,3 @@ app.get('/GetAllAnime',  async function (req, res) {
 
   })
 
-app.post('/GetAnimeName', async function(req, res) {
-
-  const body = req.body;
-  console.log(body);
-  var result = (await clientA.query("SELECT * FROM anime WHERE title = " + body.title + ";"))
-  console.log("/GetAnimeName");
-  jresponse = result.rows;
-  res.setHeader('Content-Type', 'application/json');
-  res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
-
-})
