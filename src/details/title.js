@@ -6,7 +6,7 @@ fetch(titleUrl)
     //.then(data => console.log(data))
     .then(data => {
         data.forEach(anime => {
-            const title = '<h3>' + anime.title + '</h3>'
+            const title = anime.title
             titleDisplay.insertAdjacentHTML("beforeend", title)
         })
     })
