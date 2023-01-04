@@ -1,37 +1,42 @@
-const display = document.querySelector('#animeTitles')
-const url = 'http://localhost:8081/GetAnimeTitles'
+$().ready(function (){
 
-fetch(url)
-    .then(response => response.json())
-    //.then(data => console.log(data))
-    .then(data => {
-        data.forEach(anime => {
-            const title =
-                '<li class="list-group-item">' +
-                '<a href ="http://localhost:63343/Bazy_Danych/src/AnimeDetail.html" ' +
-                'class="text-secondary">' +
-                anime.title +
-                '</a>' +
-                '</li>'
-            display.insertAdjacentHTML("beforeend", title)
+    const postUrl = 'http://localhost:8081/GetAnimeTest'
+    async function postData(data = {}) {
+        const response = await fetch(postUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        return response; // parses JSON response into native JavaScript objects
+    }
+
+    const getUrl = 'http://localhost:8081/GetAnimeTitles'
+    fetch(getUrl)
+        .then(response => response.json())
+        //.then(data => console.log(data))
+        .then(data => {
+            data.forEach(anime => {
+                const title =
+                    '<li class="list-group-item">' +
+                    '<a href ="http://localhost:63343/Bazy_Danych/src/AnimeDetail.html" ' +
+                    'class="text-secondary">' +
+                    anime.title +
+                    '</a>' +
+                    '</li>'
+                $('#animeTitles').append(title)
+            })
         })
-    })
-    .catch(err => console.log(err)) //to file
+        .catch(err => console.log(err)) //to file
 
-// async function postData(data ={}, suffix) {
-//     let postUrl = 'http://localhost:8081/' + suffix;
-//     return await fetch(postUrl, {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(data)
-//     });
-// }
-//
-// const data = {title: "Toradora!"}
-//
-// postData(data, 'GetAnimeName')
-//     .then(response => response.json())
-//     .then(data => console.log(data))
+    $("#animeTitles").click(function()
+    {
+        var data = {}
+        data.title = $(this).html();
+        postData(data)
+            .then(response => response.json())
+            .then(data => alert(data))
+    });
+})
