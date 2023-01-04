@@ -2,6 +2,13 @@ html, body {
     height: 100%;
 }
 
+/* stick footer at the bottom of the page */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .body::-webkit-scrollbar {
     display: none;
@@ -41,6 +48,7 @@ html, body {
 
 .footer {
     background-color: #D1D1D1;
+    margin-top: auto;
 }
 
 /* Settings for HomePage.html file */
@@ -86,6 +94,25 @@ html, body {
 
 #form-card, #other-tags-card, #genre-card, #target-card, #origin-card, #place-card {
     height: 7.313rem;
+}
+
+/* Settings for CharacterDetail.html file */
+/* Margins */
+#name-card, #surname-card, #movie-card {
+    margin: auto 0.9rem 1.8rem auto;
+}
+
+#age-card, #sex-card, #voice-actor-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+/* Heights */
+#name-card, #surname-card, #age-card, #sex-card, #voice-actor-card {
+    height: 6.063rem;
+}
+
+#movie-card {
+    height: 17.587rem;
 }
 
 /* Injected html settings */
