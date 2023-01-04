@@ -8,7 +8,7 @@ fetch(characterUrl)
         data.forEach(character => {
             const name =
                 '<li class="list-group-item">' +
-                '<a href ="http://localhost:63342/Bazy_Danych/CharacterDetail.html" ' +
+                '<a href ="http://localhost:63343/Bazy_Danych/src/CharacterDetail.html" ' +
                 'class="text-secondary">' +
                 character.name +
                 '</a>' +

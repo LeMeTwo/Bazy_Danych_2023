@@ -44,19 +44,14 @@ html, body {
 }
 
 /* Settings for HomePage.html file */
-#top-left, #bot-left {
-    margin: auto 3rem 1.8rem auto;
+#top, #bot {
+    margin: auto auto 1.8rem;
     max-width: 40rem;
-}
-
-#top-right, #bot-right {
-    margin: auto 3rem 1.8rem auto;
-    max-width: 20rem;
 }
 
 /* Settings for AnimePage.html file */
 #anime-list-card {
-    margin: auto auto 1.8rem 4rem;
+    margin: auto auto 1.8rem;
     max-width: 40rem;
 }
 
