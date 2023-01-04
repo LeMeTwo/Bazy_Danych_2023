@@ -13,6 +13,7 @@ html, body {
     scrollbar-width: none;  /* Firefox */
 }
 
+/* Basic settings for every html file */
 .navbar {
     background-color: #FFFFFF;
     font-size: 1.2em;
@@ -38,6 +39,11 @@ html, body {
     background-color: #D1D1D1 !important;
 }
 
+.footer {
+    background-color: #D1D1D1;
+}
+
+/* Settings for HomePage.html file */
 #top-left, #bot-left {
     margin: auto 3rem 1.8rem auto;
     max-width: 40rem;
@@ -48,17 +54,59 @@ html, body {
     max-width: 20rem;
 }
 
-#title-card {
+/* Settings for AnimePage.html file */
+#anime-list-card {
     margin: auto auto 1.8rem 4rem;
     max-width: 40rem;
 }
 
-.list-group{
+#animeTitles {
     max-height: 35.95rem;
     overflow-y:scroll;
     -webkit-overflow-scrolling: touch;
 }
 
-.footer {
-    background-color: #D1D1D1;
+/* Settings for AnimeDetail.html file */
+/* Margins */
+#title-card, #character-card, #form-card, #other-tags-card {
+    margin: auto 0.9rem 1.8rem auto;
+}
+
+#ep-num-card, #target-card, #origin-card, #place-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+#genre-card {
+    margin: auto auto 2.95rem 0.9rem;
+}
+
+/* Heights */
+#title-card, #ep-num-card{
+    height: 6.063rem;
+}
+
+#character-card {
+    height: 17.587rem;
+}
+
+#form-card, #other-tags-card, #genre-card, #target-card, #origin-card, #place-card {
+    height: 7.313rem;
+}
+
+/* Injected html settings */
+#character {
+    height: 12.9rem;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+#form, #otherTags, #genre, #target, #origin, #place {
+    /* Must be scroll here*/
+    overflow-y:hidden;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.list-group-item {
+    height: 2.75rem;
 }
