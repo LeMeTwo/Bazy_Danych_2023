@@ -181,6 +181,16 @@ app.get('/GetDetailEpNum',  async function (req, res) {
 })
 
 // Gets used by CharacterDetail.html
+app.get('/GetCharacterTitleList',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT aid, title FROM anime WHERE cid @> '" + characterMemory.cid + "' ;"
+    ));
+    console.log("/GetCharacterTitleList");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
 app.get('/GetCharacterName',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT cid, name FROM character WHERE cid = '" + characterMemory.cid + "' ;"
@@ -191,11 +201,31 @@ app.get('/GetCharacterName',  async function (req, res) {
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
 })
 
-app.get('/GetCharacterTitleList',  async function (req, res) {
+app.get('/GetCharacterSurname',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT aid, title FROM anime WHERE cid @> '" + characterMemory.cid + "' ;"
+        "SELECT cid, surname FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
-    console.log("/GetCharacterTitleList");
+    console.log("/GetCharacterSurname");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetCharacterAge',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT cid, age FROM character WHERE cid = '" + characterMemory.cid + "' ;"
+    ));
+    console.log("/GetCharacterAge");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetCharacterSex',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT cid, sex FROM character WHERE cid = '" + characterMemory.cid + "' ;"
+    ));
+    console.log("/GetCharacterSex");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
