@@ -21,7 +21,7 @@ $().ready(function (){
             data.forEach(anime => {
                 const title =
                     '<li class="list-group-item">' +
-                    '<a href ="http://localhost:63343/Bazy_Danych/src/AnimeDetail.html" ' +
+                    '<a href ="http://localhost:63342/Bazy_Danych/src/AnimeDetail.html" ' +
                     'class="text-secondary">' +
                     anime.title +
                     '</a>' +
