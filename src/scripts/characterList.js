@@ -1,6 +1,6 @@
 $().ready(function (){
-    const characterUrl = 'http://localhost:8081/GetDetailCharacterList'
-    fetch(characterUrl)
+    const characterListUrl = 'http://localhost:8081/GetDetailCharacterList'
+    fetch(characterListUrl)
         .then(response => response.json())
         //.then(data => console.log(data))
         .then(data => {
