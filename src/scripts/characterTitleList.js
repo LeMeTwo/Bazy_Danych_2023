@@ -2,7 +2,6 @@ $().ready(function () {
     const characterTitleListUrl = 'http://localhost:8081/GetCharacterTitleList'
     fetch(characterTitleListUrl)
         .then(response => response.json())
-        //.then(data => console.log(data))
         .then(data => {
             data.forEach(anime => {
                 const id = anime.aid[0]
