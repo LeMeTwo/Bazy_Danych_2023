@@ -14,3 +14,7 @@ function getNumber(text) {
     let words = text.split(" ")
     return "{" + words[0] + "}";
 }
+
+function isNull(variable) {
+    if(variable == null) {return ""} else {return variable}
+}
