@@ -55,7 +55,7 @@ main().catch(console.error);
 
 app.get('/GetAnimeList',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT title FROM anime;"
+        "SELECT aid, title FROM anime;"
     ));
     console.log("/GetAnimeList");
     jresponse = result.rows;
@@ -162,7 +162,7 @@ app.get('/GetDetailEpNum',  async function (req, res) {
 
 app.get('/GetDetailCharacterList',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
+        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
     ));
     console.log("/GetDetailCharacterList");
     jresponse = result.rows;
