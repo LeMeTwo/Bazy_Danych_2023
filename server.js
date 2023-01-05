@@ -54,7 +54,6 @@ const main = async () => {
 main().catch(console.error);
 
 app.get('/GetAnimeList',  async function (req, res) {
-
     var result = (await clientA.query("SELECT title FROM anime;"));
     console.log("/GetAnimeList");
     jresponse = result.rows;
@@ -167,9 +166,9 @@ app.get('/GetDetailCharacterList',  async function (req, res) {
 
 app.get('/GetCharacterName',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT name FROM character WHERE name = 'Yui' ;"
+        "SELECT cid, name FROM character WHERE cid = '{60}';"
     ));
-    console.log("/GetDetailCharacter");
+    console.log("/GetCharacterName");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
