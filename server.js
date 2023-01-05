@@ -4,7 +4,8 @@ const express = require('express')
 const app = express()
 const port = 8081
 
-var serverMemory; 
+var animeMemory;
+var characterMemory;
 
 const users = {}
 const {Client} = require('pg');
@@ -55,23 +56,25 @@ const main = async () => {
 main().catch(console.error);
 
 // Posts used to tests
-app.post('/GetAnimeTest', async function(req, res) {
-    serverMemory = req.body; 
-    console.log(serverMemory);
+app.post('/PostAnimeTest', async function(req, res) {
+    console.log(characterMemory);
+    console.log("/PostAnimeTest");
     res.status(200)
 })
 
-app.post('/PostCharacterName', async function(req, res) {
-    const body = req.body;
-    console.log(body);
-    var result = (await clientA.query(
-        "SELECT * FROM character WHERE cid = '" + body.cid + "' ;"
-    ))
-    console.log("/PostCharacterName");
-    jresponse = result.rows;
-    //console.log(JSON.parse(JSON.stringify(jresponse)));
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+// Posts used to get data from the frontend
+app.post('/PostAnimeId', async function(req, res) {
+    animeMemory = req.body;
+    console.log(animeMemory);
+    console.log("/GetAnimeTest");
+    res.status(200)
+})
+
+app.post('/PostCharacterId', async function(req, res) {
+    characterMemory = req.body;
+    console.log(characterMemory);
+    console.log("/PostCharacterId");
+    res.status(200)
 })
 
 // Get used by AnimePage.html
@@ -88,7 +91,7 @@ app.get('/GetAnimeList',  async function (req, res) {
 // Gets used by AnimeDetail.html
 app.get('/GetDetailTitle',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT aid, title FROM anime WHERE aid = '"  + serverMemory.aid +  "' ;    " 
+        "SELECT aid, title FROM anime WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailTitle");
     jresponse = result.rows;
@@ -98,7 +101,7 @@ app.get('/GetDetailTitle',  async function (req, res) {
 
 app.get('/GetDetailCharacterList',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
+        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE c.aid @> '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailCharacterList");
     jresponse = result.rows;
@@ -108,7 +111,7 @@ app.get('/GetDetailCharacterList',  async function (req, res) {
 
 app.get('/GetDetailGenre',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE title = 'Trinity Seven' ;"
+        "SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailGenre");
     jresponse = result.rows;
@@ -118,7 +121,7 @@ app.get('/GetDetailGenre',  async function (req, res) {
 
 app.get('/GetDetailTarget',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE title = 'Trinity Seven' ;"
+        "SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailTarget");
     jresponse = result.rows;
@@ -128,7 +131,7 @@ app.get('/GetDetailTarget',  async function (req, res) {
 
 app.get('/GetDetailForm',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE title = 'Trinity Seven' ;"
+        "SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailForm");
     jresponse = result.rows;
@@ -138,7 +141,7 @@ app.get('/GetDetailForm',  async function (req, res) {
 
 app.get('/GetDetailPlace',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE title = 'Trinity Seven' ;"
+        "SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailPlace");
     jresponse = result.rows;
@@ -148,7 +151,7 @@ app.get('/GetDetailPlace',  async function (req, res) {
 
 app.get('/GetDetailOtherTags',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE title = 'Trinity Seven' ;"
+        "SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailOtherTags");
     jresponse = result.rows;
@@ -158,7 +161,7 @@ app.get('/GetDetailOtherTags',  async function (req, res) {
 
 app.get('/GetDetailOrigin',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE title = 'Trinity Seven' ;"
+        "SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailOrigin");
     jresponse = result.rows;
@@ -168,7 +171,7 @@ app.get('/GetDetailOrigin',  async function (req, res) {
 
 app.get('/GetDetailEpNum',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT ep_num FROM anime WHERE title = 'Trinity Seven' ;"
+        "SELECT ep_num FROM anime WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailEpNum");
     jresponse = result.rows;
@@ -179,7 +182,7 @@ app.get('/GetDetailEpNum',  async function (req, res) {
 // Gets used by CharacterDetail.html
 app.get('/GetCharacterName',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT cid, name FROM character WHERE cid = '{60}';"
+        "SELECT cid, name FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterName");
     jresponse = result.rows;
