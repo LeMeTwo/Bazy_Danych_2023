@@ -1,5 +1,5 @@
 $().ready(function (){
-    const titleListUrl = 'http://localhost:8081/GetAnimeTitles'
+    const titleListUrl = 'http://localhost:8081/GetAnimeList'
     fetch(titleListUrl)
         .then(response => response.json())
         //.then(data => console.log(data))
@@ -12,12 +12,12 @@ $().ready(function (){
                     anime.title +
                     '</a>' +
                     '</li>'
-                $('#animeTitles').append(title)
+                $('#animeList').append(title)
             })
         })
         .catch(err => console.log(err)) //to file
 
-    $("#animeTitles").click(function()
+    $("#animeList").click(function()
     {
         let data = {}
         data.title = $(this).text();

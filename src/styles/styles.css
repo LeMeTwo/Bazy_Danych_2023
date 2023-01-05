@@ -67,7 +67,7 @@ body {
     max-width: 40rem;
 }
 
-#animeTitles {
+#animeList {
     max-height: 35.95rem;
     overflow-y:scroll;
     -webkit-overflow-scrolling: touch;
@@ -120,7 +120,7 @@ body {
 }
 
 /* Injected html settings */
-#character {
+#characterList {
     height: 12.9rem;
     overflow-y:scroll;
     -webkit-overflow-scrolling: touch;
