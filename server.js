@@ -58,6 +58,7 @@ main().catch(console.error);
 // Posts used to tests
 app.post('/PostAnimeTest', async function(req, res) {
     console.log(characterMemory);
+    console.log(animeMemory);
     console.log("/PostAnimeTest");
     res.status(200)
 })
@@ -66,7 +67,7 @@ app.post('/PostAnimeTest', async function(req, res) {
 app.post('/PostAnimeId', async function(req, res) {
     animeMemory = req.body;
     console.log(animeMemory);
-    console.log("/GetAnimeTest");
+    console.log("/PostAnimeId");
     res.status(200)
 })
 
@@ -185,6 +186,16 @@ app.get('/GetCharacterName',  async function (req, res) {
         "SELECT cid, name FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterName");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetCharacterTitleList',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT aid, title FROM anime WHERE cid @> '" + characterMemory.cid + "' ;"
+    ));
+    console.log("/GetCharacterTitleList");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
