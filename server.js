@@ -102,7 +102,7 @@ app.get('/GetDetailTitle',  async function (req, res) {
 
 app.get('/GetDetailCharacterList',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE c.aid @> '" + animeMemory.aid + "' ;"
+        "SELECT cid, name FROM character WHERE aid @> '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailCharacterList");
     jresponse = result.rows;
