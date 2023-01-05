@@ -53,6 +53,26 @@ const main = async () => {
 
 main().catch(console.error);
 
+// Posts used to tests
+app.post('/GetAnimeTest', async function(req, res) {
+    const body = req.body;
+    console.log(body);
+})
+
+app.post('/PostCharacterName', async function(req, res) {
+    const body = req.body;
+    console.log(body);
+    var result = (await clientA.query(
+        "SELECT * FROM character WHERE cid = '" + body.cid + "' ;"
+    ))
+    console.log("/PostCharacterName");
+    jresponse = result.rows;
+    //console.log(JSON.parse(JSON.stringify(jresponse)));
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+// Get used by AnimePage.html
 app.get('/GetAnimeList',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT aid, title FROM anime;"
@@ -63,28 +83,22 @@ app.get('/GetAnimeList',  async function (req, res) {
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
   })
 
-app.post('/GetAnimeTest', async function(req, res) {
-    const body = req.body;
-    console.log(body);
-})
-
-app.post('/GetAnimeName', async function(req, res) {
-    const body = req.body;
-    console.log(body);
-    var result = (await clientA.query(
-        "SELECT * FROM anime WHERE title = " + body.title + ";"
-    ))
-    console.log("/GetAnimeName");
-    jresponse = result.rows;
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
-})
-
+// Gets used by AnimeDetail.html
 app.get('/GetDetailTitle',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT aid, title FROM anime WHERE aid = '{14}' ;"
     ));
     console.log("/GetDetailTitle");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetDetailCharacterList',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
+    ));
+    console.log("/GetDetailCharacterList");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
@@ -160,16 +174,7 @@ app.get('/GetDetailEpNum',  async function (req, res) {
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
 })
 
-app.get('/GetDetailCharacterList',  async function (req, res) {
-    var result = (await clientA.query(
-        "SELECT c.cid, c.name FROM anime a INNER JOIN character c ON (a.cid @> c.cid) WHERE title = 'Trinity Seven' ;"
-    ));
-    console.log("/GetDetailCharacterList");
-    jresponse = result.rows;
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
-})
-
+// Gets used by CharacterDetail.html
 app.get('/GetCharacterName',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT cid, name FROM character WHERE cid = '{60}';"
