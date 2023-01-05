@@ -21,8 +21,8 @@ $().ready(function () {
 
     $("#characterList").on("click", "li",function () {
         let data = {}
-        data.aid = getNumber($(this).text())
-        postData(data, 'GetAnimeTest')
+        data.cid = getNumber($(this).text())
+        postData(data, 'PostCharacterID')
             .then(response => response.json())
             .then(data => alert(data))
     });

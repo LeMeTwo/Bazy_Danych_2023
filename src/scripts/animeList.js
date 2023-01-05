@@ -22,7 +22,7 @@ $().ready(function () {
     $("#animeList").on("click", "li",function () {
         let data = {}
         data.aid = getNumber($(this).text())
-        postData(data, 'GetAnimeTest')
+        postData(data, 'PostAnimeId')
             .then(response => response.json())
             .then(data => alert(data))
     });

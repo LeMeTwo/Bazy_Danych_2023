@@ -20,7 +20,7 @@ $().ready(function () {
     $("#name").click(function() {
         let data = {}
         data.cid = getNumber($(this).text())
-        postData(data, 'GetAnimeTest')
+        postData(data, 'PostCharacterID')
             .then(response => response.json())
             .then(data => alert(data))
     });
