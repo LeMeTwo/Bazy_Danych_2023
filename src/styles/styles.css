@@ -129,6 +129,6 @@ body {
 #form, #otherTags, #genre, #target, #origin, #place {
     /* Must be scroll here*/
     overflow-y:hidden;
-    overflow-x:hidden;
+    overflow-x:scroll;
     -webkit-overflow-scrolling: touch;
 }
