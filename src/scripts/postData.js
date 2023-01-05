@@ -18,3 +18,7 @@ function getNumber(text) {
 function isNull(variable) {
     if(variable == null) {return ""} else {return variable}
 }
+
+function isNullComma(variable) {
+    if(variable == null) {return ""} else {return variable + ", "}
+}
