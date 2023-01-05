@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const port = 8081
 
+var serverMemory; 
 
 const users = {}
 const {Client} = require('pg');
@@ -55,8 +56,9 @@ main().catch(console.error);
 
 // Posts used to tests
 app.post('/GetAnimeTest', async function(req, res) {
-    const body = req.body;
-    console.log(body);
+    serverMemory = req.body; 
+    console.log(serverMemory);
+    res.status(200)
 })
 
 app.post('/PostCharacterName', async function(req, res) {
@@ -86,7 +88,7 @@ app.get('/GetAnimeList',  async function (req, res) {
 // Gets used by AnimeDetail.html
 app.get('/GetDetailTitle',  async function (req, res) {
     var result = (await clientA.query(
-        "SELECT aid, title FROM anime WHERE aid = '{14}' ;"
+        "SELECT aid, title FROM anime WHERE aid = '"  + serverMemory.aid +  "' ;    " 
     ));
     console.log("/GetDetailTitle");
     jresponse = result.rows;
