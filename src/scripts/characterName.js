@@ -1,4 +1,4 @@
-$().ready(function (){
+$().ready(function () {
     const characterNameUrl = 'http://localhost:8081/GetCharacterName'
     fetch(characterNameUrl)
         .then(response => response.json())
@@ -17,8 +17,7 @@ $().ready(function (){
         })
         .catch(err => console.log(err)) //to file
 
-    $("#name").click(function()
-    {
+    $("#name").click(function() {
         let data = {}
         data.cid = getNumber($(this).text())
         postData(data, 'GetAnimeTest')

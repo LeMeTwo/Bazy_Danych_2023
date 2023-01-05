@@ -1,4 +1,4 @@
-$().ready(function (){
+$().ready(function () {
     const titleUrl = 'http://localhost:8081/GetDetailTitle'
     fetch(titleUrl)
         .then(response => response.json())
@@ -17,8 +17,7 @@ $().ready(function (){
         })
         .catch(err => console.log(err)) //to file
 
-    $("#title").click(function()
-    {
+    $("#title").click(function() {
         let data = {}
         data.aid = getNumber($(this).text())
         postData(data, 'GetAnimeTest')
