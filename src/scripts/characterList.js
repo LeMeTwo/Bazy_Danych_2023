@@ -2,7 +2,6 @@ $().ready(function () {
     const characterListUrl = 'http://localhost:8081/GetDetailCharacterList'
     fetch(characterListUrl)
         .then(response => response.json())
-        //.then(data => console.log(data))
         .then(data => {
             data.forEach(character => {
                 const id = character.cid[0]
@@ -11,7 +10,7 @@ $().ready(function () {
                     '<p style="display: none">' + character.cid + " " + '</p>' +
                     '<a href ="http://localhost:63342/Bazy_Danych/src/CharacterDetail.html" ' +
                     'class="text-secondary id=' + id + '">' +
-                    character.name +
+                    isNullComma(character.surname) + isNull(character.name) +
                     '</a>' +
                     '</li>'
                 $('#characterList').append(name)
