@@ -54,7 +54,9 @@ const main = async () => {
 main().catch(console.error);
 
 app.get('/GetAnimeList',  async function (req, res) {
-    var result = (await clientA.query("SELECT title FROM anime;"));
+    var result = (await clientA.query(
+        "SELECT title FROM anime;"
+    ));
     console.log("/GetAnimeList");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
@@ -69,7 +71,9 @@ app.post('/GetAnimeTest', async function(req, res) {
 app.post('/GetAnimeName', async function(req, res) {
     const body = req.body;
     console.log(body);
-    var result = (await clientA.query("SELECT * FROM anime WHERE title = " + body.title + ";"))
+    var result = (await clientA.query(
+        "SELECT * FROM anime WHERE title = " + body.title + ";"
+    ))
     console.log("/GetAnimeName");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
@@ -77,7 +81,9 @@ app.post('/GetAnimeName', async function(req, res) {
 })
 
 app.get('/GetDetailTitle',  async function (req, res) {
-    var result = (await clientA.query("SELECT title FROM anime WHERE title = 'Trinity Seven' ;"));
+    var result = (await clientA.query(
+        "SELECT aid, title FROM anime WHERE aid = '{14}' ;"
+    ));
     console.log("/GetDetailTitle");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
