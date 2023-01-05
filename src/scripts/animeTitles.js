@@ -1,20 +1,6 @@
 $().ready(function (){
-
-    const postUrl = 'http://localhost:8081/GetAnimeTest'
-    async function postData(data = {}) {
-        const response = await fetch(postUrl, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        return response; // parses JSON response into native JavaScript objects
-    }
-
-    const getUrl = 'http://localhost:8081/GetAnimeTitles'
-    fetch(getUrl)
+    const titleListUrl = 'http://localhost:8081/GetAnimeTitles'
+    fetch(titleListUrl)
         .then(response => response.json())
         //.then(data => console.log(data))
         .then(data => {
@@ -33,9 +19,9 @@ $().ready(function (){
 
     $("#animeTitles").click(function()
     {
-        var data = {}
-        data.title = $(this).html();
-        postData(data)
+        let data = {}
+        data.title = $(this).text();
+        postData(data, 'GetAnimeTest')
             .then(response => response.json())
             .then(data => alert(data))
     });
