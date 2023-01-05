@@ -5,9 +5,11 @@ $().ready(function (){
         //.then(data => console.log(data))
         .then(data => {
             data.forEach(anime => {
+                const id = anime.aid[0]
                 const title =
+                    '<p style="display: none">' + anime.aid + " " + '</p>' +
                     '<a href ="http://localhost:63342/Bazy_Danych/src/AnimeDetail.html" ' +
-                    'class="text-secondary">' +
+                    'class="text-secondary id=' + id + '">' +
                     anime.title +
                     '</a>'
                 $('#title').append(title)
@@ -18,7 +20,7 @@ $().ready(function (){
     $("#title").click(function()
     {
         let data = {}
-        data.title = $(this).text();
+        data.aid = getNumber($(this).text())
         postData(data, 'GetAnimeTest')
             .then(response => response.json())
             .then(data => alert(data))
