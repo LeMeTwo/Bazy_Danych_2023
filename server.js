@@ -230,3 +230,13 @@ app.get('/GetCharacterSex',  async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
 })
+
+app.get('/GetCharacterVoiceActor',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = '" + characterMemory.cid + "' ;"
+    ));
+    console.log("/GetCharacterVoiceActor");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
