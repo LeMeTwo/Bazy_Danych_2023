@@ -135,3 +135,10 @@ body {
     height: 17.587rem;
 }
 
+/* Injected html settings */
+#characterTitleList {
+    height: 12.9rem;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+}
