@@ -9,7 +9,7 @@ $().ready(function () {
                     '<li class="list-group-item">' +
                     '<p style="display: none">' + anime.aid + " " + '</p>' +
                     '<a href ="http://localhost:63342/Bazy_Danych/src/AnimeDetail.html" ' +
-                    'class="text-secondary id=' + id + '">' +
+                    'class="text-secondary text-truncate id=' + id + '">' +
                     anime.title +
                     '</a>' +
                     '</li>'
