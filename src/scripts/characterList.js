@@ -9,7 +9,7 @@ $().ready(function () {
                     '<li class="list-group-item">' +
                     '<p style="display: none">' + character.cid + " " + '</p>' +
                     '<a href ="http://localhost:63342/Bazy_Danych/src/CharacterDetail.html" ' +
-                    'class="text-secondary id=' + id + '">' +
+                    'class="text-secondary text-truncate id=' + id + '">' +
                     isNullComma(character.surname) + isNull(character.name) +
                     '</a>' +
                     '</li>'
