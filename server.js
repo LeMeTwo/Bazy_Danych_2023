@@ -79,6 +79,16 @@ app.post('/PostCharacterId', async function(req, res) {
     res.status(200)
 })
 
+app.post('/PostAnimeAndCharacterId', async function(req, res) {
+    animeMemory = {"aid": req.body.aid}
+    characterMemory = {"cid": req.body.cid}
+    console.log(req.body);
+    console.log(animeMemory);
+    console.log(characterMemory);
+    console.log("/PostAnimeAndCharacterID");
+    res.status(200)
+})
+
 app.post('/PostVoiceActorId', async function(req, res) {
     voiceActorMemory = req.body;
     console.log(characterMemory);
@@ -250,6 +260,16 @@ app.get('/GetCharacterVoiceActor',  async function (req, res) {
 })
 
 // Gets used by VoiceActorDetail.html
+app.get('/GetVoiceActorCharacterList',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorCharacterList");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
 app.get('/GetVoiceActorName',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT vid, name FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
