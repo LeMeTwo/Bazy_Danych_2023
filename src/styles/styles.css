@@ -47,7 +47,11 @@ body {
 }
 
 .list-group-item {
-    height: 2.75rem;
+    max-height: 2.75rem;
+}
+
+.list-group-item-exception {
+    max-height: 5.5rem; !important;
 }
 
 .footer {
@@ -70,7 +74,7 @@ body {
 #animeList {
     max-height: 35.95rem;
     overflow-x:hidden;
-    overflow-y:scroll;
+    overflow-y:auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -105,14 +109,13 @@ body {
 #characterList {
     height: 12.9rem;
     overflow-x:hidden;
-    overflow-y:scroll;
+    overflow-y:auto;
     -webkit-overflow-scrolling: touch;
 }
 
 #form, #otherTags, #genre, #target, #origin, #place {
-    /* Must be scroll here*/
+    overflow-x:auto;
     overflow-y:hidden;
-    overflow-x:scroll;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -139,7 +142,7 @@ body {
 #characterTitleList {
     height: 12.9rem;
     overflow-x:hidden;
-    overflow-y:scroll;
+    overflow-y:auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -163,10 +166,9 @@ body {
 }
 
 /* Injected html settings */
-#actorTitleList {
-    /* add text-truncate inside ul > li > a */
+#actorCharacterList {
     height: 12.9rem;
     overflow-x:hidden;
-    overflow-y:scroll;
+    overflow-y:auto;
     -webkit-overflow-scrolling: touch;
 }
