@@ -15,6 +15,18 @@ function getNumber(text) {
     return "{" + words[0] + "}";
 }
 
+function getArray(array) {
+    if(array == null) {return ""} else {return array.join(", ")}
+}
+
+function getDate(string) {
+    if (string == null) {return ""}
+    else {
+        let date = string.split("T")
+        return date[0]
+    }
+}
+
 function isNull(variable) {
     if(variable == null) {return ""} else {return variable}
 }
