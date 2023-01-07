@@ -19,7 +19,7 @@ $().ready(function () {
     $("#voiceActor").click(function() {
         let data = {}
         data.vid = getNumber($(this).text())
-        postData(data, 'PostAnimeTest')
+        postData(data, 'PostVoiceActorId')
             .then(response => response.json())
             .then(data => alert(data))
     });
