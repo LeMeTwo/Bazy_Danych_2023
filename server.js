@@ -6,6 +6,7 @@ const port = 8081
 
 var animeMemory;
 var characterMemory;
+var voiceActorMemory;
 
 const users = {}
 const {Client} = require('pg');
@@ -75,6 +76,13 @@ app.post('/PostCharacterId', async function(req, res) {
     characterMemory = req.body;
     console.log(characterMemory);
     console.log("/PostCharacterId");
+    res.status(200)
+})
+
+app.post('/PostVoiceActorId', async function(req, res) {
+    voiceActorMemory = req.body;
+    console.log(characterMemory);
+    console.log("/PostVoiceActorId");
     res.status(200)
 })
 
@@ -236,6 +244,57 @@ app.get('/GetCharacterVoiceActor',  async function (req, res) {
         "SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterVoiceActor");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+// Gets used by VoiceActorDetail.html
+app.get('/GetVoiceActorName',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT vid, name FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorName");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetVoiceActorSurname',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT vid, surname FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorSurname");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetVoiceActorBirthday',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT vid, birth FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorBirthday");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetVoiceActorSex',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT vid, sex FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorSex");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetVoiceActorHome',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT vid, home FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
+    ));
+    console.log("/GetVoiceActorHome");
     jresponse = result.rows;
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
