@@ -320,6 +320,16 @@ app.get('/GetVoiceActorHome',  async function (req, res) {
 })
 
 // Gets used by VoiceActorDetail.html
+app.get('/GetMaxAid',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT max(aid) FROM anime;"
+    ));
+    console.log("/GetAddGenre");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
 app.get('/GetAddGenre',  async function (req, res) {
     var result = (await clientA.query(
         "SELECT * FROM genre;"
