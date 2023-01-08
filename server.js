@@ -318,3 +318,64 @@ app.get('/GetVoiceActorHome',  async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
 })
+
+// Gets used by VoiceActorDetail.html
+app.get('/GetAddGenre',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM genre;"
+    ));
+    console.log("/GetAddGenre");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetAddTarget',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM target;"
+    ));
+    console.log("/GetAddTarget");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetAddForm',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM form;"
+    ));
+    console.log("/GetAddForm");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetAddPlace',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM place;"
+    ));
+    console.log("/GetAddPlace");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetAddOtherTags',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM other_tags;"
+    ));
+    console.log("/GetAddOtherTags");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
+
+app.get('/GetAddOrigin',  async function (req, res) {
+    var result = (await clientA.query(
+        "SELECT * FROM origin;"
+    ));
+    console.log("/GetAddOrigin");
+    jresponse = result.rows;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(JSON.parse(JSON.stringify(jresponse)))
+})
