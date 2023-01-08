@@ -189,7 +189,7 @@ body {
 
 /* Heights */
 #add-title-card, #add-ep-num-card,  #click-button-card {
-    height: 6.063rem;
+    height: 5.2rem;
 }
 
 #add-genre-card, #add-target-card, #add-form-card, #add-place-card, #add-other-tags-card, #add-origin-card {
