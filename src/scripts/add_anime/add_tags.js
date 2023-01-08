@@ -1,4 +1,38 @@
 $().ready(function () {
+    const addTitleUrl = 'http://localhost:8081/GetMaxAid'
+    fetch(addTitleUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(anime => {
+                const id = anime.max[0] + 1
+                const title =
+                    '<div class="mb-3">' +
+                    '<p style="display: none">' + id + " " + '</p>' +
+                    '<input type="text" class="form-control" aria-describedby="titleHelp" placeholder="Enter title">' +
+                    '<div id="titleHelp" class="form-text text-muted">' + "Maximum 100 characters long." + '</div>' +
+                    '</div>'
+                $('#addTitle').append(title)
+            })
+        })
+        .catch(err => console.log(err)) //to file
+})
+
+$().ready(function () {
+    const epNum =
+        '<div class="mb-3">' +
+        '<input type="text" class="form-control" aria-describedby="epNumHelp" placeholder="Enter episode number">' +
+        '<small id="epNumHelp" class="form-text text-muted">' + "Must be an integer value." + '</small>' +
+        '</div>'
+    $('#addEpNum').append(epNum)
+})
+
+$().ready(function () {
+    const button =
+        '<button type="submit" class="btn btn-outline-primary btn-lg text-truncate">' + "Add anime" + '</button>'
+    $('#clickButton').append(button)
+})
+
+$().ready(function () {
     const addGenreUrl = 'http://localhost:8081/GetAddGenre'
     fetch(addGenreUrl)
         .then(response => response.json())
