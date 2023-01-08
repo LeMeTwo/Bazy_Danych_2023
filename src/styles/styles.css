@@ -172,3 +172,34 @@ body {
     overflow-y:auto;
     -webkit-overflow-scrolling: touch;
 }
+
+/* Settings for AddAnime.html file */
+/* Margins */
+#add-title-card, #add-genre-card, #add-form-card {
+    margin: auto 0.9rem 1.8rem auto;
+}
+
+#add-ep-num-card, #add-target-card, #add-other-tags-card {
+    margin: auto 0.9rem 1.8rem;
+}
+
+#click-button-card, #add-origin-card, #add-place-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+/* Heights */
+#add-title-card, #add-ep-num-card,  #click-button-card {
+    height: 6.063rem;
+}
+
+#add-genre-card, #add-target-card, #add-form-card, #add-place-card, #add-other-tags-card, #add-origin-card {
+    height: 18.487rem;
+}
+
+/* Injected html settings */
+#addGenre, #addTarget, #addForm, #addPlace, #addOtherTags, #addOrigin {
+    height: 13.8rem;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+}
