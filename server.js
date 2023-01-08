@@ -58,8 +58,7 @@ main().catch(console.error);
 
 // Posts used to tests
 app.post('/PostAnimeTest', async function(req, res) {
-    console.log(characterMemory);
-    console.log(animeMemory);
+    console.log(req.body);
     console.log("/PostAnimeTest");
     res.status(200)
 })
