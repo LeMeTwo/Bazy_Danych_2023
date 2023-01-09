@@ -189,12 +189,20 @@ $(function () {
         }
         if(isNaN(text[1])) {
             alert("Episode number must be an integer value.")
-            text[1] = ""
+            text[1] = null
         }
         else {
-            if(parseInt(text[1], 10) <= 0) {
-                alert("Episode number must be positive integer value.")
-                text[1] = ""
+            text[1] = parseFloat(text[1])
+            if(!Number.isSafeInteger(text[1] - parseInt(text[1]))) {
+                alert("3 Episode number must be an integer value.")
+                text[1] = null
+            }
+            else {
+                text[1] = parseInt(text[1])
+                if(text[1] <= 0) {
+                    alert("Episode number must be a positive integer value.")
+                    text[1] = null
+                }
             }
         }
 
@@ -216,7 +224,7 @@ $(function () {
 
         let data = {
             "title": text[0],
-            "ep_num": parseInt(text[1], 10),
+            "ep_num": text[1],
             "gid": gid,
             "tid": tid,
             "oid": oid,
@@ -224,9 +232,12 @@ $(function () {
             "otid": otid,
             "pid": pid,
         }
-        postData(data, 'PostAnimeTest')
-            .then(response => response.json())
-            .then(data => alert(data))
+
+        if(data.title !== "" && data.ep_num !== null) {
+            postData(data, 'PostAnimeTest')
+                .then(response => response.json())
+                .then(data => alert(data))
+        } else {alert("You failed.")}
     });
 });
 
