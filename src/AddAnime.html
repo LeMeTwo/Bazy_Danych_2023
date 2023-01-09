@@ -54,65 +54,67 @@
             <hr class="my-0">
         </div>
     </div>
-    <div class="container content">
-        <div class="col-4">
-            <div class="card" id="add-title-card">
-                <div class="card-body">
-                    <p class="card-text text-truncate" id="addTitle"></p>
+    <form id="add_anime_form" method="POST">
+        <div class="container content">
+                <div class="col-4">
+                    <div class="card" id="add-title-card">
+                        <div class="card-body">
+                            <p class="card-text text-truncate" id="addTitle"></p>
+                        </div>
+                    </div>
+                    <div class="card" id="add-genre-card">
+                        <h5 class="card-header text-truncate">Add genre</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addGenre"></ul>
+                        </div>
+                    </div>
+                    <div class="card" id="add-form-card">
+                        <h5 class="card-header text-truncate">Add character types</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addForm"></ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card" id="add-genre-card">
-                <h5 class="card-header text-truncate">Add genre</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addGenre"></ul>
+                <div class="col-4">
+                    <div class="card" id="add-ep-num-card">
+                        <div class="card-body">
+                            <p class="card-text text-truncate" id="addEpNum"></p>
+                        </div>
+                    </div>
+                    <div class="card" id="add-target-card">
+                        <h5 class="card-header text-truncate">Add target</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addTarget"></ul>
+                        </div>
+                    </div>
+                    <div class="card" id="add-other-tags-card">
+                        <h5 class="card-header text-truncate">Add other tags</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addOtherTags"></ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card" id="add-form-card">
-                <h5 class="card-header text-truncate">Add character types</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addForm"></ul>
+                <div class="col-4">
+                    <div class="card" id="click-button-card">
+                        <div class="card-body">
+                            <div class="d-grid gap-2" id="clickButton"></div>
+                        </div>
+                    </div>
+                    <div class="card" id="add-origin-card">
+                        <h5 class="card-header text-truncate">Add origin</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addOrigin"></ul>
+                        </div>
+                    </div>
+                    <div class="card" id="add-place-card">
+                        <h5 class="card-header text-truncate">Add time and place</h5>
+                        <div class="card-body">
+                            <ul class='list-group' id="addPlace"></ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </div>
-        <div class="col-4">
-            <div class="card" id="add-ep-num-card">
-                <div class="card-body">
-                    <p class="card-text text-truncate" id="addEpNum"></p>
-                </div>
-            </div>
-            <div class="card" id="add-target-card">
-                <h5 class="card-header text-truncate">Add target</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addTarget"></ul>
-                </div>
-            </div>
-            <div class="card" id="add-other-tags-card">
-                <h5 class="card-header text-truncate">Add other tags</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addOtherTags"></ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card" id="click-button-card">
-                <div class="card-body">
-                    <div class="d-grid gap-2" id="clickButton"></div>
-                </div>
-            </div>
-            <div class="card" id="add-origin-card">
-                <h5 class="card-header text-truncate">Add origin</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addOrigin"></ul>
-                </div>
-            </div>
-            <div class="card" id="add-place-card">
-                <h5 class="card-header text-truncate">Add time and place</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="addPlace"></ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
     <footer class="footer mt-auto py-2">
         <div class="container text-center">
             <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
