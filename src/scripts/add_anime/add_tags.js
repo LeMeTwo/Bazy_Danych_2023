@@ -212,27 +212,25 @@ $(function () {
             selected.push(this.value);
         })
 
-        while(true) {
+        while(selected.length > 0) {
             findStringByKey(selected, gid, "gid", 4)
             findStringByKey(selected, tid, "tid", 4)
             findStringByKey(selected, oid, "oid", 4)
             findStringByKey(selected, fid, "fid", 4)
             findStringByKey(selected, otid, "oTid", 5)
             findStringByKey(selected, pid, "pid", 4)
-
-            if(selected.length<=0) {break}
         }
 
         let data = {
             "aid": "{" + aid + "}",
             "title": text[0],
             "ep_num": text[1],
-            "gid": "{" + gid.join(", ") + "}",
-            "tid": "{" + tid.join(", ") + "}",
-            "oid": "{" + oid.join(", ") + "}",
-            "fid": "{" + fid.join(", ") + "}",
-            "otid": "{" + otid.join(", ") + "}",
-            "pid": "{" + pid.join(", ") + "}",
+            "gid": "{" + gid.join(",") + "}",
+            "tid": "{" + tid.join(",") + "}",
+            "oid": "{" + oid.join(",") + "}",
+            "fid": "{" + fid.join(",") + "}",
+            "otid": "{" + otid.join(",") + "}",
+            "pid": "{" + pid.join(",") + "}",
         }
 
         if(data.title !== "" && data.ep_num !== null) {
