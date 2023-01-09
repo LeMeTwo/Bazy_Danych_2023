@@ -28,7 +28,7 @@ $().ready(function () {
 
 $().ready(function () {
     const button =
-        '<button type="submit" class="btn btn-outline-primary btn-lg text-truncate">' + "Add anime" + '</button>'
+        '<button type="submit" id="addAnimeButton" class="btn btn-outline-primary btn-lg text-truncate">' + "Add anime" + '</button>'
     $('#clickButton').append(button)
 })
 
@@ -38,13 +38,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.gid[0]
+                const id = "gid:" + "{" + isNull(anime.gid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -60,13 +60,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.tid[0]
+                const id = "tid:" + "{" + isNull(anime.tid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -82,13 +82,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.fid[0]
+                const id = "fid:" + "{" + isNull(anime.fid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -104,13 +104,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.pid[0]
+                const id = "pid:" + "{" + isNull(anime.pid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -126,13 +126,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.otid[0]
+                const id = "oTid:" + "{" + isNull(anime.otid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -148,13 +148,13 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = anime.oid[0]
+                const id = "oid:" + "{" + isNull(anime.oid[0]) + "}";
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
-                    '<input class="form-check-input" type="checkbox" value="" id="flexCheckData">' +
+                    '<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
                     '<label class="form-check-label text-truncate" for="flexCheckData">' +
-                    isNull(id) + " " + isNull(anime.name) +
+                    isNull(anime.name) +
                     '</label>' +
                     '</div>' +
                     '</li>'
@@ -163,3 +163,70 @@ $().ready(function () {
         })
         .catch(err => console.log(err)) //to file
 })
+
+$(function () {
+    $("#add_anime_form").submit(function (e) {
+        e.preventDefault();
+
+        let selected = [];
+        let text = [];
+        let gid = []
+        let tid = []
+        let oid = []
+        let fid = []
+        let otid = []
+        let pid = []
+
+        // Add each text value to the array
+        $("#add_anime_form input[type=text]").each(function () {
+            text.push(this.value);
+        })
+
+        // Checkout
+        if(text[0].length >= 100) {
+            alert("Title can be maximum 100 characters long.")
+            text[0] = ""
+        }
+        if(isNaN(text[1])) {
+            alert("Episode number must be an integer value.")
+            text[1] = ""
+        }
+        else {
+            if(parseInt(text[1], 10) <= 0) {
+                alert("Episode number must be positive integer value.")
+                text[1] = ""
+            }
+        }
+
+        // Add each selected checkbox value to the array
+        $("#add_anime_form input[type=checkbox]:checked").each(function () {
+            selected.push(this.value);
+        })
+
+        while(true) {
+            findStringByKey(selected, gid, "gid", 4)
+            findStringByKey(selected, tid, "tid", 4)
+            findStringByKey(selected, oid, "oid", 4)
+            findStringByKey(selected, fid, "fid", 4)
+            findStringByKey(selected, otid, "oTid", 5)
+            findStringByKey(selected, pid, "pid", 4)
+
+            if(selected.length<=0) {break}
+        }
+
+        let data = {
+            "title": text[0],
+            "ep_num": parseInt(text[1], 10),
+            "gid": gid,
+            "tid": tid,
+            "oid": oid,
+            "fid": fid,
+            "otid": otid,
+            "pid": pid,
+        }
+        postData(data, 'PostAnimeTest')
+            .then(response => response.json())
+            .then(data => alert(data))
+    });
+});
+
