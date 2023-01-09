@@ -38,7 +38,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "gid:" + "{" + isNull(anime.gid[0]) + "}";
+                const id = "gid:" + isNull(anime.gid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -60,7 +60,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "tid:" + "{" + isNull(anime.tid[0]) + "}";
+                const id = "tid:" + isNull(anime.tid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -82,7 +82,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "fid:" + "{" + isNull(anime.fid[0]) + "}";
+                const id = "fid:" + isNull(anime.fid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -104,7 +104,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "pid:" + "{" + isNull(anime.pid[0]) + "}";
+                const id = "pid:" + isNull(anime.pid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -126,7 +126,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "oTid:" + "{" + isNull(anime.otid[0]) + "}";
+                const id = "oTid:" + isNull(anime.otid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -148,7 +148,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "oid:" + "{" + isNull(anime.oid[0]) + "}";
+                const id = "oid:" + isNull(anime.oid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -225,12 +225,12 @@ $(function () {
         let data = {
             "title": text[0],
             "ep_num": text[1],
-            "gid": gid,
-            "tid": tid,
-            "oid": oid,
-            "fid": fid,
-            "otid": otid,
-            "pid": pid,
+            "gid": "{" + gid.join(", ") + "}",
+            "tid": "{" + tid.join(", ") + "}",
+            "oid": "{" + oid.join(", ") + "}",
+            "fid": "{" + fid.join(", ") + "}",
+            "otid": "{" + otid.join(", ") + "}",
+            "pid": "{" + pid.join(", ") + "}",
         }
 
         if(data.title !== "" && data.ep_num !== null) {
