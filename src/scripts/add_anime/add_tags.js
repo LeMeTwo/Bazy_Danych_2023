@@ -28,7 +28,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "gid:" + isNull(anime.gid[0]);
+                const id = "g:" + isNull(anime.gid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -50,7 +50,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "tid:" + isNull(anime.tid[0]);
+                const id = "t:" + isNull(anime.tid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -72,7 +72,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "fid:" + isNull(anime.fid[0]);
+                const id = "f:" + isNull(anime.fid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -94,7 +94,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "pid:" + isNull(anime.pid[0]);
+                const id = "p:" + isNull(anime.pid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -116,7 +116,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "oTid:" + isNull(anime.otid[0]);
+                const id = "ot:" + isNull(anime.otid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -138,7 +138,7 @@ $().ready(function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(anime => {
-                const id = "oid:" + isNull(anime.oid[0]);
+                const id = "o:" + isNull(anime.oid[0]);
                 const name =
                     '<li class="list-group-item">' +
                     '<div class="form-check">' +
@@ -213,12 +213,12 @@ $(function () {
         })
 
         while(selected.length > 0) {
-            findStringByKey(selected, gid, "gid", 4)
-            findStringByKey(selected, tid, "tid", 4)
-            findStringByKey(selected, oid, "oid", 4)
-            findStringByKey(selected, fid, "fid", 4)
-            findStringByKey(selected, otid, "oTid", 5)
-            findStringByKey(selected, pid, "pid", 4)
+            findStringByKey(selected, gid, "g:", 2)
+            findStringByKey(selected, tid, "t:", 2)
+            findStringByKey(selected, oid, "o:", 2)
+            findStringByKey(selected, fid, "f:", 2)
+            findStringByKey(selected, otid, "ot:", 3)
+            findStringByKey(selected, pid, "p:", 2)
         }
 
         let data = {
@@ -237,7 +237,8 @@ $(function () {
             postData(data, 'PostAnimeTest')
                 .then(response => response.json())
                 .then(data => alert(data))
-        } else {alert("You failed.")}
+        }
+        else {alert("You failed.")}
     });
 });
 
