@@ -84,7 +84,7 @@ $(function () {
         }
 
         if(data.title !== "" && data.ep_num !== null) {
-            postData(data, 'PostAnimeTest')
+            postData(data, 'PostAddAnime')
                 .then(response => response.json())
                 .then(data => alert(data))
         }
