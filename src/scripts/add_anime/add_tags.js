@@ -1,27 +1,17 @@
 $().ready(function () {
-    const addTitleUrl = 'http://localhost:8081/GetMaxAid'
-    fetch(addTitleUrl)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(anime => {
-                const id = anime.max[0] + 1
-                const title =
-                    '<div class="mb-3">' +
-                    '<p style="display: none">' + id + " " + '</p>' +
-                    '<input type="text" class="form-control" aria-describedby="titleHelp" placeholder="Enter title">' +
-                    '<div id="titleHelp" class="form-text text-muted">' + "Maximum 100 characters long." + '</div>' +
-                    '</div>'
-                $('#addTitle').append(title)
-            })
-        })
-        .catch(err => console.log(err)) //to file
+    const title =
+        '<div class="mb-3">' +
+        '<input type="text" class="form-control" aria-describedby="titleHelp" placeholder="Enter title">' +
+        '<div id="titleHelp" class="form-text text-muted">' + "Maximum 100 characters long." + '</div>' +
+        '</div>'
+    $('#addTitle').append(title)
 })
 
 $().ready(function () {
     const epNum =
         '<div class="mb-3">' +
         '<input type="text" class="form-control" aria-describedby="epNumHelp" placeholder="Enter episode number">' +
-        '<small id="epNumHelp" class="form-text text-muted">' + "Must be an integer value." + '</small>' +
+        '<small id="epNumHelp" class="form-text text-muted">' + "Must be an integer from 1 to 1000." + '</small>' +
         '</div>'
     $('#addEpNum').append(epNum)
 })
@@ -165,11 +155,22 @@ $().ready(function () {
 })
 
 $(function () {
+    let aid = ""
+    const maxAidUrl = 'http://localhost:8081/GetMaxAid'
+    fetch(maxAidUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(anime => {
+                aid = isNull(anime.max[0] + 1);
+            })
+        })
+        .catch(err => console.log(err)) //to file
+
     $("#add_anime_form").submit(function (e) {
         e.preventDefault();
 
-        let selected = [];
-        let text = [];
+        let selected = []
+        let text = []
         let gid = []
         let tid = []
         let oid = []
@@ -188,19 +189,19 @@ $(function () {
             text[0] = ""
         }
         if(isNaN(text[1])) {
-            alert("Episode number must be an integer value.")
+            alert("Episode number must be an integer from 1 to 1000.")
             text[1] = null
         }
         else {
             text[1] = parseFloat(text[1])
             if(!Number.isSafeInteger(text[1] - parseInt(text[1]))) {
-                alert("3 Episode number must be an integer value.")
+                alert("Episode number must be an integer from 1 to 1000.")
                 text[1] = null
             }
             else {
                 text[1] = parseInt(text[1])
-                if(text[1] <= 0) {
-                    alert("Episode number must be a positive integer value.")
+                if(text[1] <= 0 || text[1] >= 1001) {
+                    alert("Episode number must be an integer from 1 to 1000.")
                     text[1] = null
                 }
             }
@@ -223,6 +224,7 @@ $(function () {
         }
 
         let data = {
+            "aid": "{" + aid + "}",
             "title": text[0],
             "ep_num": text[1],
             "gid": "{" + gid.join(", ") + "}",
