@@ -63,6 +63,20 @@ app.post('/PostAnimeTest', async function(req, res) {
     res.status(200)
 })
 
+// Posts used to alter the database
+app.post('/PostAddAnime', async function(req, res) {
+    console.log(req.body);
+    const anime = req.body;
+    await clientA.query(
+        "INSERT INTO anime VALUES (" +
+        "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
+        "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
+        "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
+    )
+    console.log("/PostAddAnime");
+    res.status(200)
+})
+
 // Posts used to get data from the frontend
 app.post('/PostAnimeId', async function(req, res) {
     animeMemory = req.body;
