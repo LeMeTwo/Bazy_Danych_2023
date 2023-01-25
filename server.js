@@ -4,12 +4,14 @@ const express = require('express')
 const app = express()
 const port = 8081
 
+const sql = require('mysql2')
+
 var animeMemory;
 var characterMemory;
 var voiceActorMemory;
 
 const users = {}
-const {Client} = require('pg');
+const {Client, Connection} = require('pg');
 const { connectionString } = require('pg/lib/defaults');
 const DATABASE_HOST='localhost';
 const DATABASE_USER='postgres';
@@ -56,6 +58,13 @@ const main = async () => {
 
 main().catch(console.error);
 
+app.post('/Login', async function(req, res){
+    const {userQuery} = req.params;
+    const query = "SELECT * FROM users WHERE login = '${userQuery[0]}' and password = '${userQuery[1]}'";
+    const [rows] = await clientA.query(query);
+    res.json(rows);
+})
+
 // Posts used to tests
 app.post('/PostAnimeTest', async function(req, res) {
     console.log(req.body);
@@ -67,14 +76,26 @@ app.post('/PostAnimeTest', async function(req, res) {
 app.post('/PostAddAnime', async function(req, res) {
     console.log(req.body);
     const anime = req.body;
+    //For some reason. it doesn`t work :/
+    try{
+    console.log("SELECT * from anime where title = '" + anime.title + "';")
+    console.log('trying');
+    await clientA.query(
+        "SELECT * from anime where title = '" + anime.title + "';"
+    )
+        console.log('errorExist');
+        res.status(400);
+}
+    catch(error){
+        console.log(error);
     await clientA.query(
         "INSERT INTO anime VALUES (" +
         "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
         "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
         "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
-    )
+    ) 
     console.log("/PostAddAnime");
-    res.status(200)
+    res.status(200)}
 })
 
 // Posts used to get data from the frontend
