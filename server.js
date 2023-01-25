@@ -4,8 +4,6 @@ const express = require('express')
 const app = express()
 const port = 8081
 
-const sql = require('mysql2')
-
 var animeMemory;
 var characterMemory;
 var voiceActorMemory;
