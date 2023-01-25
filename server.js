@@ -74,28 +74,50 @@ app.post('/PostAnimeTest', async function(req, res) {
 
 // Posts used to alter the database
 app.post('/PostAddAnime', async function(req, res) {
-    console.log(req.body);
-    const anime = req.body;
-    //For some reason. it doesn`t work :/
+    try{
+        console.log(req.body);
+        const anime = req.body;
+    }
+
+    catch(error){
+        return res.status(400).json({err: "error"});
+    }
+
+    const safetyRegex = /[^;+]+$/
+    for(var key in req.body){
+            if(!safetyRegex.test(key)){
+                console.log("Wrong " + key)
+                return res.status(400).json({err : "Forbidden character in attribute"});
+            }
+            if(!safetyRegex.test(req.body[key])){
+                console.log("Wrong " + req.body[key]);
+                return res.status(400).json({err : "Forbidden character in body"});
+            }
+    };
+
     try{
     console.log("SELECT * from anime where title = '" + anime.title + "';")
     console.log('trying');
-    await clientA.query(
-        "SELECT * from anime where title = '" + anime.title + "';"
-    )
-        console.log('errorExist');
-        res.status(400);
-}
-    catch(error){
-        console.log(error);
-    await clientA.query(
+    selectedTitle = await clientA.query("SELECT * from anime where title = '" + anime.title + "';")
+    if(selectedTitle.rows.length){
+        return res.status(400).json({err : "Title exist"});
+    }
+    
+    else{
+        console.log("Adding anime");
+        await clientA.query(
         "INSERT INTO anime VALUES (" +
         "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
         "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
         "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
-    ) 
-    console.log("/PostAddAnime");
-    res.status(200)}
+        )    
+        console.log("/PostAddAnime");
+        return res.status(200).json({message: "Anime added"})};
+    }
+
+    catch(error){
+    console.log("/PostAddAnime Error");
+    return res.status(501)}
 })
 
 // Posts used to get data from the frontend
