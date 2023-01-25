@@ -20,7 +20,7 @@ $().ready(function () {
 		.catch(err => console.log(err)); //to file
 
 	$('#characterTitleList').on('click', 'li',function () {
-		let data = {};
+		const data = {};
 		data.aid = getNumber($(this).text());
 		postData(data, 'PostAnimeId')
 			.then(response => response.json())

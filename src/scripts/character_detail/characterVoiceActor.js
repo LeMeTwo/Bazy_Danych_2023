@@ -18,7 +18,7 @@ $().ready(function () {
 		.catch(err => console.log(err)); //to file
 
 	$('#voiceActor').click(function() {
-		let data = {};
+		const data = {};
 		data.vid = getNumber($(this).text());
 		postData(data, 'PostVoiceActorId')
 			.then(response => response.json())

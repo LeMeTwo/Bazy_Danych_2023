@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars*/
 async function postData(data = {}, suffix) {
-	let url = 'http://127.0.0.1:8081/' + suffix;
+	const url = 'http://127.0.0.1:8081/' + suffix;
 	return await fetch(url, {
 		method: 'POST',
 		headers: {
@@ -24,7 +24,7 @@ function isNullComma(variable) {
 function getNumber(text) {
 	if (text == null) {return '';}
 	else {
-		let words = text.split(' ');
+		const words = text.split(' ');
 		return '{' + words[0] + '}';
 	}
 }
@@ -38,7 +38,7 @@ function getArray(array) {
 function getDate(string) {
 	if (string == null) {return '';}
 	else {
-		let date = string.split('T');
+		const date = string.split('T');
 		return date[0];
 	}
 }
@@ -46,8 +46,8 @@ function getDate(string) {
 // Used in addTags.js to prepare id arrays for jsons
 function findStringByKey(selectedArray, idArray, key, keyLength) {
 	let here;
-	let index = selectedArray.findIndex(element => {
-		if(element.includes(key)) {
+	const index = selectedArray.findIndex(element => {
+		if (element.includes(key)) {
 			here = true;
 			return true;
 		}

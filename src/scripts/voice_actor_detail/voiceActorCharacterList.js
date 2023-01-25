@@ -27,7 +27,7 @@ $().ready(function () {
 		.catch(err => console.log(err)); //to file
 
 	$('#actorCharacterList').on('click', 'li',function () {
-		let data = {
+		const data = {
 			'cid': getNumber($(this).children().eq(0).text()),
 			'aid': getNumber($(this).children().eq(3).text())
 		};
