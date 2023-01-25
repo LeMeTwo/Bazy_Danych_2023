@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const express = require('express')
@@ -8,15 +10,13 @@ var animeMemory;
 var characterMemory;
 var voiceActorMemory;
 
-const users = {}
-const {Client, Connection} = require('pg');
-const { connectionString } = require('pg/lib/defaults');
+const {Client} = require('pg');
 const DATABASE_HOST='localhost';
 const DATABASE_USER='postgres';
 const DATABASE_PASSWORD='admin';
 const DATABASE_NAME='postgres';
 
-const clientA = new Client({
+const connection = new Client({
   user: DATABASE_USER,
   password: DATABASE_PASSWORD,
   database: DATABASE_NAME,
@@ -43,23 +43,23 @@ app.listen(port, () => {
 
 // Connection to the database
 const main = async () => {
-  await clientA.connect();
+  await connection.connect();
   try {
     //test connection to the database
     console.log('Connection established');
   } finally {
     // pray this line doesn't connect
-    //await clientA.end();
+    //await connection.end();
     console.log('Loud and clear')
   }
 }
 
 main().catch(console.error);
 
-app.post('/Login', async function(req, res){
-    const {userQuery} = req.params;
+app.post('/Login', async function(req, res) {
+    //const {userQuery} = req.params;
     const query = "SELECT * FROM users WHERE login = '${userQuery[0]}' and password = '${userQuery[1]}'";
-    const [rows] = await clientA.query(query);
+    const [rows] = await connection.query(query);
     res.json(rows);
 })
 
@@ -72,50 +72,48 @@ app.post('/PostAnimeTest', async function(req, res) {
 
 // Posts used to alter the database
 app.post('/PostAddAnime', async function(req, res) {
-    try{
+    try {
         console.log(req.body);
-        const anime = req.body;
+        var anime = req.body;
     }
-
-    catch(error){
-        return res.status(400).json({err: "error"});
+    catch(error) {
+        return res.status(400).json({ err: "error" });
     }
 
     const safetyRegex = /[^;+]+$/
-    for(var key in req.body){
+    for(var key in anime){
             if(!safetyRegex.test(key)){
                 console.log("Wrong " + key)
-                return res.status(400).json({err : "Forbidden character in attribute"});
+                return res.status(400).json({ err : "Forbidden character in attribute" });
             }
-            if(!safetyRegex.test(req.body[key])){
-                console.log("Wrong " + req.body[key]);
-                return res.status(400).json({err : "Forbidden character in body"});
+            if(!safetyRegex.test(anime[key])){
+                console.log("Wrong " + anime[key]);
+                return res.status(400).json({ err : "Forbidden character in body" });
             }
-    };
-
-    try{
-    console.log("SELECT * from anime where title = '" + anime.title + "';")
-    console.log('trying');
-    selectedTitle = await clientA.query("SELECT * from anime where title = '" + anime.title + "';")
-    if(selectedTitle.rows.length){
-        return res.status(400).json({err : "Title exist"});
-    }
-    
-    else{
-        console.log("Adding anime");
-        await clientA.query(
-        "INSERT INTO anime VALUES (" +
-        "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
-        "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
-        "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
-        )    
-        console.log("/PostAddAnime");
-        return res.status(200).json({message: "Anime added"})};
     }
 
-    catch(error){
-    console.log("/PostAddAnime Error");
-    return res.status(501)}
+    try {
+        console.log("SELECT * from anime where title = '" + anime.title + "';")
+        console.log('trying');
+        selectedTitle = await connection.query("SELECT * from anime where title = '" + anime.title + "';")
+        if(selectedTitle.rows.length) {
+            return res.status(400).json({ err : "Title exist" });
+        }
+        else {
+            console.log("Adding anime");
+            await connection.query(
+            "INSERT INTO anime VALUES (" +
+            "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
+            "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
+            // eslint-disable-next-line no-undef
+            "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
+            )    
+            console.log("/PostAddAnime");
+            return res.status(200).json({ message: "Anime added" })}
+        }
+    catch(error) {
+        console.log("/PostAddAnime Error");
+        return res.status(501)}
 })
 
 // Posts used to get data from the frontend
@@ -152,7 +150,7 @@ app.post('/PostVoiceActorId', async function(req, res) {
 
 // Get used by AnimePage.html
 app.get('/GetAnimeList',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT aid, title FROM anime;"
     ));
     console.log("/GetAnimeList");
@@ -163,7 +161,7 @@ app.get('/GetAnimeList',  async function (req, res) {
 
 // Gets used by AnimeDetail.html
 app.get('/GetDetailTitle',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT aid, title FROM anime WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailTitle");
@@ -173,7 +171,7 @@ app.get('/GetDetailTitle',  async function (req, res) {
 })
 
 app.get('/GetDetailCharacterList',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT cid, name, surname FROM character WHERE aid @> '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailCharacterList");
@@ -183,7 +181,7 @@ app.get('/GetDetailCharacterList',  async function (req, res) {
 })
 
 app.get('/GetDetailGenre',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailGenre");
@@ -193,7 +191,7 @@ app.get('/GetDetailGenre',  async function (req, res) {
 })
 
 app.get('/GetDetailTarget',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailTarget");
@@ -203,7 +201,7 @@ app.get('/GetDetailTarget',  async function (req, res) {
 })
 
 app.get('/GetDetailForm',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailForm");
@@ -213,7 +211,7 @@ app.get('/GetDetailForm',  async function (req, res) {
 })
 
 app.get('/GetDetailPlace',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailPlace");
@@ -223,7 +221,7 @@ app.get('/GetDetailPlace',  async function (req, res) {
 })
 
 app.get('/GetDetailOtherTags',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailOtherTags");
@@ -233,7 +231,7 @@ app.get('/GetDetailOtherTags',  async function (req, res) {
 })
 
 app.get('/GetDetailOrigin',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailOrigin");
@@ -243,7 +241,7 @@ app.get('/GetDetailOrigin',  async function (req, res) {
 })
 
 app.get('/GetDetailEpNum',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT ep_num FROM anime WHERE aid = '" + animeMemory.aid + "' ;"
     ));
     console.log("/GetDetailEpNum");
@@ -254,7 +252,7 @@ app.get('/GetDetailEpNum',  async function (req, res) {
 
 // Gets used by CharacterDetail.html
 app.get('/GetCharacterTitleList',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT aid, title FROM anime WHERE cid @> '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterTitleList");
@@ -264,7 +262,7 @@ app.get('/GetCharacterTitleList',  async function (req, res) {
 })
 
 app.get('/GetCharacterName',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT cid, name FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterName");
@@ -274,7 +272,7 @@ app.get('/GetCharacterName',  async function (req, res) {
 })
 
 app.get('/GetCharacterSurname',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT cid, surname FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterSurname");
@@ -284,7 +282,7 @@ app.get('/GetCharacterSurname',  async function (req, res) {
 })
 
 app.get('/GetCharacterAge',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT cid, age FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterAge");
@@ -294,7 +292,7 @@ app.get('/GetCharacterAge',  async function (req, res) {
 })
 
 app.get('/GetCharacterSex',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT cid, sex FROM character WHERE cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterSex");
@@ -304,7 +302,7 @@ app.get('/GetCharacterSex',  async function (req, res) {
 })
 
 app.get('/GetCharacterVoiceActor',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = '" + characterMemory.cid + "' ;"
     ));
     console.log("/GetCharacterVoiceActor");
@@ -315,7 +313,7 @@ app.get('/GetCharacterVoiceActor',  async function (req, res) {
 
 // Gets used by VoiceActorDetail.html
 app.get('/GetVoiceActorCharacterList',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorCharacterList");
@@ -325,7 +323,7 @@ app.get('/GetVoiceActorCharacterList',  async function (req, res) {
 })
 
 app.get('/GetVoiceActorName',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT vid, name FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorName");
@@ -335,7 +333,7 @@ app.get('/GetVoiceActorName',  async function (req, res) {
 })
 
 app.get('/GetVoiceActorSurname',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT vid, surname FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorSurname");
@@ -345,7 +343,7 @@ app.get('/GetVoiceActorSurname',  async function (req, res) {
 })
 
 app.get('/GetVoiceActorBirthday',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT vid, birth FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorBirthday");
@@ -355,7 +353,7 @@ app.get('/GetVoiceActorBirthday',  async function (req, res) {
 })
 
 app.get('/GetVoiceActorSex',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT vid, sex FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorSex");
@@ -365,7 +363,7 @@ app.get('/GetVoiceActorSex',  async function (req, res) {
 })
 
 app.get('/GetVoiceActorHome',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT vid, home FROM voice_actor WHERE vid = '" + voiceActorMemory.vid + "' ;"
     ));
     console.log("/GetVoiceActorHome");
@@ -376,7 +374,7 @@ app.get('/GetVoiceActorHome',  async function (req, res) {
 
 // Gets used by VoiceActorDetail.html
 app.get('/GetMaxAid',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT max(aid) FROM anime;"
     ));
     console.log("/GetAddGenre");
@@ -386,7 +384,7 @@ app.get('/GetMaxAid',  async function (req, res) {
 })
 
 app.get('/GetAddGenre',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM genre;"
     ));
     console.log("/GetAddGenre");
@@ -396,7 +394,7 @@ app.get('/GetAddGenre',  async function (req, res) {
 })
 
 app.get('/GetAddTarget',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM target;"
     ));
     console.log("/GetAddTarget");
@@ -406,7 +404,7 @@ app.get('/GetAddTarget',  async function (req, res) {
 })
 
 app.get('/GetAddForm',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM form;"
     ));
     console.log("/GetAddForm");
@@ -416,7 +414,7 @@ app.get('/GetAddForm',  async function (req, res) {
 })
 
 app.get('/GetAddPlace',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM place;"
     ));
     console.log("/GetAddPlace");
@@ -426,7 +424,7 @@ app.get('/GetAddPlace',  async function (req, res) {
 })
 
 app.get('/GetAddOtherTags',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM other_tags;"
     ));
     console.log("/GetAddOtherTags");
@@ -436,7 +434,7 @@ app.get('/GetAddOtherTags',  async function (req, res) {
 })
 
 app.get('/GetAddOrigin',  async function (req, res) {
-    var result = (await clientA.query(
+    var result = (await connection.query(
         "SELECT * FROM origin;"
     ));
     console.log("/GetAddOrigin");
