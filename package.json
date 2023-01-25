@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "mysql2": "^3.0.1",
     "pg": "^8.8.0",
     "postgresql": "^0.0.1",
     "socket.io": "^2.5.0",
@@ -20,6 +21,9 @@
     "ws": "^8.11.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "eslint": "^8.32.0",
     "nodemon": "^1.19.0"
   }
 }
