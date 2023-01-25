@@ -54,10 +54,10 @@ const main = async () => {
 main().catch(console.error);
 
 app.post('/Login', async function(req, res) {
-    const query = "SELECT * FROM users WHERE login = '${userQuery[0]}' and password = '${userQuery[1]}'";
-    const [rows] = await connection.query(query);
-    res.json(rows);
-})
+	const query = 'SELECT * FROM users WHERE login = \'${userQuery[0]}\' and password = \'${userQuery[1]}\'';
+	const [rows] = await connection.query(query);
+	res.json(rows);
+});
 
 // Posts used to tests
 app.post('/PostAnimeTest', async function(req, res) {
@@ -68,48 +68,48 @@ app.post('/PostAnimeTest', async function(req, res) {
 
 // Posts used to alter the database
 app.post('/PostAddAnime', async function(req, res) {
-    try {
-        console.log(req.body);
-        var anime = req.body;
-    }
-    catch(error) {
-        return res.status(400).json({ err: "error" });
-    }
+	try {
+		console.log(req.body);
+		var anime = req.body;
+	}
+	catch(error) {
+		return res.status(400).json({ err: 'error' });
+	}
 
-    const safetyRegex = /[^;+]+$/
-    for(var key in anime) {
-            if(!safetyRegex.test(key)) {
-                console.log("Wrong " + key)
-                return res.status(400).json({ err : "Forbidden character in attribute" });
-            }
-            if(!safetyRegex.test(anime[key])) {
-                console.log("Wrong " + anime[key]);
-                return res.status(400).json({ err : "Forbidden character in body" });
-            }
-    }
+	const safetyRegex = /[^;+]+$/;
+	for(var key in anime) {
+		if(!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({ err : 'Forbidden character in attribute' });
+		}
+		if(!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({ err : 'Forbidden character in body' });
+		}
+	}
 
-    try {
-        console.log("SELECT * from anime where title = '" + anime.title + "';")
-        console.log('trying');
-        selectedTitle = await connection.query("SELECT * from anime where title = '" + anime.title + "';")
-        if(selectedTitle.rows.length) {
-            return res.status(400).json({ err : "Title exist" });
-        }
-        else {
-            console.log("Adding anime");
-            await connection.query(
-            "INSERT INTO anime VALUES (" +
-            "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
-            "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
-            "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
-            )
-            console.log("/PostAddAnime");
-            return res.status(200).json({ message: "Anime added" })}
-        }
-    catch(error) {
-        console.log("/PostAddAnime Error");
-        return res.status(501)}
-})
+	try {
+		console.log('SELECT * from anime where title = \'' + anime.title + '\';');
+		console.log('trying');
+		var selectedTitle = await connection.query('SELECT * from anime where title = \'' + anime.title + '\';');
+		if(selectedTitle.rows.length) {
+			return res.status(400).json({ err : 'Title exist' });
+		}
+		else {
+			console.log('Adding anime');
+			await connection.query(
+				'INSERT INTO anime VALUES (' +
+            '\'' + anime.aid + '\', \'' + anime.title + '\', \'' + anime.gid + '\', ' +
+            '\'' + anime.tid + '\', \'' + anime.fid + '\', \'' + anime.pid + '\', ' +
+            '\'' + anime.otid + '\', \'' + anime.oid + '\', ' + anime.ep_num + ', NULL);'
+			);
+			console.log('/PostAddAnime');
+			return res.status(200).json({ message: 'Anime added' });}
+	}
+	catch(error) {
+		console.log('/PostAddAnime Error');
+		return res.status(501);}
+});
 
 // Posts used to get data from the frontend
 app.post('/PostAnimeId', async function(req, res) {
