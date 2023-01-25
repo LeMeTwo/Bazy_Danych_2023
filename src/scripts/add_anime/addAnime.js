@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 $().ready(function () {
 	const button =
-        '<button type="submit" id="addAnimeButton" ' +
+		'<button type="submit" id="addAnimeButton" ' +
 		'class="btn btn-outline-primary btn-lg text-truncate">' + 'Add anime' +
 		'</button>';
 	$('#clickButton').append(button);
@@ -21,7 +21,7 @@ $(function () {
 
 	$('#add_anime_form').submit(function (e) {
 		e.preventDefault();
-
+		
 		let selected = [];
 		let text = [];
 		let gid = [];
@@ -37,23 +37,21 @@ $(function () {
 		});
 
 		// Checkout
-		if(text[0].length >= 100) {
+		if (text[0].length >= 100) {
 			alert('Title can be maximum 100 characters long.');
 			text[0] = '';
 		}
-		if(isNaN(text[1])) {
+		if (isNaN(text[1])) {
 			alert('Episode number must be an integer from 1 to 1000.');
 			text[1] = null;
-		}
-		else {
+		} else {
 			text[1] = parseFloat(text[1]);
-			if(!Number.isSafeInteger(text[1] - parseInt(text[1]))) {
+			if (!Number.isSafeInteger(text[1] - parseInt(text[1]))) {
 				alert('Episode number must be an integer from 1 to 1000.');
 				text[1] = null;
-			}
-			else {
+			} else {
 				text[1] = parseInt(text[1]);
-				if(text[1] <= 0 || text[1] >= 1001) {
+				if (text[1] <= 0 || text[1] >= 1001) {
 					alert('Episode number must be an integer from 1 to 1000.');
 					text[1] = null;
 				}
@@ -65,7 +63,7 @@ $(function () {
 			selected.push(this.value);
 		});
 
-		while(selected.length > 0) {
+		while (selected.length > 0) {
 			findStringByKey(selected, gid, 'g:', 2);
 			findStringByKey(selected, tid, 't:', 2);
 			findStringByKey(selected, oid, 'o:', 2);
@@ -86,12 +84,13 @@ $(function () {
 			'pid': '{' + pid.join(',') + '}',
 		};
 
-		if(data.title !== '' && data.ep_num !== null) {
+		if (data.title !== '' && data.ep_num !== null) {
 			postData(data, 'PostAddAnime')
 				.then(response => response.json())
 				.then(data => alert(data));
+		} else {
+			alert('You failed.');
 		}
-		else {alert('You failed.');}
 	});
 });
 

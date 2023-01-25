@@ -7,19 +7,19 @@ $().ready(function () {
 			data.forEach(anime => {
 				const id = anime.aid[0];
 				const title =
-                    '<li class="list-group-item">' +
-                    '<p style="display: none">' + anime.aid + ' ' + '</p>' +
-                    '<a href ="./AnimeDetail.html" ' +
-                    'class="text-secondary text-truncate id=' + id + '">' +
-                    anime.title +
-                    '</a>' +
-                    '</li>';
+					'<li class="list-group-item">' +
+					'<p style="display: none">' + anime.aid + ' ' + '</p>' +
+					'<a href ="./AnimeDetail.html" ' +
+					'class="text-secondary text-truncate id=' + id + '">' +
+					anime.title +
+					'</a>' +
+					'</li>';
 				$('#characterTitleList').append(title);
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	$('#characterTitleList').on('click', 'li',function () {
+	$('#characterTitleList').on('click', 'li', function () {
 		const data = {};
 		data.aid = getNumber($(this).text());
 		postData(data, 'PostAnimeId')
