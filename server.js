@@ -81,12 +81,12 @@ app.post('/PostAddAnime', async function(req, res) {
     }
 
     const safetyRegex = /[^;+]+$/
-    for(var key in anime){
-            if(!safetyRegex.test(key)){
+    for(var key in anime) {
+            if(!safetyRegex.test(key)) {
                 console.log("Wrong " + key)
                 return res.status(400).json({ err : "Forbidden character in attribute" });
             }
-            if(!safetyRegex.test(anime[key])){
+            if(!safetyRegex.test(anime[key])) {
                 console.log("Wrong " + anime[key]);
                 return res.status(400).json({ err : "Forbidden character in body" });
             }
@@ -105,7 +105,6 @@ app.post('/PostAddAnime', async function(req, res) {
             "INSERT INTO anime VALUES (" +
             "'" + anime.aid + "', '" + anime.title + "', '" + anime.gid + "', " +
             "'" + anime.tid + "', '" + anime.fid + "', '" + anime.pid + "', " +
-            // eslint-disable-next-line no-undef
             "'" + anime.otid + "', '" + anime.oid + "', " + anime.ep_num + ", NULL);"
             )    
             console.log("/PostAddAnime");
