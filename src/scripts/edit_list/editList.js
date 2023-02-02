@@ -9,7 +9,7 @@ $().ready(function () {
 				const title =
 					'<li class="list-group-item">' +
 					'<p style="display: none">' + anime.aid + ' ' + '</p>' +
-					'<a href ="./AnimeDetail.html" ' +
+					'<a href ="../../templates/admin/EditAnime.html" ' +
 					'class="text-secondary text-truncate id=' + id + '">' +
 					anime.title +
 					'</a>' +
