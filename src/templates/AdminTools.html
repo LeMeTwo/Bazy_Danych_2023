@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <title>Admin</title>
+    <link rel="stylesheet" href="../styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -45,12 +45,44 @@
         </div>
     </div>
 </nav>
-<div class="entry p-5">
+<div class="entry p-4">
     <div class="container">
-        <h1 class="display-3">Database design</h1>
-        <p class="lead">Authors: Michał Ablewski Jakub Kryca</p>
-        <hr class="my-4">
-        <p class="lead">This project was carried out in cooperation with AGH University of Science and Technology</p>
+        <p class="display-5">Admin Tools</p>
+        <hr class="my-0">
+    </div>
+</div>
+<div class="container content">
+    <div class="col-6">
+        <div class="row">
+            <div class="card" id="add-button-card">
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-secondary btn-lg text-truncate fs-1 admin-btn"
+                           href="admin/AddAnime.html" role="button">Add anime</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card" id="edit-button-card">
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-secondary btn-lg text-truncate fs-1 admin-btn"
+                           href="admin/EditList.html" role="button">Edit anime</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card" id="remove-button-card">
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-secondary btn-lg text-truncate fs-1 admin-btn"
+                           href="admin/DeleteList.html" role="button">Remove anime</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <footer class="footer mt-auto py-2">
