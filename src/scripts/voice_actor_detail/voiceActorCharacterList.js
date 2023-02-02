@@ -8,26 +8,26 @@ $().ready(function () {
 				const cid = character.cid[0];
 				const aid = character.aid[0];
 				const name =
-                    '<li class="list-group-item list-group-item-exception">' +
-                    '<p style="display: none">' + character.cid + ' ' + '</p>' +
-                    '<a href ="./CharacterDetail.html" ' +
-                    'class="text-secondary text-truncate id=' + cid + '">' +
-                    isNullComma(character.surname) + isNull(character.name) +
-                    '</a>' +
-                    '<p class="d-inline">' + ' in ' + '</p>' +
-                    '<p style="display: none">' + character.aid + ' ' + '</p>' +
-                    '<a href ="./AnimeDetail.html" ' +
-                    'class="text-secondary text-truncate id=' + aid + '">' +
-                    isNull(character.title) +
-                    '</a>' +
-                    '</li>';
+					'<li class="list-group-item list-group-item-exception">' +
+					'<p style="display: none">' + character.cid + ' ' + '</p>' +
+					'<a href ="./CharacterDetail.html" ' +
+					'class="text-secondary text-truncate id=' + cid + '">' +
+					isNullComma(character.surname) + isNull(character.name) +
+					'</a>' +
+					'<p class="d-inline">' + ' in ' + '</p>' +
+					'<p style="display: none">' + character.aid + ' ' + '</p>' +
+					'<a href ="./AnimeDetail.html" ' +
+					'class="text-secondary text-truncate id=' + aid + '">' +
+					isNull(character.title) +
+					'</a>' +
+					'</li>';
 				$('#actorCharacterList').append(name);
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	$('#actorCharacterList').on('click', 'li',function () {
-		let data = {
+	$('#actorCharacterList').on('click', 'li', function () {
+		const data = {
 			'cid': getNumber($(this).children().eq(0).text()),
 			'aid': getNumber($(this).children().eq(3).text())
 		};
