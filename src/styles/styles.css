@@ -16,8 +16,8 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 /* Basic settings for every html file */
@@ -51,7 +51,8 @@ body {
 }
 
 .list-group-item-exception {
-    max-height: 5.5rem; !important;
+    max-height: 5.5rem;
+!important;
 }
 
 .footer {
@@ -65,7 +66,7 @@ body {
     max-width: 40rem;
 }
 
-/* Settings for AnimePage.html file */
+/* Settings for AnimeList.html file */
 #anime-list-card {
     margin: auto auto 1.8rem;
     max-width: 40rem;
@@ -73,8 +74,8 @@ body {
 
 #animeList {
     max-height: 35.95rem;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -93,7 +94,7 @@ body {
 }
 
 /* Heights */
-#title-card, #ep-num-card{
+#title-card, #ep-num-card {
     height: 6.063rem;
 }
 
@@ -108,14 +109,14 @@ body {
 /* Injected html settings */
 #characterList {
     height: 12.9rem;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 #form, #otherTags, #genre, #target, #origin, #place {
-    overflow-x:auto;
-    overflow-y:hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -141,8 +142,8 @@ body {
 /* Injected html settings */
 #characterTitleList {
     height: 12.9rem;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -168,8 +169,8 @@ body {
 /* Injected html settings */
 #actorCharacterList {
     height: 12.9rem;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -183,12 +184,12 @@ body {
     margin: auto 0.9rem 1.8rem;
 }
 
-#click-button-card, #add-origin-card, #add-place-card {
+#submit-button-card, #add-origin-card, #add-place-card {
     margin: auto auto 1.8rem 0.9rem;
 }
 
 /* Heights */
-#add-title-card, #add-ep-num-card,  #click-button-card {
+#add-title-card, #add-ep-num-card, #click-button-card {
     height: 5.2rem;
 }
 
@@ -199,7 +200,18 @@ body {
 /* Injected html settings */
 #addGenre, #addTarget, #addForm, #addPlace, #addOtherTags, #addOrigin {
     height: 13.8rem;
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+}
+
+/* Settings for AdminTools.html file */
+/* Margins */
+#add-button-card, #edit-button-card, #remove-button-card {
+    margin: auto auto 1.8rem;
+}
+
+.admin-btn {
+    margin-top: 0.813rem;
+    margin-bottom: 0.813rem;
 }

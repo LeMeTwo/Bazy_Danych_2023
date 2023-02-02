@@ -6,7 +6,7 @@ $().ready(function () {
 		.then(data => {
 			data.forEach(anime => {
 				const name =
-                    '<li class="list-group-item text-nowrap">' + isNull(anime.name) + '</li>';
+					'<li class="list-group-item text-nowrap">' + isNull(anime.name) + '</li>';
 				$('#origin').append(name);
 			});
 		})

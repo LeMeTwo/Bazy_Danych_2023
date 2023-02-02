@@ -7,19 +7,19 @@ $().ready(function () {
 			data.forEach(character => {
 				const id = character.cid[0];
 				const name =
-                    '<li class="list-group-item">' +
-                    '<p style="display: none">' + character.cid + ' ' + '</p>' +
-                    '<a href ="./CharacterDetail.html" ' +
-                    'class="text-secondary text-truncate id=' + id + '">' +
-                    isNullComma(character.surname) + isNull(character.name) +
-                    '</a>' +
-                    '</li>';
+					'<li class="list-group-item">' +
+					'<p style="display: none">' + character.cid + ' ' + '</p>' +
+					'<a href ="./CharacterDetail.html" ' +
+					'class="text-secondary text-truncate id=' + id + '">' +
+					isNullComma(character.surname) + isNull(character.name) +
+					'</a>' +
+					'</li>';
 				$('#characterList').append(name);
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	$('#characterList').on('click', 'li',function () {
+	$('#characterList').on('click', 'li', function () {
 		let data = {};
 		data.cid = getNumber($(this).text());
 		postData(data, 'PostCharacterID')
