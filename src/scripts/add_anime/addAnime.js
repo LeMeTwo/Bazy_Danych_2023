@@ -2,7 +2,7 @@
 $().ready(function () {
 	const button =
 		'<button type="submit" id="addAnimeButton" ' +
-		'class="btn btn-outline-primary btn-lg text-truncate">' + 'Add anime' +
+		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add anime' +
 		'</button>';
 	$('#clickButton').append(button);
 });
@@ -21,7 +21,7 @@ $(function () {
 
 	$('#add_anime_form').submit(function (e) {
 		e.preventDefault();
-		
+
 		let selected = [];
 		let text = [];
 		let gid = [];
