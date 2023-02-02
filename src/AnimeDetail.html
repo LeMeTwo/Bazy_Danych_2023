@@ -26,106 +26,106 @@
     <script src="scripts/anime_detail/animeEpNum.js"></script>
 </head>
 <body class="body">
-    <nav class="navbar navbar-expand-sm navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="https://shinden.pl/">Shinden</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./HomePage.html">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./AnimePage.html">Anime</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./AddAnime.html">Add</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./HomePage.html">Account</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./HomePage.html">Log Out</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="entry p-4">
-        <div class="container">
-            <p class="display-5">Anime Detail</p>
-            <hr class="my-0">
-        </div>
-    </div>
-    <div class="container content">
-        <div class="col-6">
-            <div class="card" id="title-card">
-                <h5 class="card-header text-truncate">Title</h5>
-                <div class="card-body">
-                    <p class="card-text text-truncate" id="title"></p>
-                </div>
-            </div>
-            <div class="card" id="character-card">
-                <h5 class="card-header text-truncate">Characters</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="characterList"></ul>
-                </div>
-            </div>
-            <div class="card" id="form-card">
-                <h5 class="card-header text-truncate">Character types</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="form"></ul>
-                </div>
-            </div>
-            <div class="card" id="other-tags-card">
-                <h5 class="card-header text-truncate">Other tags</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="otherTags"></ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card" id="ep-num-card">
-                <h5 class="card-header text-truncate">Episode number</h5>
-                <div class="card-body">
-                    <p class="card-text text-truncate" id="epNum"></p>
-                </div>
-            </div>
-            <div class="card" id="genre-card">
-                <h5 class="card-header text-truncate">Genre</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="genre"></ul>
-                </div>
-            </div>
-            <div class="card" id="target-card">
-                <h5 class="card-header text-truncate">Target</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="target"></ul>
-                </div>
-            </div>
-            <div class="card" id="origin-card">
-                <h5 class="card-header text-truncate">Origin</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="origin"></ul>
-                </div>
-            </div>
-            <div class="card" id="place-card">
-                <h5 class="card-header text-truncate">Time and place</h5>
-                <div class="card-body">
-                    <ul class='list-group list-group-horizontal' id="place"></ul>
-                </div>
+<nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://shinden.pl/">Shinden</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./HomePage.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="AnimeList.html">Anime</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./Admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./HomePage.html">Account</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./HomePage.html">Log Out</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <footer class="footer mt-auto py-2">
-        <div class="container text-center">
-            <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
+</nav>
+<div class="entry p-4">
+    <div class="container">
+        <p class="display-5">Anime Detail</p>
+        <hr class="my-0">
+    </div>
+</div>
+<div class="container content">
+    <div class="col-6">
+        <div class="card" id="title-card">
+            <h5 class="card-header text-truncate">Title</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="title"></p>
+            </div>
         </div>
-    </footer>
+        <div class="card" id="character-card">
+            <h5 class="card-header text-truncate">Characters</h5>
+            <div class="card-body">
+                <ul class='list-group' id="characterList"></ul>
+            </div>
+        </div>
+        <div class="card" id="form-card">
+            <h5 class="card-header text-truncate">Character types</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="form"></ul>
+            </div>
+        </div>
+        <div class="card" id="other-tags-card">
+            <h5 class="card-header text-truncate">Other tags</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="otherTags"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card" id="ep-num-card">
+            <h5 class="card-header text-truncate">Episode number</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="epNum"></p>
+            </div>
+        </div>
+        <div class="card" id="genre-card">
+            <h5 class="card-header text-truncate">Genre</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="genre"></ul>
+            </div>
+        </div>
+        <div class="card" id="target-card">
+            <h5 class="card-header text-truncate">Target</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="target"></ul>
+            </div>
+        </div>
+        <div class="card" id="origin-card">
+            <h5 class="card-header text-truncate">Origin</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="origin"></ul>
+            </div>
+        </div>
+        <div class="card" id="place-card">
+            <h5 class="card-header text-truncate">Time and place</h5>
+            <div class="card-body">
+                <ul class='list-group list-group-horizontal' id="place"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer mt-auto py-2">
+    <div class="container text-center">
+        <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
+    </div>
+</footer>
 </body>
 </html>

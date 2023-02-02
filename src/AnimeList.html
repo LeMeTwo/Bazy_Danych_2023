@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Voice Actor</title>
+    <title>Anime</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -15,12 +15,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="scripts/methods.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorName.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorSurname.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorBirthday.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorSex.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorHome.js"></script>
-    <script src="scripts/voice_actor_detail/voiceActorCharacterList.js"></script>
+    <script src="scripts/anime_page/animeList.js"></script>
 </head>
 <body class="body">
 <nav class="navbar navbar-expand-sm navbar-light">
@@ -37,7 +32,7 @@
                         <a class="nav-link" href="./HomePage.html">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="AnimeList.html">Anime</a>
+                        <a class="nav-link" href="./AnimeList.html">Anime</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="./Admin.html">Admin</a>
@@ -55,48 +50,16 @@
 </nav>
 <div class="entry p-4">
     <div class="container">
-        <p class="display-5">Voice Actor Detail</p>
+        <p class="display-5">Anime List</p>
         <hr class="my-0">
     </div>
 </div>
 <div class="container content">
-    <div class="col-6">
-        <div class="card" id="name-card">
-            <h5 class="card-header text-truncate">Name</h5>
+    <div class="col-xxl-12">
+        <div class="card" id="anime-list-card">
+            <h5 class="card-header text-truncate">Titles</h5>
             <div class="card-body">
-                <p class="card-text text-truncate" id="actorName"></p>
-            </div>
-        </div>
-        <div class="card" id="surname-card">
-            <h5 class="card-header text-truncate">Surname</h5>
-            <div class="card-body">
-                <p class="card-text text-truncate" id="actorSurname"></p>
-            </div>
-        </div>
-        <div class="card" id="movie-card">
-            <h5 class="card-header text-truncate">Character in Title</h5>
-            <div class="card-body">
-                <ul class='list-group' id="actorCharacterList"></ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card" id="birthday-card">
-            <h5 class="card-header text-truncate">Birthday</h5>
-            <div class="card-body">
-                <p class="card-text text-truncate" id="actorBirthday"></p>
-            </div>
-        </div>
-        <div class="card" id="sex-card">
-            <h5 class="card-header text-truncate">Sex</h5>
-            <div class="card-body">
-                <p class="card-text text-truncate" id="actorSex"></p>
-            </div>
-        </div>
-        <div class="card" id="home-card">
-            <h5 class="card-header text-truncate">Home</h5>
-            <div class="card-body">
-                <p class="card-text text-truncate" id="actorHome"></p>
+                <ul class='list-group' id="animeList"></ul>
             </div>
         </div>
     </div>
