@@ -142,7 +142,7 @@ app.post('/PostVoiceActorId', async function (req, res) {
 	res.status(200);
 });
 
-// Get used by AnimePage.html
+// Get used by AnimeList.html
 app.get('/GetAnimeList', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime;'
