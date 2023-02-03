@@ -174,6 +174,17 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Settings for AdminTools.html file */
+/* Margins */
+#add-button-card, #edit-button-card, #remove-button-card {
+    margin: auto auto 1.8rem;
+}
+
+.admin-btn {
+    margin-top: 0.813rem;
+    margin-bottom: 0.813rem;
+}
+
 /* Settings for AddAnime.html file */
 /* Margins */
 #add-title-card, #add-genre-card, #add-form-card {
@@ -184,7 +195,7 @@ body {
     margin: auto 0.9rem 1.8rem;
 }
 
-#submit-button-card, #add-origin-card, #add-place-card {
+#add-button-card, #add-origin-card, #add-place-card {
     margin: auto auto 1.8rem 0.9rem;
 }
 
@@ -205,13 +216,34 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Settings for AdminTools.html file */
+/* Settings for EditAnime.html file */
 /* Margins */
-#add-button-card, #edit-button-card, #remove-button-card {
-    margin: auto auto 1.8rem;
+#edit-title-card, #edit-genre-card, #edit-form-card {
+    margin: auto 0.9rem 1.8rem auto;
 }
 
-.admin-btn {
-    margin-top: 0.813rem;
-    margin-bottom: 0.813rem;
+#edit-ep-num-card, #edit-target-card, #edit-other-tags-card {
+    margin: auto 0.9rem 1.8rem;
 }
+
+#edit-button-card, #edit-origin-card, #edit-place-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+/* Heights */
+#edit-title-card, #edit-ep-num-card, #click-button-card {
+    height: 5.2rem;
+}
+
+#edit-genre-card, #edit-target-card, #edit-form-card, #edit-place-card, #edit-other-tags-card, #edit-origin-card {
+    height: 18.487rem;
+}
+
+/* Injected html settings */
+#editGenre, #editTarget, #editForm, #editPlace, #editOtherTags, #editOrigin {
+    height: 13.8rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+

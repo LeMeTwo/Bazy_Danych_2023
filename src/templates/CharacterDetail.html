@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <title>Character</title>
+    <link rel="stylesheet" href="../styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -13,6 +13,14 @@
             integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
             crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../scripts/methods.js"></script>
+    <script src="../scripts/character_detail/characterTitleList.js"></script>
+    <script src="../scripts/character_detail/characterName.js"></script>
+    <script src="../scripts/character_detail/characterSurname.js"></script>
+    <script src="../scripts/character_detail/characterAge.js"></script>
+    <script src="../scripts/character_detail/characterSex.js"></script>
+    <script src="../scripts/character_detail/characterVoiceActor.js"></script>
 </head>
 <body class="body">
 <nav class="navbar navbar-expand-sm navbar-light">
@@ -29,7 +37,7 @@
                         <a class="nav-link" href="./HomePage.html">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="AnimeList.html">Anime</a>
+                        <a class="nav-link" href="./AnimeList.html">Anime</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="./AdminTools.html">Admin</a>
@@ -47,40 +55,48 @@
 </nav>
 <div class="entry p-4">
     <div class="container">
-        <p class="display-5">Admin Tools</p>
+        <p class="display-5">Character Detail</p>
         <hr class="my-0">
     </div>
 </div>
 <div class="container content">
     <div class="col-6">
-        <div class="row">
-            <div class="card" id="add-button-card">
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-outline-primary btn-lg text-truncate fs-1 admin-btn"
-                           href="./AddAnime.html" role="button">Add anime</a>
-                    </div>
-                </div>
+        <div class="card" id="name-card">
+            <h5 class="card-header text-truncate">Name</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="name"></p>
             </div>
         </div>
-        <div class="row">
-            <div class="card" id="edit-button-card">
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-outline-primary btn-lg text-truncate fs-1 admin-btn"
-                           href="./AddAnime.html" role="button">Edit anime</a>
-                    </div>
-                </div>
+        <div class="card" id="surname-card">
+            <h5 class="card-header text-truncate">Surname</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="surname"></p>
             </div>
         </div>
-        <div class="row">
-            <div class="card" id="remove-button-card">
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-outline-primary btn-lg text-truncate fs-1 admin-btn"
-                           href="./AddAnime.html" role="button">Remove anime</a>
-                    </div>
-                </div>
+        <div class="card" id="movie-card">
+            <h5 class="card-header text-truncate">Titles</h5>
+            <div class="card-body">
+                <ul class='list-group' id="characterTitleList"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card" id="age-card">
+            <h5 class="card-header text-truncate">Age</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="age"></p>
+            </div>
+        </div>
+        <div class="card" id="sex-card">
+            <h5 class="card-header text-truncate">Sex</h5>
+            <div class="card-body">
+                <p class="card-text text-truncate" id="sex"></p>
+            </div>
+        </div>
+        <div class="card" id="voice-actor-card">
+            <h5 class="card-header text-truncate">Voice actor</h5>
+            <div class="card-body">
+                <div class="card-text text-truncate" id="voiceActor"></div>
             </div>
         </div>
     </div>

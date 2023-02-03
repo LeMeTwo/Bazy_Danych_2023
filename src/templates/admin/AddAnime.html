@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Anime</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../../scripts/methods.js"></script>
+    <script src="../../scripts/add_anime/addAnime.js"></script>
+    <script src="../../scripts/add_anime/addTitle.js"></script>
+    <script src="../../scripts/add_anime/addEpNum.js"></script>
+    <script src="../../scripts/add_anime/addGenre.js"></script>
+    <script src="../../scripts/add_anime/addTarget.js"></script>
+    <script src="../../scripts/add_anime/addForm.js"></script>
+    <script src="../../scripts/add_anime/addPlace.js"></script>
+    <script src="../../scripts/add_anime/addOtherTags.js"></script>
+    <script src="../../scripts/add_anime/addOrigin.js"></script>
+</head>
+<body class="body">
+<nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://shinden.pl/">Shinden</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../HomePage.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../AnimeList.html">Anime</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../AdminTools.html">Admin</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../HomePage.html">Account</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../HomePage.html">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="entry p-4">
+    <div class="container">
+        <p class="display-5">Add Anime</p>
+        <hr class="my-0">
+    </div>
+</div>
+<form id="add_anime_form" method="POST">
+    <div class="container content">
+        <div class="col-4">
+            <div class="card" id="add-title-card">
+                <div class="card-body">
+                    <p class="card-text text-truncate" id="addTitle"></p>
+                </div>
+            </div>
+            <div class="card" id="add-genre-card">
+                <h5 class="card-header text-truncate">Add genre</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addGenre"></ul>
+                </div>
+            </div>
+            <div class="card" id="add-form-card">
+                <h5 class="card-header text-truncate">Add character types</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addForm"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="add-ep-num-card">
+                <div class="card-body">
+                    <p class="card-text text-truncate" id="addEpNum"></p>
+                </div>
+            </div>
+            <div class="card" id="add-target-card">
+                <h5 class="card-header text-truncate">Add target</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addTarget"></ul>
+                </div>
+            </div>
+            <div class="card" id="add-other-tags-card">
+                <h5 class="card-header text-truncate">Add other tags</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addOtherTags"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="add-button-card">
+                <div class="card-body">
+                    <div class="d-grid gap-2" id="clickButton"></div>
+                </div>
+            </div>
+            <div class="card" id="add-origin-card">
+                <h5 class="card-header text-truncate">Add origin</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addOrigin"></ul>
+                </div>
+            </div>
+            <div class="card" id="add-place-card">
+                <h5 class="card-header text-truncate">Add time and place</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addPlace"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<footer class="footer mt-auto py-2">
+    <div class="container text-center">
+        <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
+    </div>
+</footer>
+</body>
+</html>
