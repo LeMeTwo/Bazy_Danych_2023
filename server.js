@@ -110,6 +110,12 @@ app.post('/PostAddAnime', async function (req, res) {
 	}
 });
 
+app.post('/EditAnime', async function (req, res) {
+	
+
+
+})
+
 // Posts used to get data from the frontend
 app.post('/PostAnimeId', async function (req, res) {
 	animeMemory = req.body;
@@ -142,7 +148,7 @@ app.post('/PostVoiceActorId', async function (req, res) {
 	res.status(200);
 });
 
-// Get used by AnimeList.html
+// Get used by AnimeList.html, EditList.html and DeleteList.html
 app.get('/GetAnimeList', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime;'
@@ -153,8 +159,9 @@ app.get('/GetAnimeList', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by AnimeDetail.html
+// Gets used by AnimeDetail.html and EditAnime.html
 app.get('/GetDetailTitle', async function (req, res) {
+	console.logm(animeMemory.aid);
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
@@ -366,10 +373,20 @@ app.get('/GetVoiceActorHome', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by VoiceActorDetail.html
+// Gets used by AddAnime.html and EditAnime.html
 app.get('/GetMaxAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT max(aid) FROM anime;'
+	));
+	console.log('/GetAddGenre');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetEditAid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT aid FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetAddGenre');
 	const jResponse = result.rows;
