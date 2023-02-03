@@ -151,8 +151,6 @@ app.post('/EditAnime', async function (req, res) {
 		console.log('/PostAddAnime Error');
 		return res.status(501);
 	}
-
-
 });
 
 // Posts used to get data from the frontend
@@ -200,7 +198,6 @@ app.get('/GetAnimeList', async function (req, res) {
 
 // Gets used by AnimeDetail.html and EditAnime.html
 app.get('/GetDetailTitle', async function (req, res) {
-	console.logm(animeMemory.aid);
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
