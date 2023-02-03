@@ -88,6 +88,11 @@ $(function () {
 			postData(data, 'PostAddAnime')
 				.then(response => response.json())
 				.then(data => alert(data));
+
+			setTimeout(function () {
+				window.location.reload();
+			}, 2000);
+			setTimeout(this);
 		} else {
 			alert('You failed.');
 		}
