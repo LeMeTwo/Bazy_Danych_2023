@@ -176,7 +176,7 @@ app.post('/PostAddAnime', async function (req, res) {
 			console.log('Adding anime');
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
-				return res.status(4011).json({err: 'Wrong number of episodes'});
+				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
 			await connection.query(
 				'INSERT INTO anime VALUES (' +
@@ -220,7 +220,7 @@ app.post('/PostEditAnime', async function (req, res) {
 		if (selectedTitle.rows.length) {
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
-				return res.status(4011).json({err: 'Wrong number of episodes'});
+				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
 			await connection.query('UPDATE anime set ' +
 				'aid=\'' + anime.aid + '\', ' + 'title=\'' + anime.title + '\', ' + 'gid=\'' + anime.gid + '\', ' +
