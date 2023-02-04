@@ -1,25 +1,25 @@
 /* eslint-disable no-undef */
 $().ready(function () {
 	const button =
-		'<button type="submit" id="editAnimeButton" ' +
-		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Edit anime' +
+		'<button type="submit" id="addAnimeButton" ' +
+		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add anime' +
 		'</button>';
 	$('#clickButton').append(button);
 });
 
 $(function () {
 	let aid = '';
-	const editedAidUrl = 'http://localhost:8081/GetEditAid';
-	fetch(editedAidUrl)
+	const maxAidUrl = 'http://localhost:8081/GetMaxAid';
+	fetch(maxAidUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
-				aid = isNull(anime.aid);
+				aid = isNull(anime.max[0] + 1);
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	$('#edit_anime_form').submit(function (e) {
+	$('#add_anime_form').submit(function (e) {
 		e.preventDefault();
 
 		let selected = [];
@@ -32,7 +32,7 @@ $(function () {
 		let pid = [];
 
 		// Add each text value to the array
-		$('#edit_anime_form input[type=text]').each(function () {
+		$('#add_anime_form input[type=text]').each(function () {
 			text.push(this.value);
 		});
 
@@ -63,7 +63,7 @@ $(function () {
 		}
 
 		// Add each selected checkbox value to the array
-		$('#edit_anime_form input[type=checkbox]:checked').each(function () {
+		$('#add_anime_form input[type=checkbox]:checked').each(function () {
 			selected.push(this.value);
 		});
 
@@ -89,12 +89,12 @@ $(function () {
 		};
 
 		if (data.title !== '' && data.ep_num !== null) {
-			postData(data, 'PostEditAnime')
+			postData(data, 'PostAddAnime')
 				.then(response => response.json());
 
-			alert('Anime edited');
+			alert('Anime added');
 			setTimeout(function () {
-				window.location.href = '../AdminTools.html';
+				window.location.href = '../Admin.html';
 			}, 2000);
 			setTimeout(this);
 		} else {
@@ -102,3 +102,4 @@ $(function () {
 		}
 	});
 });
+

@@ -60,7 +60,7 @@ body {
     margin-top: auto;
 }
 
-/* Settings for HomePage.html file */
+/* Settings for Home.html file */
 #top, #bot {
     margin: auto auto 1.8rem;
     max-width: 40rem;
@@ -174,7 +174,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Settings for AdminTools.html file */
+/* Settings for Admin.html file */
 /* Margins */
 #add-tool-button-card, #edit-tool-button-card, #remove-tool-button-card {
     margin: auto auto 1.8rem;
@@ -185,7 +185,7 @@ body {
     margin-bottom: 0.813rem;
 }
 
-/* Settings for AddAnime.html file */
+/* Settings for AnimeAdd.html file */
 /* Margins */
 #add-title-card, #add-genre-card, #add-form-card {
     margin: auto 0.9rem 1.8rem auto;
@@ -216,7 +216,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Settings for EditAnime.html file */
+/* Settings for AnimeEdit.html file */
 /* Margins */
 #edit-title-card, #edit-genre-card, #edit-form-card {
     margin: auto 0.9rem 1.8rem auto;

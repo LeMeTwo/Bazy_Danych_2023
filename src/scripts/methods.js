@@ -74,11 +74,11 @@ function findStringByKey(selectedArray, idArray, key, keyLength) {
 	}
 }
 
-// Used in deleteList.js
+// Used in animeDeleteList.js
 function deleteAlert() {
 	alert('Anime deleted');
 	setTimeout(function () {
-		window.location.href = './DeleteList.html';
+		window.location.href = './AnimeDeleteList.html';
 	}, 500);
 	setTimeout(this);
 }
