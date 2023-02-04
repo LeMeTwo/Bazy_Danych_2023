@@ -37,6 +37,10 @@ $(function () {
 		});
 
 		// Checkout
+		if (text[0].length === 0) {
+			alert('You must enter the title.');
+			text[0] = '';
+		}
 		if (text[0].length >= 100) {
 			alert('Title can be maximum 100 characters long.');
 			text[0] = '';
