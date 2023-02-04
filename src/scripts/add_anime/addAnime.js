@@ -86,9 +86,9 @@ $(function () {
 
 		if (data.title !== '' && data.ep_num !== null) {
 			postData(data, 'PostAddAnime')
-				.then(response => response.json())
-				.then(data => alert(data));
+				.then(response => response.json());
 
+			alert('Anime added');
 			setTimeout(function () {
 				window.location.reload();
 			}, 2000);
