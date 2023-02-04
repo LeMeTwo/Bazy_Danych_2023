@@ -79,6 +79,6 @@ function deleteAlert() {
 	alert('Anime deleted');
 	setTimeout(function () {
 		window.location.href = './DeleteList.html';
-	}, 2000);
+	}, 500);
 	setTimeout(this);
 }
