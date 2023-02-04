@@ -189,7 +189,7 @@ app.post('/PostAddAnime', async function (req, res) {
 		}
 	} catch (error) {
 		console.log('/PostAddAnime Error');
-		return res.status(501)
+		return res.status(501);
 	}
 });
 
