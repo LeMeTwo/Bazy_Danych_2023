@@ -153,7 +153,7 @@ app.post('/PostEditAnime', async function (req, res) {
 	}
 });
 
-app.post('/PostEditAnime', async function (req, res) {
+app.post('/PostDeleteAnime', async function (req, res) {
 	const anime = req.body;
 	try {
 		console.log(req.body);
