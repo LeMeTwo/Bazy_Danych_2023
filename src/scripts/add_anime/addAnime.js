@@ -94,7 +94,7 @@ $(function () {
 
 			alert('Anime added');
 			setTimeout(function () {
-				window.location.reload();
+				window.location.href = '../../templates/AdminTools.html';
 			}, 2000);
 			setTimeout(this);
 		} else {
