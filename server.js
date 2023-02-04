@@ -413,128 +413,6 @@ app.get('/GetDetailEpNum', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by CharacterDetail.html
-app.get('/GetCharacterTitleList', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT aid, title FROM anime WHERE cid @> \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterTitleList');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetCharacterName', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT cid, name FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterName');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetCharacterSurname', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT cid, surname FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterSurname');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetCharacterAge', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT cid, age FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterAge');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetCharacterSex', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT cid, sex FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterSex');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetCharacterVoiceActor', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetCharacterVoiceActor');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-// Gets used by VoiceActorDetail.html
-app.get('/GetVoiceActorCharacterList', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorCharacterList');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetVoiceActorName', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT vid, name FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorName');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetVoiceActorSurname', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT vid, surname FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorSurname');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetVoiceActorBirthday', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT vid, birth FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorBirthday');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetVoiceActorSex', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT vid, sex FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorSex');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetVoiceActorHome', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT vid, home FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
-	));
-	console.log('/GetVoiceActorHome');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
 // Gets used by AnimeAdd.html and AnimeEdit.html
 app.get('/GetMaxAid', async function (req, res) {
 	const result = (await connection.query(
@@ -611,6 +489,152 @@ app.get('/GetAddOrigin', async function (req, res) {
 		'SELECT * FROM origin;'
 	));
 	console.log('/GetAddOrigin');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Get used by CharacterList.html, CharacterEditList.html and CharacterDeleteList.html
+
+app.get('/GetCharacterList', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid, name, surname FROM character;'
+	));
+	console.log('/GetCharacterList');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Gets used by CharacterDetail.html and CharacterEdit.html
+app.get('/GetCharacterTitleList', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT aid, title FROM anime WHERE cid @> \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterTitleList');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetCharacterName', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid, name FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterName');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetCharacterSurname', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid, surname FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterSurname');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetCharacterAge', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid, age FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterAge');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetCharacterSex', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid, sex FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterSex');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetCharacterVoiceActor', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetCharacterVoiceActor');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
+
+app.get('/GetVoiceActorList', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, name, surname FROM voice_actor;'
+	));
+	console.log('/GetVoiceActorList');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Gets used by VoiceActorDetail.html and VoiceActorEdit.html
+app.get('/GetVoiceActorCharacterList', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorCharacterList');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetVoiceActorName', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, name FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorName');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetVoiceActorSurname', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, surname FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorSurname');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetVoiceActorBirthday', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, birth FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorBirthday');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetVoiceActorSex', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, sex FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorSex');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetVoiceActorHome', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid, home FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetVoiceActorHome');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
