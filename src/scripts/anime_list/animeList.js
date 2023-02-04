@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 $().ready(function () {
-	const titleListUrl = 'http://localhost:8081/GetAnimeList';
-	fetch(titleListUrl)
+	const animeListUrl = 'http://localhost:8081/GetAnimeList';
+	fetch(animeListUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
