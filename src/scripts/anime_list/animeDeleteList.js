@@ -12,7 +12,7 @@ $().ready(function () {
 					'<h class="text-secondary text-truncate id=' + id + '">' +
 					isNull(anime.title) +
 					'</h>' +
-					'<button type="submit" id="deleteAnimeButton" onclick="deleteAlert()" ' +
+					'<button type="submit" id="deleteAnimeButton" onclick="animeDeleteAlert()" ' +
 					'class="btn btn-outline-secondary py-0">' + 'X' +
 					'</button>' +
 					'</li>';

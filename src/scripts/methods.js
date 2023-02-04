@@ -75,10 +75,28 @@ function findStringByKey(selectedArray, idArray, key, keyLength) {
 }
 
 // Used in animeDeleteList.js
-function deleteAlert() {
+function animeDeleteAlert() {
 	alert('Anime deleted');
 	setTimeout(function () {
 		window.location.href = './AnimeDeleteList.html';
+	}, 500);
+	setTimeout(this);
+}
+
+// Used in characterDeleteList.js
+function characterDeleteAlert() {
+	alert('Character deleted');
+	setTimeout(function () {
+		window.location.href = './CharacterDeleteList.html';
+	}, 500);
+	setTimeout(this);
+}
+
+// Used in voiceActorDeleteList.js
+function voiceActorDeleteAlert() {
+	alert('Voice actor deleted');
+	setTimeout(function () {
+		window.location.href = './VoiceActorDeleteList.html';
 	}, 500);
 	setTimeout(this);
 }
