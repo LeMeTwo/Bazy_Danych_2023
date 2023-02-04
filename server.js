@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-extra-semi */
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
@@ -53,10 +55,87 @@ const main = async () => {
 
 main().catch(console.error);
 
+app.post('/Register', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('trying to register');
+		const selectedAccount = await connection.query('SELECT login from users where login = \'' + anime.login + '\';');
+		const selectedMail = await connection.query('SELECT mail from users where login = \'' + anime.mail + '\';');
+		if (selectedAccount.rows.length) {
+			return res.status(200).json({message: 'NameAlreadyTaken'});
+		}
+
+		if (selectedMail.rows.length) {
+			return res.status(200).json({message: 'MailAlreadyInUse'});
+		} else {
+			await connection.query(
+				'INSERT INTO users VALUES (' +
+				'\'' + anime.login + '\', \'' + anime.mail + '\', ' + anime.password + '\');'
+			);
+		}
+	} catch (error) {
+		return res.status(501);
+	}
+});
+
+
 app.post('/Login', async function (req, res) {
-	const query = 'SELECT * FROM users WHERE login = \'${userQuery[0]}\' and password = \'${userQuery[1]}\'';
-	const [rows] = await connection.query(query);
-	res.json(rows);
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from anime where title = \'' + anime.title + '\';');
+		console.log('trying to login');
+		const selectedAccount = await connection.query('SELECT login, password, is_admin from users where login = \'' + anime.login + '\';');
+		if (selectedAccount.rows.length) {
+			if (selectedAccount.rows[0].password === anime.password) {
+				if (selectedAccount.rows[0].is_admin === 1) {
+					return res.status(200).json({message: 'Admin=1'});
+				}
+				return res.status(200).json({message: 'Login successful'});
+			} else {
+				return res.status(200).json({message: 'Login unsuccessful'});
+			}
+		} else {
+			return res.status(400).json({err: 'Wrong name or password'});
+		}
+	} catch (error) {
+		return res.status(501);
+	}
 });
 
 // Posts used to tests
@@ -95,6 +174,10 @@ app.post('/PostAddAnime', async function (req, res) {
 			return res.status(400).json({err: 'Title exists'});
 		} else {
 			console.log('Adding anime');
+			const pattern = /^[\d\{\}]+$/;
+			if (!pattern.test(anime.ep_num.toString())) {
+				return res.status(4011).json({err: 'Wrong number of episodes'});
+			}
 			await connection.query(
 				'INSERT INTO anime VALUES (' +
 				'\'' + anime.aid + '\', \'' + anime.title + '\', \'' + anime.gid + '\', ' +
@@ -135,6 +218,10 @@ app.post('/PostEditAnime', async function (req, res) {
 		console.log('trying to edit');
 		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
+			const pattern = /^[\d\{\}]+$/;
+			if (!pattern.test(anime.ep_num.toString())) {
+				return res.status(4011).json({err: 'Wrong number of episodes'});
+			}
 			await connection.query('UPDATE anime set ' +
 				'aid=\'' + anime.aid + '\', ' + 'title=\'' + anime.title + '\', ' + 'gid=\'' + anime.gid + '\', ' +
 				'tid=\'' + anime.tid + '\', ' + 'fid=\'' + anime.fid + '\', ' + 'pid=\'' + anime.pid + '\', ' +
