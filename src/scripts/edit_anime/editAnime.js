@@ -94,7 +94,7 @@ $(function () {
 
 			alert('Anime edited');
 			setTimeout(function () {
-				window.location.href = '../../templates/AdminTools.html';
+				window.location.href = '../AdminTools.html';
 			}, 2000);
 			setTimeout(this);
 		} else {
