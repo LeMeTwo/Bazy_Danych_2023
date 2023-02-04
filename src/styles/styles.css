@@ -176,13 +176,20 @@ body {
 
 /* Settings for Admin.html file */
 /* Margins */
-#add-tool-button-card, #edit-tool-button-card, #remove-tool-button-card {
-    margin: auto auto 1.8rem;
+#add-anime-button-card, #edit-anime-button-card, #remove-anime-button-card {
+    margin: auto 1.2rem 1.8rem auto;
+}
+
+#add-character-button-card, #edit-character-button-card, #remove-character-button-card {
+    margin: auto 0.6rem 1.8rem;
+}
+
+#add-voice-actor-button-card, #edit-voice-actor-button-card, #remove-voice-actor-button-card {
+    margin: auto auto 1.8rem 1.2rem;
 }
 
 .admin-btn {
-    margin-top: 0.813rem;
-    margin-bottom: 0.813rem;
+    margin: 0.813rem;
 }
 
 /* Settings for AnimeAdd.html file */
