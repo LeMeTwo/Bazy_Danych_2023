@@ -246,8 +246,3 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-
-/* Settings for DeleteList.html file */
-#deleteAnimeButton {
-    float: right;
-}
