@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Anime</title>
+    <title>Add Anime</title>
     <link rel="stylesheet" href="../../styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -15,15 +15,15 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="../../scripts/methods.js"></script>
-    <script src="../../scripts/edit_anime/editAnime.js"></script>
-    <script src="../../scripts/edit_anime/editTitle.js"></script>
-    <script src="../../scripts/edit_anime/editEpNum.js"></script>
-    <script src="../../scripts/edit_anime/editGenre.js"></script>
-    <script src="../../scripts/edit_anime/editTarget.js"></script>
-    <script src="../../scripts/edit_anime/editForm.js"></script>
-    <script src="../../scripts/edit_anime/editPlace.js"></script>
-    <script src="../../scripts/edit_anime/editOtherTags.js"></script>
-    <script src="../../scripts/edit_anime/editOrigin.js"></script>
+    <script src="../../scripts/anime_add/addAnime.js"></script>
+    <script src="../../scripts/anime_add/addTitle.js"></script>
+    <script src="../../scripts/anime_add/addEpNum.js"></script>
+    <script src="../../scripts/anime_add/addGenre.js"></script>
+    <script src="../../scripts/anime_add/addTarget.js"></script>
+    <script src="../../scripts/anime_add/addForm.js"></script>
+    <script src="../../scripts/anime_add/addPlace.js"></script>
+    <script src="../../scripts/anime_add/addOtherTags.js"></script>
+    <script src="../../scripts/anime_add/addOrigin.js"></script>
 </head>
 <body class="body">
 <nav class="navbar navbar-expand-sm navbar-light">
@@ -37,19 +37,19 @@
             <div>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../HomePage.html">Home</a>
+                        <a class="nav-link" href="../Home.html">Home</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="../AnimeList.html">Anime</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../AdminTools.html">Admin</a>
+                        <a class="nav-link" href="../Admin.html">Admin</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../HomePage.html">Account</a>
+                        <a class="nav-link" href="../Home.html">Account</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="../HomePage.html">Log Out</a>
+                        <a class="nav-link" href="../Home.html">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -58,66 +58,66 @@
 </nav>
 <div class="entry p-4">
     <div class="container">
-        <p class="display-5">Edit Anime</p>
+        <p class="display-5">Add Anime</p>
         <hr class="my-0">
     </div>
 </div>
-<form id="edit_anime_form" method="POST">
+<form id="add_anime_form" method="POST">
     <div class="container content">
         <div class="col-4">
-            <div class="card" id="edit-title-card">
+            <div class="card" id="add-title-card">
                 <div class="card-body">
-                    <p class="card-text text-truncate" id="editTitle"></p>
+                    <p class="card-text text-truncate" id="addTitle"></p>
                 </div>
             </div>
-            <div class="card" id="edit-genre-card">
-                <h5 class="card-header text-truncate">Edit genre</h5>
+            <div class="card" id="add-genre-card">
+                <h5 class="card-header text-truncate">Add genre</h5>
                 <div class="card-body">
-                    <ul class='list-group' id="editGenre"></ul>
+                    <ul class='list-group' id="addGenre"></ul>
                 </div>
             </div>
-            <div class="card" id="edit-form-card">
-                <h5 class="card-header text-truncate">Edit character types</h5>
+            <div class="card" id="add-form-card">
+                <h5 class="card-header text-truncate">Add character types</h5>
                 <div class="card-body">
-                    <ul class='list-group' id="editForm"></ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card" id="edit-ep-num-card">
-                <div class="card-body">
-                    <p class="card-text text-truncate" id="editEpNum"></p>
-                </div>
-            </div>
-            <div class="card" id="edit-target-card">
-                <h5 class="card-header text-truncate">Edit target</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="editTarget"></ul>
-                </div>
-            </div>
-            <div class="card" id="edit-other-tags-card">
-                <h5 class="card-header text-truncate">Edit other tags</h5>
-                <div class="card-body">
-                    <ul class='list-group' id="editOtherTags"></ul>
+                    <ul class='list-group' id="addForm"></ul>
                 </div>
             </div>
         </div>
         <div class="col-4">
-            <div class="card" id="edit-button-card">
+            <div class="card" id="add-ep-num-card">
+                <div class="card-body">
+                    <p class="card-text text-truncate" id="addEpNum"></p>
+                </div>
+            </div>
+            <div class="card" id="add-target-card">
+                <h5 class="card-header text-truncate">Add target</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addTarget"></ul>
+                </div>
+            </div>
+            <div class="card" id="add-other-tags-card">
+                <h5 class="card-header text-truncate">Add other tags</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="addOtherTags"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="add-button-card">
                 <div class="card-body">
                     <div class="d-grid gap-2" id="clickButton"></div>
                 </div>
             </div>
-            <div class="card" id="edit-origin-card">
-                <h5 class="card-header text-truncate">Edit origin</h5>
+            <div class="card" id="add-origin-card">
+                <h5 class="card-header text-truncate">Add origin</h5>
                 <div class="card-body">
-                    <ul class='list-group' id="editOrigin"></ul>
+                    <ul class='list-group' id="addOrigin"></ul>
                 </div>
             </div>
-            <div class="card" id="edit-place-card">
-                <h5 class="card-header text-truncate">Edit time and place</h5>
+            <div class="card" id="add-place-card">
+                <h5 class="card-header text-truncate">Add time and place</h5>
                 <div class="card-body">
-                    <ul class='list-group' id="editPlace"></ul>
+                    <ul class='list-group' id="addPlace"></ul>
                 </div>
             </div>
         </div>

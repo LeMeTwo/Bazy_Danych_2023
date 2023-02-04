@@ -224,7 +224,7 @@ app.post('/PostVoiceActorId', async function (req, res) {
 	res.status(200);
 });
 
-// Get used by AnimeList.html, EditList.html and DeleteList.html
+// Get used by AnimeList.html, AnimeEditList.html and AnimeDeleteList.html
 app.get('/GetAnimeList', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime;'
@@ -235,7 +235,7 @@ app.get('/GetAnimeList', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by AnimeDetail.html and EditAnime.html
+// Gets used by AnimeDetail.html and AnimeEdit.html
 app.get('/GetDetailTitle', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid, title FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
@@ -448,7 +448,7 @@ app.get('/GetVoiceActorHome', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by AddAnime.html and EditAnime.html
+// Gets used by AnimeAdd.html and AnimeEdit.html
 app.get('/GetMaxAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT max(aid) FROM anime;'
