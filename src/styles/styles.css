@@ -207,7 +207,7 @@ body {
 }
 
 /* Heights */
-#add-title-card, #add-ep-num-card, #click-button-card {
+#add-title-card, #add-ep-num-card, #add-button-card {
     height: 5.2rem;
 }
 
@@ -238,7 +238,7 @@ body {
 }
 
 /* Heights */
-#edit-title-card, #edit-ep-num-card, #click-button-card {
+#edit-title-card, #edit-ep-num-card, #edit-button-card {
     height: 5.2rem;
 }
 
