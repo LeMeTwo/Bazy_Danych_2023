@@ -9,21 +9,22 @@ $().ready(function () {
 				const title =
 					'<li class="list-group-item">' +
 					'<p style="display: none">' + anime.aid + ' ' + '</p>' +
-					'<a href ="../AnimeDetail.html" ' +
-					'class="text-secondary text-truncate id=' + id + '">' +
+					'<h class="text-secondary text-truncate id=' + id + '">' +
 					anime.title +
-					'</a>' +
+					'</h>' +
+					'<button type="submit" id="deleteAnimeButton" onclick="deleteAlert()" ' +
+					'class="btn btn-outline-secondary text-truncate py-0">' + 'X' +
+					'</button>' +
 					'</li>';
 				$('#animeList').append(title);
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	$('#animeList').on('click', 'li', function () {
+	$('#animeList').on('click', 'button', function () {
 		const data = {};
-		data.aid = getNumber($(this).text());
-		postData(data, 'PostAnimeId')
-			.then(response => response.json())
-			.then(data => alert(data));
+		data.aid = getNumber($(this).parent().text());
+		postData(data, 'PostDeleteAnime')
+			.then(response => response.json());
 	});
 });
