@@ -92,7 +92,7 @@ app.post('/PostAddAnime', async function (req, res) {
 		console.log('trying to add');
 		const selectedTitle = await connection.query('SELECT * from anime where title = \'' + anime.title + '\';');
 		if (selectedTitle.rows.length) {
-			return res.status(400).json({err: 'Title exist'});
+			return res.status(400).json({err: 'Title exists'});
 		} else {
 			console.log('Adding anime');
 			await connection.query(
@@ -135,11 +135,11 @@ app.post('/PostEditAnime', async function (req, res) {
 		console.log('trying to edit');
 		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
-			await connection.query(
-				'UPDATE anime set' +
-				'\'' + 'aid=' + anime.aid + '\', \'' + 'title=' + anime.title + '\', \'' + 'gid=' + anime.gid + '\', ' +
-				'\'' + 'tid=' + anime.tid + '\', \'' + 'fid=' + anime.fid + '\', \'' + 'pid=' + anime.pid + '\', ' +
-				'\'' + 'otid=' + anime.otid + '\', \'' + 'oid=' + anime.oid + '\', ' + 'ep_num=' + anime.ep_num + ', NULL);'
+			await connection.query('UPDATE anime set ' +
+				'aid=\'' + anime.aid + '\', ' + 'title=\'' + anime.title + '\', ' + 'gid=\'' + anime.gid + '\', ' +
+				'tid=\'' + anime.tid + '\', ' + 'fid=\'' + anime.fid + '\', ' + 'pid=\'' + anime.pid + '\', ' +
+				'otid=\'' + anime.otid + '\', ' + 'oid=\'' + anime.oid + '\', ' + 'ep_num=\'' + anime.ep_num + '\' ' +
+				'WHERE aid=\'' + anime.aid + '\';'
 			);
 			return res.status(501).json({err: 'Anime edited'});
 		} else {
@@ -148,7 +148,46 @@ app.post('/PostEditAnime', async function (req, res) {
 			return res.status(400).json({err: 'Title is missing'});
 		}
 	} catch (error) {
-		console.log('/PostAddAnime Error');
+		console.log('/EditAnime Error');
+		return res.status(501);
+	}
+});
+
+app.post('/PostEditAnime', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from anime where aid = \'' + anime.aid + '\';');
+		console.log('trying to delete');
+		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
+		if (selectedTitle.rows.length) {
+			await connection.query('DELETE from anime WHERE aid=\'' + anime.aid + '\';'
+			);
+			return res.status(501).json({err: 'Anime edited'});
+		} else {
+			console.log('Anime already removed');
+			console.log('/DeleteAnime');
+			return res.status(400).json({err: 'Anime already removed'});
+		}
+	} catch (error) {
+		console.log('/DeleteAnime Error');
 		return res.status(501);
 	}
 });
