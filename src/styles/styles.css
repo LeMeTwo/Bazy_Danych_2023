@@ -176,7 +176,7 @@ body {
 
 /* Settings for AdminTools.html file */
 /* Margins */
-#add-button-card, #edit-button-card, #remove-button-card {
+#add-tool-button-card, #edit-tool-button-card, #remove-tool-button-card {
     margin: auto auto 1.8rem;
 }
 
@@ -246,4 +246,3 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-

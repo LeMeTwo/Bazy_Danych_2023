@@ -37,6 +37,10 @@ $(function () {
 		});
 
 		// Checkout
+		if (text[0].length === 0) {
+			alert('You must enter the title.');
+			text[0] = '';
+		}
 		if (text[0].length >= 100) {
 			alert('Title can be maximum 100 characters long.');
 			text[0] = '';
@@ -86,8 +90,13 @@ $(function () {
 
 		if (data.title !== '' && data.ep_num !== null) {
 			postData(data, 'PostAddAnime')
-				.then(response => response.json())
-				.then(data => alert(data));
+				.then(response => response.json());
+
+			alert('Anime added');
+			setTimeout(function () {
+				window.location.href = '../AdminTools.html';
+			}, 2000);
+			setTimeout(this);
 		} else {
 			alert('You failed.');
 		}

@@ -73,3 +73,12 @@ function findStringByKey(selectedArray, idArray, key, keyLength) {
 		here = false;
 	}
 }
+
+// Used in deleteList.js
+function deleteAlert() {
+	alert('Anime deleted');
+	setTimeout(function () {
+		window.location.href = './DeleteList.html';
+	}, 500);
+	setTimeout(this);
+}
