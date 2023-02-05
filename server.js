@@ -193,22 +193,29 @@ app.post('/PostAddAnime', async function (req, res) {
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
   
-	const safetyRegex = /[^;+]+$/;
-	for (const key in anime) {
-		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
-		}
-	}
-  
 	try {
-		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
+		console.log(req.body);
+  
+		const safetyRegex = /[^;+]+$/;
+		for (const key in anime) {
+			if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+				return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			}
+		}
+  
+		const selectedTitle = await connection.query(
+			'SELECT * from anime where aid = \'' + anime.aid + '\';'
+		);
 		if (selectedTitle.rows.length) {
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
   
-			await connection.query('UPDATE anime set ' +
+			await connection.query('BEGIN');
+  
+			await connection.query(
+				'UPDATE anime set ' +
 			'aid=\'' + anime.aid + '\', ' +
 			'title=\'' + anime.title + '\', ' +
 			'gid=\'' + anime.gid + '\', ' +
@@ -220,13 +227,18 @@ app.post('/PostEditAnime', async function (req, res) {
 			'ep_num=\'' + anime.ep_num + '\' ' +
 			'WHERE aid=\'' + anime.aid + '\';'
 			);
-			return res.status(200).json({msg: 'Anime edited'});
+  
+			await connection.query('COMMIT');
+  
+			return res.status(501).json({err: 'Anime edited'});
 		} else {
+			console.log('No anime to edit found');
 			return res.status(400).json({err: 'Title is missing'});
 		}
 	} catch (error) {
-		console.error(error);
-		return res.status(501).json({err: 'Could not edit anime'});
+		console.log('/EditAnime Error');
+		await connection.query('ROLLBACK');
+		return res.status(501);
 	}
 });
 
