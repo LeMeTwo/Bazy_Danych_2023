@@ -148,95 +148,84 @@ app.post('/PostAnimeTest', async function (req, res) {
 // Posts used to alter the database
 app.post('/PostAddAnime', async function (req, res) {
 	const anime = req.body;
-	try {
-		console.log(req.body);
-	} catch (error) {
-		return res.status(400).json({err: 'error'});
-	}
-
+  
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
-		if (!safetyRegex.test(key)) {
-			console.log('Wrong ' + key);
-			return res.status(400).json({err: 'Forbidden character in attribute'});
-		}
-		if (!safetyRegex.test(anime[key])) {
-			console.log('Wrong ' + anime[key]);
-			return res.status(400).json({err: 'Forbidden character in body'});
-		}
+		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+			return res.status(400).json({err: 'Forbidden character'}); }
 	}
-
+  
 	try {
-		console.log('SELECT * from anime where title = \'' + anime.title + '\';');
-		console.log('trying to add');
-		const selectedTitle = await connection.query('SELECT * from anime where title = \'' + anime.title + '\';');
+		const selectedTitle = await connection.query(`
+		SELECT * from anime where title = '${anime.title}';
+	  `);
 		if (selectedTitle.rows.length) {
 			return res.status(400).json({err: 'Title exists'});
 		} else {
-			console.log('Adding anime');
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
-			await connection.query(
-				'INSERT INTO anime VALUES (' +
-				'\'' + anime.aid + '\', \'' + anime.title + '\', \'' + anime.gid + '\', ' +
-				'\'' + anime.tid + '\', \'' + anime.fid + '\', \'' + anime.pid + '\', ' +
-				'\'' + anime.otid + '\', \'' + anime.oid + '\', ' + anime.ep_num + ', NULL);'
-			);
-			console.log('/PostAddAnime');
+  
+			await connection.query(`
+		  INSERT INTO anime 
+		  VALUES (
+			'${anime.aid}', 
+			'${anime.title}', 
+			'${anime.gid}', 
+			'${anime.tid}', 
+			'${anime.fid}', 
+			'${anime.pid}', 
+			'${anime.otid}', 
+			'${anime.oid}', 
+			${anime.ep_num}, 
+			NULL
+		  );
+		`);
 			return res.status(200).json({message: 'Anime added'});
 		}
 	} catch (error) {
-		console.log('/PostAddAnime Error');
 		return res.status(501);
 	}
 });
 
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
-	try {
-		console.log(req.body);
-	} catch (error) {
-		return res.status(400).json({err: 'error'});
-	}
-
+  
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
-		if (!safetyRegex.test(key)) {
-			console.log('Wrong ' + key);
-			return res.status(400).json({err: 'Forbidden character in attribute'});
-		}
-		if (!safetyRegex.test(anime[key])) {
-			console.log('Wrong ' + anime[key]);
-			return res.status(400).json({err: 'Forbidden character in body'});
+		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+			return res.status(400).json({err: 'Forbidden character in attribute or body'});
 		}
 	}
-
+  
 	try {
-		console.log('SELECT * from anime where aid = \'' + anime.aid + '\';');
-		console.log('trying to edit');
 		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
+  
 			await connection.query('UPDATE anime set ' +
-				'aid=\'' + anime.aid + '\', ' + 'title=\'' + anime.title + '\', ' + 'gid=\'' + anime.gid + '\', ' +
-				'tid=\'' + anime.tid + '\', ' + 'fid=\'' + anime.fid + '\', ' + 'pid=\'' + anime.pid + '\', ' +
-				'otid=\'' + anime.otid + '\', ' + 'oid=\'' + anime.oid + '\', ' + 'ep_num=\'' + anime.ep_num + '\' ' +
-				'WHERE aid=\'' + anime.aid + '\';'
+			'aid=\'' + anime.aid + '\', ' +
+			'title=\'' + anime.title + '\', ' +
+			'gid=\'' + anime.gid + '\', ' +
+			'tid=\'' + anime.tid + '\', ' +
+			'fid=\'' + anime.fid + '\', ' +
+			'pid=\'' + anime.pid + '\', ' +
+			'otid=\'' + anime.otid + '\', ' +
+			'oid=\'' + anime.oid + '\', ' +
+			'ep_num=\'' + anime.ep_num + '\' ' +
+			'WHERE aid=\'' + anime.aid + '\';'
 			);
-			return res.status(501).json({err: 'Anime edited'});
+			return res.status(200).json({msg: 'Anime edited'});
 		} else {
-			console.log('No anime to edit found');
-			console.log('/EditAddAnime');
 			return res.status(400).json({err: 'Title is missing'});
 		}
 	} catch (error) {
-		console.log('/EditAnime Error');
-		return res.status(501);
+		console.error(error);
+		return res.status(501).json({err: 'Could not edit anime'});
 	}
 });
 
