@@ -279,6 +279,84 @@ app.post('/PostDeleteAnime', async function (req, res) {
 	}
 });
 
+app.post('/PostDeleteCharacter', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from anime where aid = \'' + anime.aid + '\';');
+		console.log('trying to delete');
+		const selectedTitle = await connection.query('SELECT * from character where cid = \'' + anime.cid + '\';');
+		if (selectedTitle.rows.length) {
+			await connection.query('DELETE from character WHERE aid=\'' + anime.cid + '\';'
+			);
+			return res.status(501).json({err: 'Character deleted'});
+		} else {
+			console.log('Character already removed');
+			console.log('/DeleteAnime');
+			return res.status(400).json({err: 'Character already removed'});
+		}
+	} catch (error) {
+		console.log('/DeleteCharacter Error');
+		return res.status(501);
+	}
+});
+
+app.post('/PostDeleteVoiceActor', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from voice_actor where vid = \'' + anime.aid + '\';');
+		console.log('trying to delete');
+		const selectedTitle = await connection.query('SELECT * from voice_actor where vid = \'' + anime.vid + '\';');
+		if (selectedTitle.rows.length) {
+			await connection.query('DELETE from voice_actor WHERE vid=\'' + anime.vid + '\';'
+			);
+			return res.status(501).json({err: 'VA deleted'});
+		} else {
+			console.log('VA already removed');
+			console.log('/DeleteVoiceActor');
+			return res.status(400).json({err: 'VA already removed'});
+		}
+	} catch (error) {
+		console.log('/DeleteVA Error');
+		return res.status(501);
+	}
+});
+
 // Posts used to get data from the frontend
 app.post('/PostAnimeId', async function (req, res) {
 	animeMemory = req.body;
