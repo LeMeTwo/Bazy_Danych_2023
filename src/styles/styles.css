@@ -312,6 +312,46 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Settings for VoiceActorAdd.html file */
+/* Margins */
+#add-voice-actor-character-card {
+    margin: auto 0.9rem 1.8rem auto;
+}
+
+#add-voice-actor-button-card, #add-voice-actor-data-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+#add-voice-actor-name-card, #add-voice-actor-surname-card,
+#add-voice-actor-sex-card, #add-voice-actor-birthday-card,
+#add-voice-actor-home-card {
+    margin: 0.9rem 0.9rem auto;
+}
+
+#add-voice-actor-sex-card {
+    margin-bottom: 0.9rem;
+}
+
+/* Heights */
+#add-voice-actor-button-card, #add-voice-actor-name-card,
+#add-voice-actor-surname-card, #add-voice-actor-sex-card,
+#add-voice-actor-birthday-card, #add-voice-actor-home-card {
+    height: 5.2rem;
+}
+
+#add-voice-actor-data-card {
+    height: 33.64rem
+}
+
+/* Injected html settings */
+#addVoiceActorCharacter {
+    max-height: 35.95rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+
 /* Settings for Admin.html file */
 /* Margins */
 #add-anime-admin-button-card,
