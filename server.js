@@ -496,7 +496,7 @@ app.get('/GetMaxAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT max(aid) FROM anime;'
 	));
-	console.log('/GetAddGenre');
+	console.log('/GetMaxAid');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
@@ -506,7 +506,7 @@ app.get('/GetEditAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
-	console.log('/GetAddGenre');
+	console.log('/GetEditAid');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
@@ -640,6 +640,17 @@ app.get('/GetCharacterVoiceActor', async function (req, res) {
 		'SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = \'' + characterMemory.cid + '\' ;'
 	));
 	console.log('/GetCharacterVoiceActor');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Gets used by CharacterAdd.html and CharacterEdit.html
+app.get('/GetMaxCid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT max(cid) FROM character;'
+	));
+	console.log('/GetMaxCid');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
