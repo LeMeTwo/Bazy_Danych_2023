@@ -1,18 +1,18 @@
 /* eslint-disable no-undef */
 $().ready(function () {
-	const titleListUrl = 'http://localhost:8081/GetAnimeList';
-	fetch(titleListUrl)
+	const animeListUrl = 'http://localhost:8081/GetAnimeList';
+	fetch(animeListUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
 				const id = anime.aid[0];
 				const title =
 					'<li class="list-group-item d-flex flex-nowrap justify-content-between">' +
-					'<p style="display: none">' + anime.aid + ' ' + '</p>' +
+					'<p style="display: none">' + isNull(anime.aid) + ' ' + '</p>' +
 					'<h class="text-secondary text-truncate id=' + id + '">' +
-					anime.title +
+					isNull(anime.title) +
 					'</h>' +
-					'<button type="submit" id="deleteAnimeButton" onclick="deleteAlert()" ' +
+					'<button type="submit" id="deleteAnimeButton" onclick="animeDeleteAlert()" ' +
 					'class="btn btn-outline-secondary py-0">' + 'X' +
 					'</button>' +
 					'</li>';

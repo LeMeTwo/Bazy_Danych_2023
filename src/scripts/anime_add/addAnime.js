@@ -4,7 +4,7 @@ $().ready(function () {
 		'<button type="submit" id="addAnimeButton" ' +
 		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add anime' +
 		'</button>';
-	$('#clickButton').append(button);
+	$('#addAnimeButton').append(button);
 });
 
 $(function () {
