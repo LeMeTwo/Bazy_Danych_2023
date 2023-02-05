@@ -24,7 +24,7 @@ $().ready(function () {
 	$('#voiceActorList').on('click', 'button', function () {
 		const data = {};
 		data.vid = getNumber($(this).parent().text());
-		postData(data, 'PostAnimeTest')
+		postData(data, 'PostDeleteVoiceActor')
 			.then(response => response.json());
 	});
 });

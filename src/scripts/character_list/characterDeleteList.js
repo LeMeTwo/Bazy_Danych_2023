@@ -24,7 +24,7 @@ $().ready(function () {
 	$('#characterList').on('click', 'button', function () {
 		const data = {};
 		data.cid = getNumber($(this).parent().text());
-		postData(data, 'PostAnimeTest')
+		postData(data, 'PostDeleteCharacter')
 			.then(response => response.json());
 	});
 });
