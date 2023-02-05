@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 $().ready(function () {
 	const button =
-		'<button type="submit" id="addCharacterButton" ' +
-		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add Character' +
+		'<button type="submit" id="editCharacterButton" ' +
+		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Edit Character' +
 		'</button>';
 	$('#editCharacterButton').append(button);
 });
