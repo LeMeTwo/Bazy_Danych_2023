@@ -13,8 +13,8 @@ $(function () {
 	fetch(maxCidUrl)
 		.then(response => response.json())
 		.then(data => {
-			data.forEach(anime => {
-				cid = isNull(anime.max[0] + 1);
+			data.forEach(character => {
+				cid = isNull(character.max[0] + 1);
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -39,13 +39,13 @@ $(function () {
 			alert('Name can be maximum 20 characters long.');
 			text[0] = '';
 		}
-		if (text[1].length === 0) {
-			alert('You must enter a surname.');
-			text[1] = '';
-		}
 		if (text[1].length >= 21) {
 			alert('Surname can be maximum 20 characters long.');
 			text[1] = '';
+		}
+		// No compulsion to add a surname
+		if (text[1].length === 0) {
+			text[1] = null;
 		}
 		if (isNaN(text[2])) {
 			alert('Age must be an integer from 1 to 100.');
@@ -99,6 +99,9 @@ $(function () {
 		};
 
 		if (data.name !== '' && data.surname !== '' && data.age !== null) {
+			if (data.surname == null) {
+				data.surname = '';
+			}
 			postData(data, 'PostAnimeTest')
 				.then(response => response.json());
 
@@ -112,4 +115,3 @@ $(function () {
 		}
 	});
 });
-

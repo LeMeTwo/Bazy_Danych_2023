@@ -43,7 +43,7 @@ $(function () {
 			alert('Surname can be maximum 20 characters long.');
 			text[1] = '';
 		}
-		// No compulsion to add a name
+		// No compulsion to add a surname
 		if (text[1].length === 0) {
 			text[1] = null;
 		}
