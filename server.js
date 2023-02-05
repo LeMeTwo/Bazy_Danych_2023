@@ -301,7 +301,7 @@ app.post('/PostDeleteCharacter', async function (req, res) {
 
 	try {
 		console.log('SELECT * from anime where aid = \'' + anime.aid + '\';');
-		console.log('trying to delete');
+		console.log('trying to delete character');
 		const selectedTitle = await connection.query('SELECT * from character where cid = \'' + anime.cid + '\';');
 		if (selectedTitle.rows.length) {
 			await connection.query('DELETE from character WHERE aid=\'' + anime.cid + '\';'
@@ -340,19 +340,19 @@ app.post('/PostDeleteVoiceActor', async function (req, res) {
 
 	try {
 		console.log('SELECT * from voice_actor where vid = \'' + anime.aid + '\';');
-		console.log('trying to delete');
+		console.log('trying to delete voice actor');
 		const selectedTitle = await connection.query('SELECT * from voice_actor where vid = \'' + anime.vid + '\';');
 		if (selectedTitle.rows.length) {
 			await connection.query('DELETE from voice_actor WHERE vid=\'' + anime.vid + '\';'
 			);
-			return res.status(501).json({err: 'VA deleted'});
+			return res.status(501).json({err: 'Voice actor deleted'});
 		} else {
-			console.log('VA already removed');
+			console.log('Voice Actor already removed');
 			console.log('/DeleteVoiceActor');
-			return res.status(400).json({err: 'VA already removed'});
+			return res.status(400).json({err: 'Voice actor already removed'});
 		}
 	} catch (error) {
-		console.log('/DeleteVA Error');
+		console.log('/Delete voice actor Error');
 		return res.status(501);
 	}
 });
