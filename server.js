@@ -656,6 +656,16 @@ app.get('/GetMaxCid', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
+app.get('/GetEditCid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetEditCid');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
 // Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
 app.get('/GetVoiceActorList', async function (req, res) {
 	const result = (await connection.query(
@@ -734,6 +744,16 @@ app.get('/GetMaxVid', async function (req, res) {
 		'SELECT max(vid) FROM voice_actor;'
 	));
 	console.log('/GetMaxVid');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetEditVid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT vid FROM character WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+	));
+	console.log('/GetEditVid');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
