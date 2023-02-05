@@ -130,12 +130,12 @@ body {
     margin: auto 0.9rem 1.8rem;
 }
 
-#add-button-card, #add-origin-card, #add-place-card {
+#add-anime-button-card, #add-origin-card, #add-place-card {
     margin: auto auto 1.8rem 0.9rem;
 }
 
 /* Heights */
-#add-title-card, #add-ep-num-card, #add-button-card {
+#add-title-card, #add-ep-num-card, #add-anime-button-card {
     height: 5.2rem;
 }
 
@@ -161,12 +161,12 @@ body {
     margin: auto 0.9rem 1.8rem;
 }
 
-#edit-button-card, #edit-origin-card, #edit-place-card {
+#edit-anime-button-card, #edit-origin-card, #edit-place-card {
     margin: auto auto 1.8rem 0.9rem;
 }
 
 /* Heights */
-#edit-title-card, #edit-ep-num-card, #edit-button-card {
+#edit-title-card, #edit-ep-num-card, #edit-anime-button-card {
     height: 5.2rem;
 }
 
@@ -249,35 +249,41 @@ body {
 
 /* Settings for CharacterEdit.html file */
 /* Margins */
-#edit-title-card, #edit-genre-card, #edit-form-card {
+#edit-character-anime-card {
     margin: auto 0.9rem 1.8rem auto;
 }
 
-#edit-ep-num-card, #edit-target-card, #edit-other-tags-card {
-    margin: auto 0.9rem 1.8rem;
-}
-
-#edit-button-card, #edit-origin-card, #edit-place-card {
+#edit-character-button-card, #edit-character-data-card {
     margin: auto auto 1.8rem 0.9rem;
 }
 
+#edit-character-name-card, #edit-character-surname-card,
+#edit-character-sex-card, #edit-character-age-card {
+    margin: 1.8rem 1.8rem auto;
+}
+
+#edit-character-sex-card {
+    margin-bottom: 1.8rem;
+}
+
 /* Heights */
-#edit-title-card, #edit-ep-num-card, #edit-button-card {
+#edit-character-button-card, #edit-character-name-card,
+#edit-character-surname-card, #edit-character-sex-card,
+#edit-character-age-card {
     height: 5.2rem;
 }
 
-#edit-genre-card, #edit-target-card, #edit-form-card, #edit-place-card, #edit-other-tags-card, #edit-origin-card {
-    height: 18.487rem;
+#edit-character-data-card {
+    height: 33.64rem
 }
 
 /* Injected html settings */
-#editGenre, #editTarget, #editForm, #editPlace, #editOtherTags, #editOrigin {
-    height: 13.8rem;
+#editCharacterAnime {
+    max-height: 35.95rem;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-
 
 /* Settings for VoiceActorDetail.html file */
 /* Margins */
