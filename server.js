@@ -194,7 +194,7 @@ app.post('/PostAddAnime', async function (req, res) {
 });
 
 app.post('/PostEditAnime', async function (req, res) {
-	const anime = req.body
+	const anime = req.body;
 	try {
 		console.log(req.body);
 	} catch (error) {
