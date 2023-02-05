@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 $().ready(function () {
 	const button =
-		'<button type="submit" id="addCharacterButton" ' +
+		'<button type="submit" id="addVoiceActorButton" ' +
 		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add Voice Actor' +
 		'</button>';
 	$('#addVoiceActorButton').append(button);
@@ -106,7 +106,7 @@ $(function () {
 			postData(data, 'PostAnimeTest')
 				.then(response => response.json());
 
-			alert('Character added');
+			alert('Voice actor added');
 			setTimeout(function () {
 				window.location.href = '../Admin.html';
 			}, 2000);
