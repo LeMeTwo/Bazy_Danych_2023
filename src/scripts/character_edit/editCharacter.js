@@ -4,7 +4,7 @@ $().ready(function () {
 		'<button type="submit" id="addCharacterButton" ' +
 		'class="btn btn-outline-secondary btn-lg text-truncate">' + 'Add Character' +
 		'</button>';
-	$('#addCharacterButton').append(button);
+	$('#editCharacterButton').append(button);
 });
 
 $(function () {
