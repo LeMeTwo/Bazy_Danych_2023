@@ -657,7 +657,6 @@ app.get('/GetMaxCid', async function (req, res) {
 });
 
 // Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
-
 app.get('/GetVoiceActorList', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT vid, name, surname FROM voice_actor;'
@@ -724,6 +723,17 @@ app.get('/GetVoiceActorHome', async function (req, res) {
 		'SELECT vid, home FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
 	));
 	console.log('/GetVoiceActorHome');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+// Gets used by VoiceActorAdd.html and VoiceActorEdit.html
+app.get('/GetMaxVid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT max(vid) FROM voice_actor;'
+	));
+	console.log('/GetMaxVid');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
