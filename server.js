@@ -148,13 +148,14 @@ app.post('/PostAnimeTest', async function (req, res) {
 // Posts used to alter the database
 app.post('/PostAddAnime', async function (req, res) {
 	const anime = req.body;
-  
+
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character'}); }
+			return res.status(400).json({err: 'Forbidden character'});
+		}
 	}
-  
+
 	try {
 		const selectedTitle = await connection.query(`
 		SELECT * from anime where title = '${anime.title}';
@@ -166,7 +167,7 @@ app.post('/PostAddAnime', async function (req, res) {
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
-  
+
 			await connection.query(`
 		  INSERT INTO anime 
 		  VALUES (
@@ -191,14 +192,14 @@ app.post('/PostAddAnime', async function (req, res) {
 
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
-  
+
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
 			return res.status(400).json({err: 'Forbidden character in attribute or body'});
 		}
 	}
-  
+
 	try {
 		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
@@ -206,18 +207,18 @@ app.post('/PostEditAnime', async function (req, res) {
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
-  
+
 			await connection.query('UPDATE anime set ' +
-			'aid=\'' + anime.aid + '\', ' +
-			'title=\'' + anime.title + '\', ' +
-			'gid=\'' + anime.gid + '\', ' +
-			'tid=\'' + anime.tid + '\', ' +
-			'fid=\'' + anime.fid + '\', ' +
-			'pid=\'' + anime.pid + '\', ' +
-			'otid=\'' + anime.otid + '\', ' +
-			'oid=\'' + anime.oid + '\', ' +
-			'ep_num=\'' + anime.ep_num + '\' ' +
-			'WHERE aid=\'' + anime.aid + '\';'
+				'aid=\'' + anime.aid + '\', ' +
+				'title=\'' + anime.title + '\', ' +
+				'gid=\'' + anime.gid + '\', ' +
+				'tid=\'' + anime.tid + '\', ' +
+				'fid=\'' + anime.fid + '\', ' +
+				'pid=\'' + anime.pid + '\', ' +
+				'otid=\'' + anime.otid + '\', ' +
+				'oid=\'' + anime.oid + '\', ' +
+				'ep_num=\'' + anime.ep_num + '\' ' +
+				'WHERE aid=\'' + anime.aid + '\';'
 			);
 			return res.status(200).json({msg: 'Anime edited'});
 		} else {
@@ -634,7 +635,26 @@ app.get('/GetCharacterVoiceActor', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
+// Gets used by CharacterAdd.html and CharacterEdit.html
+app.get('/GetMaxCid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT max(cid) FROM character;'
+	));
+	console.log('/GetMaxCid');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
+
+app.get('/GetEditCid', async function (req, res) {
+	const result = (await connection.query(
+		'SELECT cid FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
+	));
+	console.log('/GetEditCid');
+	const jResponse = result.rows;
+	res.setHeader('Content-Type', 'application/json');
+	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
+});
 
 // Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
 app.get('/GetVoiceActorList', async function (req, res) {
