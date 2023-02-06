@@ -152,8 +152,7 @@ app.post('/PostAddAnime', async function (req, res) {
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character'});
-		}
+			return res.status(400).json({err: 'Forbidden character'}); }
 	}
   
 	try {
@@ -193,29 +192,22 @@ app.post('/PostAddAnime', async function (req, res) {
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
   
-	try {
-		console.log(req.body);
-  
-		const safetyRegex = /[^;+]+$/;
-		for (const key in anime) {
-			if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
-				return res.status(400).json({err: 'Forbidden character in attribute or body'});
-			}
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+			return res.status(400).json({err: 'Forbidden character in attribute or body'});
 		}
+	}
   
-		const selectedTitle = await connection.query(
-			'SELECT * from anime where aid = \'' + anime.aid + '\';'
-		);
+	try {
+		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
 				return res.status(401).json({err: 'Wrong number of episodes'});
 			}
   
-			await connection.query('BEGIN');
-  
-			await connection.query(
-				'UPDATE anime set ' +
+			await connection.query('UPDATE anime set ' +
 			'aid=\'' + anime.aid + '\', ' +
 			'title=\'' + anime.title + '\', ' +
 			'gid=\'' + anime.gid + '\', ' +
@@ -227,18 +219,13 @@ app.post('/PostEditAnime', async function (req, res) {
 			'ep_num=\'' + anime.ep_num + '\' ' +
 			'WHERE aid=\'' + anime.aid + '\';'
 			);
-  
-			await connection.query('COMMIT');
-  
-			return res.status(501).json({err: 'Anime edited'});
+			return res.status(200).json({msg: 'Anime edited'});
 		} else {
-			console.log('No anime to edit found');
 			return res.status(400).json({err: 'Title is missing'});
 		}
 	} catch (error) {
-		console.log('/EditAnime Error');
-		await connection.query('ROLLBACK');
-		return res.status(501);
+		console.error(error);
+		return res.status(501).json({err: 'Could not edit anime'});
 	}
 });
 
@@ -498,7 +485,7 @@ app.get('/GetMaxAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT max(aid) FROM anime;'
 	));
-	console.log('/GetMaxAid');
+	console.log('/GetAddGenre');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
@@ -508,7 +495,7 @@ app.get('/GetEditAid', async function (req, res) {
 	const result = (await connection.query(
 		'SELECT aid FROM anime WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
-	console.log('/GetEditAid');
+	console.log('/GetAddGenre');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
@@ -647,26 +634,7 @@ app.get('/GetCharacterVoiceActor', async function (req, res) {
 	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
 });
 
-// Gets used by CharacterAdd.html and CharacterEdit.html
-app.get('/GetMaxCid', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT max(cid) FROM character;'
-	));
-	console.log('/GetMaxCid');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
-
-app.get('/GetEditCid', async function (req, res) {
-	const result = (await connection.query(
-		'SELECT cid FROM character WHERE cid = \'' + characterMemory.cid + '\' ;'
-	));
-	console.log('/GetEditCid');
-	const jResponse = result.rows;
-	res.setHeader('Content-Type', 'application/json');
-	res.status(200).json(JSON.parse(JSON.stringify(jResponse)));
-});
+// Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
 
 // Get used by VoiceActorList.html,VoiceActorEditList.html and VoiceActorDeleteList.html
 app.get('/GetVoiceActorList', async function (req, res) {
