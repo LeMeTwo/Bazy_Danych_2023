@@ -9,7 +9,7 @@ $().ready(function () {
 
 $(function () {
 	let cid = '';
-	const editedCidUrl = 'http://localhost:8081/GetEditedCid';
+	const editedCidUrl = 'http://localhost:8081/GetEditCid';
 	fetch(editedCidUrl)
 		.then(response => response.json())
 		.then(data => {

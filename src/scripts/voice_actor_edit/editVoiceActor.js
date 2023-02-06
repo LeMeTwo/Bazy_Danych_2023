@@ -9,7 +9,7 @@ $().ready(function () {
 
 $(function () {
 	let cid = '';
-	const editedVidUrl = 'http://localhost:8081/GetEditedVid';
+	const editedVidUrl = 'http://localhost:8081/GetEditVid';
 	fetch(editedVidUrl)
 		.then(response => response.json())
 		.then(data => {
