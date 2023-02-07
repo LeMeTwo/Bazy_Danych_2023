@@ -190,6 +190,85 @@ app.post('/PostAddAnime', async function (req, res) {
 	}
 });
 
+app.post('/PostAddCharacter', async function (req, res) {
+	const anime = req.body;
+  
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+			return res.status(400).json({err: 'Forbidden character'});
+		}
+	}
+  
+	try {
+		const selectedCharacter = await connection.query(`
+		SELECT * from character where cid = '${anime.cid}';
+	  `);
+		if (selectedCharacter.rows.length) {
+			return res.status(400).json({err: 'Character exists'});
+		} else {
+			const pattern = /^[\d\{\}]+$/;
+			if (!pattern.test(anime.age.toString())) {
+				return res.status(401).json({err: 'Wrong number of episodes'});
+			}
+  
+			await connection.query(`
+		  INSERT INTO anime 
+		  VALUES (
+			'${anime.cid}', 
+			'${anime.name}', 
+			'${anime.surname}', 
+			'${anime.aid}', 
+			'${anime.sex}', 
+			'${anime.age}', 
+			'${anime.vid}', 
+			NULL
+		  );
+		`);
+			return res.status(200).json({message: 'Character added'});
+		}
+	} catch (error) {
+		return res.status(501);
+	}
+});
+
+app.post('/PostAddVoiceActor', async function (req, res) {
+	const anime = req.body;
+  
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+			return res.status(400).json({err: 'Forbidden character'});
+		}
+	}
+  
+	try {
+		const selectedCharacter = await connection.query(`
+		SELECT * from voice_actor where vic = '${anime.vid}';
+	  `);
+		if (selectedCharacter.rows.length) {
+			return res.status(400).json({err: 'Voice actor exists'});
+		} else {
+  
+			await connection.query(`
+		  INSERT INTO anime 
+		  VALUES (
+			'${anime.vid}', 
+			'${anime.name}', 
+			'${anime.surname}', 
+			'${anime.sex}', 
+			'${anime.birth}', 
+			'${anime.home}', 
+			NULL
+		  );
+		`);
+			return res.status(200).json({message: 'Character added'});
+		}
+	} catch (error) {
+		return res.status(501);
+	}
+});
+
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
   
@@ -242,6 +321,96 @@ app.post('/PostEditAnime', async function (req, res) {
 	}
 });
 
+app.post('/PostEditVoiceActor', async function (req, res) {
+	const anime = req.body;
+  
+	try {
+		console.log(req.body);
+  
+		const safetyRegex = /[^;+]+$/;
+		for (const key in anime) {
+			if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+				return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			}
+		}
+  
+		const selectedTitle = await connection.query(
+			'SELECT * from voice_actor where vid = \'' + anime.vid + '\';'
+		);
+		if (selectedTitle.rows.length) {
+  
+			await connection.query('BEGIN');
+  
+			await connection.query(
+				'UPDATE voice_actor set ' +
+			'vid=\'' + anime.vid + '\', ' +
+			'name=\'' + anime.name + '\', ' +
+			'surname=\'' + anime.surname + '\', ' +
+			'sex=\'' + anime.sex + '\', ' +
+			'birth=\'' + anime.birth + '\', ' +
+			'home=\'' + anime.home + '\', ' +
+			'WHERE vid=\'' + anime.aid + '\';'
+			);
+  
+			await connection.query('COMMIT');
+  
+			return res.status(501).json({err: 'Voice Actor edited'});
+		} else {
+			console.log('No character to edit found');
+			return res.status(400).json({err: 'Voice Actor is missing'});
+		}
+	} catch (error) {
+		console.log('/EditVoiceActor Error');
+		await connection.query('ROLLBACK');
+		return res.status(501);
+	}
+});
+
+app.post('/PostEditCharacter', async function (req, res) {
+	const anime = req.body;
+  
+	try {
+		console.log(req.body);
+  
+		const safetyRegex = /[^;+]+$/;
+		for (const key in anime) {
+			if (!safetyRegex.test(key) || !safetyRegex.test(anime[key])) {
+				return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			}
+		}
+  
+		const selectedTitle = await connection.query(
+			'SELECT * from character where cid = \'' + anime.cid + '\';'
+		);
+		if (selectedTitle.rows.length) {
+  
+			await connection.query('BEGIN');
+  
+			await connection.query(
+				'UPDATE character set ' +
+			'vid=\'' + anime.cid + '\', ' +
+			'name=\'' + anime.name + '\', ' +
+			'surname=\'' + anime.surname + '\', ' +
+			'sex=\'' + anime.aid + '\', ' +
+			'birth=\'' + anime.sex + '\', ' +
+			'home=\'' + anime.age + '\', ' +
+			'WHERE aid=\'' + anime.aid + '\';'
+			);
+  
+			await connection.query('COMMIT');
+  
+			return res.status(501).json({err: 'Character edited'});
+		} else {
+			console.log('No character to edit found');
+			return res.status(400).json({err: 'Character is missing'});
+		}
+	} catch (error) {
+		console.log('/EditAnime Error');
+		await connection.query('ROLLBACK');
+		return res.status(501);
+	}
+});
+
 app.post('/PostDeleteAnime', async function (req, res) {
 	const anime = req.body;
 	try {
@@ -277,6 +446,84 @@ app.post('/PostDeleteAnime', async function (req, res) {
 		}
 	} catch (error) {
 		console.log('/DeleteAnime Error');
+		return res.status(501);
+	}
+});
+
+app.post('/PostDeleteVoiceActor', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from voice_actor where vid = \'' + anime.vid + '\';');
+		console.log('trying to delete');
+		const selectedTitle = await connection.query('SELECT * from voice_actor where aid = \'' + anime.vid + '\';');
+		if (selectedTitle.rows.length) {
+			await connection.query('DELETE from voice_actor WHERE vid=\'' + anime.vid + '\';'
+			);
+			return res.status(501).json({err: 'Voice Actor deleted'});
+		} else {
+			console.log('Voice Actor already removed');
+			console.log('/DeleteVoiceActor');
+			return res.status(400).json({err: 'Voice Actor already removed'});
+		}
+	} catch (error) {
+		console.log('/DeleteVoiceActors Error');
+		return res.status(501);
+	}
+});
+
+app.post('/PostDeleteCharacter', async function (req, res) {
+	const anime = req.body;
+	try {
+		console.log(req.body);
+	} catch (error) {
+		return res.status(400).json({err: 'error'});
+	}
+
+	const safetyRegex = /[^;+]+$/;
+	for (const key in anime) {
+		if (!safetyRegex.test(key)) {
+			console.log('Wrong ' + key);
+			return res.status(400).json({err: 'Forbidden character in attribute'});
+		}
+		if (!safetyRegex.test(anime[key])) {
+			console.log('Wrong ' + anime[key]);
+			return res.status(400).json({err: 'Forbidden character in body'});
+		}
+	}
+
+	try {
+		console.log('SELECT * from character where cid = \'' + anime.cid + '\';');
+		console.log('trying to delete');
+		const selectedTitle = await connection.query('SELECT * from character where cid = \'' + anime.cid + '\';');
+		if (selectedTitle.rows.length) {
+			await connection.query('DELETE from character WHERE cid=\'' + anime.cid + '\';'
+			);
+			return res.status(501).json({err: 'Character deleted'});
+		} else {
+			console.log('Character already removed');
+			console.log('/DeleteCharacter');
+			return res.status(400).json({err: 'Character already removed'});
+		}
+	} catch (error) {
+		console.log('/DeleteCharacter Error');
 		return res.status(501);
 	}
 });
