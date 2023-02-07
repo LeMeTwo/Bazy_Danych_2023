@@ -61,7 +61,7 @@ $(function () {
 					text[2] = '';
 				} else {
 					text[2] = parseInt(text[2]);
-					if (text[2] <= 0 || text[2] >= 101) {
+					if (text[2] <= 0 || text[2] >= 1000001) {
 						alert('Episode number must be an integer from 1 to 100.');
 						text[2] = '';
 					}
