@@ -52,17 +52,17 @@ $(function () {
 			text[2] = null;
 		} else {
 			if (isNaN(text[2])) {
-				alert('Age must be an integer from 1 to 100.');
+				alert('Must be an integer from 1 to 1000000.');
 				text[2] = '';
 			} else {
 				text[2] = parseFloat(text[2]);
 				if (!Number.isSafeInteger(text[2] - parseInt(text[2]))) {
-					alert('Age must be an integer from 1 to 100.');
+					alert('Must be an integer from 1 to 1000000.');
 					text[2] = '';
 				} else {
 					text[2] = parseInt(text[2]);
 					if (text[2] <= 0 || text[2] >= 1000001) {
-						alert('Episode number must be an integer from 1 to 100.');
+						alert('Must be an integer from 1 to 1000000.');
 						text[2] = '';
 					}
 				}
