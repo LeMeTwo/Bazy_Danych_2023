@@ -67,6 +67,8 @@ body {
 }
 
 /* Settings for AnimeList.html, CharacterList.html and VoiceActorList.html files */
+/* Settings for AnimeEditList.html, CharacterEditList.html and VoiceActorEditList.html files */
+/* Settings for AnimeDeleteList.html, CharacterDeleteList.html and VoiceActorDeleteList.html files */
 #anime-list-card, #character-list-card, #voice-actor-list-card {
     margin: auto auto 1.8rem;
     max-width: 40rem;
@@ -351,6 +353,44 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+/* Settings for VoiceActorEdit.html file */
+/* Margins */
+#edit-voice-actor-character-card {
+    margin: auto 0.9rem 1.8rem auto;
+}
+
+#edit-voice-actor-button-card, #edit-voice-actor-data-card {
+    margin: auto auto 1.8rem 0.9rem;
+}
+
+#edit-voice-actor-name-card, #edit-voice-actor-surname-card,
+#edit-voice-actor-sex-card, #edit-voice-actor-birthday-card,
+#edit-voice-actor-home-card {
+    margin: 0.9rem 0.9rem auto;
+}
+
+#edit-voice-actor-sex-card {
+    margin-bottom: 0.9rem;
+}
+
+/* Heights */
+#edit-voice-actor-button-card, #edit-voice-actor-name-card,
+#edit-voice-actor-surname-card, #edit-voice-actor-sex-card,
+#edit-voice-actor-birthday-card, #edit-voice-actor-home-card {
+    height: 5.2rem;
+}
+
+#edit-voice-actor-data-card {
+    height: 33.64rem
+}
+
+/* Injected html settings */
+#editVoiceActorCharacter {
+    max-height: 35.95rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 /* Settings for Admin.html file */
 /* Margins */
