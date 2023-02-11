@@ -413,7 +413,7 @@ app.get('/GetDetailCharacterList', async function (req, res) {
 
 app.get('/GetDetailGenre', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT g.gid, g.name FROM anime a INNER JOIN genre g ON (a.gid @> g.gid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailGenre');
 	const jResponse = result.rows;
@@ -423,7 +423,7 @@ app.get('/GetDetailGenre', async function (req, res) {
 
 app.get('/GetDetailTarget', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT t.tid, t.name FROM anime a INNER JOIN target t ON (a.tid @> t.tid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailTarget');
 	const jResponse = result.rows;
@@ -433,7 +433,7 @@ app.get('/GetDetailTarget', async function (req, res) {
 
 app.get('/GetDetailForm', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT f.fid, f.name FROM anime a INNER JOIN form f ON (a.fid @> f.fid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailForm');
 	const jResponse = result.rows;
@@ -443,7 +443,7 @@ app.get('/GetDetailForm', async function (req, res) {
 
 app.get('/GetDetailPlace', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT p.pid, p.name FROM anime a INNER JOIN place p ON (a.pid @> p.pid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailPlace');
 	const jResponse = result.rows;
@@ -453,7 +453,7 @@ app.get('/GetDetailPlace', async function (req, res) {
 
 app.get('/GetDetailOtherTags', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT ot.otid, ot.name FROM anime a INNER JOIN other_tags ot ON (a.otid @> ot.otid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailOtherTags');
 	const jResponse = result.rows;
@@ -463,7 +463,7 @@ app.get('/GetDetailOtherTags', async function (req, res) {
 
 app.get('/GetDetailOrigin', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE aid = \'' + animeMemory.aid + '\' ;'
+		'SELECT o.oid, o.name FROM anime a INNER JOIN origin o ON (a.oid @> o.oid) WHERE aid = \'' + animeMemory.aid + '\' ;'
 	));
 	console.log('/GetDetailOrigin');
 	const jResponse = result.rows;
