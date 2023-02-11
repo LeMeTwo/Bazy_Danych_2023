@@ -110,7 +110,7 @@ $(function () {
 			if (data.age == null) {
 				data.age = '';
 			}
-			postData(data, 'PostPostAddCharacter')
+			postData(data, 'PostAddCharacter')
 				.then(response => response.json());
 
 			alert('Character added');
