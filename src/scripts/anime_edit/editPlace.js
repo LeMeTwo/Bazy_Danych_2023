@@ -6,7 +6,7 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
-				placeTab.push(isNull(anime.name));
+				placeTab.push(isNull(String(anime.pid)));
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -17,7 +17,7 @@ $().ready(function () {
 		.then(data => {
 			data.forEach(anime => {
 				const id = 'p:' + isNull(anime.pid[0]);
-				if (placeTab.includes(anime.name)) {
+				if (placeTab.includes(String(anime.pid))) {
 					const name =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +

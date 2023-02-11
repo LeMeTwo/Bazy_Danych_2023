@@ -8,13 +8,13 @@ $().ready(function () {
 });
 
 $(function () {
-	let cid = '';
-	const editedVidUrl = 'http://localhost:8081/GetEditedVid';
+	let vid = '';
+	const editedVidUrl = 'http://localhost:8081/GetEditVid';
 	fetch(editedVidUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(voiceActor => {
-				cid = isNull(voiceActor.vid);
+				vid = isNull(voiceActor.vid);
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -48,6 +48,7 @@ $(function () {
 			text[1] = null;
 		}
 
+		// Prepare home format
 		let input = text[3].split(',');
 		let words = [];
 		let lines = [];
@@ -90,20 +91,20 @@ $(function () {
 		});
 
 		let data = {
-			'cid': '{' + cid + '}',
+			'vid': '{' + vid + '}',
 			'name': text[0],
 			'surname': text[1],
-			'date': text[2],
+			'birth': text[2],
 			'home': '{' + home + '}',
 			'sex': sex,
-			'aid': '{' + selected.join(',') + '}',
+			'cid': '{' + selected.join(',') + '}',
 		};
 
 		if (data.name !== '' && data.surname !== '') {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostEditVoiceActor')
 				.then(response => response.json());
 
 			alert('Voice actor edited');

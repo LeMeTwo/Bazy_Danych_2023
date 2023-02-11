@@ -1,44 +1,44 @@
 /* eslint-disable no-undef */
 $().ready(function () {
-	const originUrl = 'http://localhost:8081/GetDetailOrigin';
-	let originTab = [];
-	fetch(originUrl)
+	const characterTitleListUrl = 'http://localhost:8081/GetCharacterTitleList';
+	let titleTab = [];
+	fetch(characterTitleListUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
-				originTab.push(isNull(String(anime.oid)));
+				titleTab.push(isNull(String(anime.aid)));
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	const addOriginUrl = 'http://localhost:8081/GetAddOrigin';
-	fetch(addOriginUrl)
+	const animeListUrl = 'http://localhost:8081/GetAnimeList';
+	fetch(animeListUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
-				const id = 'o:' + isNull(anime.oid[0]);
-				if (originTab.includes(String(anime.oid))) {
-					const name =
+				const id = anime.aid[0];
+				if (titleTab.includes(String(anime.aid))) {
+					const title =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +
 						'<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData" checked>' +
 						'<label class="form-check-label text-truncate" for="flexCheckData">' +
-						isNull(anime.name) +
+						isNull(anime.title) +
 						'</label>' +
 						'</div>' +
 						'</li>';
-					$('#editOrigin').append(name);
+					$('#editCharacterAnime').append(title);
 				} else {
-					const name =
+					const title =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +
 						'<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
 						'<label class="form-check-label text-truncate" for="flexCheckData">' +
-						isNull(anime.name) +
+						isNull(anime.title) +
 						'</label>' +
 						'</div>' +
 						'</li>';
-					$('#editOrigin').append(name);
+					$('#editCharacterAnime').append(title);
 				}
 			});
 		})

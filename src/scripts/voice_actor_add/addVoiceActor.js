@@ -8,13 +8,13 @@ $().ready(function () {
 });
 
 $(function () {
-	let cid = '';
+	let vid = '';
 	const maxVidUrl = 'http://localhost:8081/GetMaxVid';
 	fetch(maxVidUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(voiceActor => {
-				cid = isNull(voiceActor.max[0] + 1);
+				vid = isNull(voiceActor.max[0] + 1);
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -48,6 +48,14 @@ $(function () {
 			text[1] = null;
 		}
 
+		// Prepare date format
+		if (text[2].length !== 0) {
+			let date = String(text[2]);
+			let parts = date.split('/');
+			text[2] = parts[2] + '/' + parts[0] + '/' + parts[1];
+		}
+
+		// Prepare home format
 		let input = text[3].split(',');
 		let words = [];
 		let lines = [];
@@ -90,20 +98,20 @@ $(function () {
 		});
 
 		let data = {
-			'cid': '{' + cid + '}',
+			'vid': '{' + vid + '}',
 			'name': text[0],
 			'surname': text[1],
-			'date': text[2],
+			'birth': text[2],
 			'home': '{' + home + '}',
 			'sex': sex,
-			'aid': '{' + selected.join(',') + '}',
+			'cid': '{' + selected.join(',') + '}',
 		};
 
 		if (data.name !== '' && data.surname !== '') {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
 
 			alert('Voice actor added');

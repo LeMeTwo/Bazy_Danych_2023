@@ -1,44 +1,44 @@
 /* eslint-disable no-undef */
 $().ready(function () {
-	const originUrl = 'http://localhost:8081/GetDetailOrigin';
-	let originTab = [];
-	fetch(originUrl)
+	const voiceActorCharacterListUrl = 'http://localhost:8081/GetVoiceActorCharacterList';
+	let characterTab = [];
+	fetch(voiceActorCharacterListUrl)
 		.then(response => response.json())
 		.then(data => {
-			data.forEach(anime => {
-				originTab.push(isNull(String(anime.oid)));
+			data.forEach(character => {
+				characterTab.push(isNull(String(character.cid)));
 			});
 		})
 		.catch(err => console.log(err)); //to file
 
-	const addOriginUrl = 'http://localhost:8081/GetAddOrigin';
-	fetch(addOriginUrl)
+	const characterListUrl = 'http://localhost:8081/GetCharacterList';
+	fetch(characterListUrl)
 		.then(response => response.json())
 		.then(data => {
-			data.forEach(anime => {
-				const id = 'o:' + isNull(anime.oid[0]);
-				if (originTab.includes(String(anime.oid))) {
+			data.forEach(character => {
+				const id = character.cid[0];
+				if (characterTab.includes(String(character.cid))) {
 					const name =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +
 						'<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData" checked>' +
 						'<label class="form-check-label text-truncate" for="flexCheckData">' +
-						isNull(anime.name) +
+						isNullComma(character.surname) + isNull(character.name) +
 						'</label>' +
 						'</div>' +
 						'</li>';
-					$('#editOrigin').append(name);
+					$('#editVoiceActorCharacter').append(name);
 				} else {
 					const name =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +
 						'<input class="form-check-input" type="checkbox" value="' + id + '" id="flexCheckData">' +
 						'<label class="form-check-label text-truncate" for="flexCheckData">' +
-						isNull(anime.name) +
+						isNullComma(character.surname) + isNull(character.name) +
 						'</label>' +
 						'</div>' +
 						'</li>';
-					$('#editOrigin').append(name);
+					$('#editVoiceActorCharacter').append(name);
 				}
 			});
 		})

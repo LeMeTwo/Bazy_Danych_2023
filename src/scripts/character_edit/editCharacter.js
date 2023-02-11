@@ -9,7 +9,7 @@ $().ready(function () {
 
 $(function () {
 	let cid = '';
-	const editedCidUrl = 'http://localhost:8081/GetEditedCid';
+	const editedCidUrl = 'http://localhost:8081/GetEditCid';
 	fetch(editedCidUrl)
 		.then(response => response.json())
 		.then(data => {
@@ -47,19 +47,24 @@ $(function () {
 		if (text[1].length === 0) {
 			text[1] = null;
 		}
-		if (isNaN(text[2])) {
-			alert('Age must be an integer from 1 to 100.');
+		// No compulsion to add age
+		if (text[2].length === 0) {
 			text[2] = null;
 		} else {
-			text[2] = parseFloat(text[2]);
-			if (!Number.isSafeInteger(text[2] - parseInt(text[2]))) {
-				alert('Age must be an integer from 1 to 100.');
-				text[2] = null;
+			if (isNaN(text[2])) {
+				alert('Must be an integer from 1 to 1000000.');
+				text[2] = '';
 			} else {
-				text[2] = parseInt(text[2]);
-				if (text[2] <= 0 || text[2] >= 101) {
-					alert('Episode number must be an integer from 1 to 100.');
-					text[2] = null;
+				text[2] = parseFloat(text[2]);
+				if (!Number.isSafeInteger(text[2] - parseInt(text[2]))) {
+					alert('Must be an integer from 1 to 1000000.');
+					text[2] = '';
+				} else {
+					text[2] = parseInt(text[2]);
+					if (text[2] <= 0 || text[2] >= 1000001) {
+						alert('Must be an integer from 1 to 1000000.');
+						text[2] = '';
+					}
 				}
 			}
 		}
@@ -98,11 +103,14 @@ $(function () {
 			'aid': '{' + selected.join(',') + '}',
 		};
 
-		if (data.name !== '' && data.surname !== '' && data.age !== null) {
+		if (data.name !== '' && data.surname !== '' && data.age !== '') {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			if (data.age == null) {
+				data.age = '';
+			}
+			postData(data, 'PostEditCharacter')
 				.then(response => response.json());
 
 			alert('Character edited');
