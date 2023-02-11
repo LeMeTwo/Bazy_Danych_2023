@@ -103,7 +103,7 @@ $(function () {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
 
 			alert('Voice actor added');
