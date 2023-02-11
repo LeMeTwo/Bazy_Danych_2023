@@ -48,6 +48,14 @@ $(function () {
 			text[1] = null;
 		}
 
+		// Prepare date format
+		if (text[2].length !== 0) {
+			let date = String(text[2]);
+			let parts = date.split('/');
+			text[2] = parts[2] + '/' + parts[0] + '/' + parts[1];
+		}
+
+		// Prepare home format
 		let input = text[3].split(',');
 		let words = [];
 		let lines = [];
@@ -105,7 +113,7 @@ $(function () {
 			}
 			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
-			y;
+
 			alert('Voice actor added');
 			setTimeout(function () {
 				window.location.href = '../Admin.html';
