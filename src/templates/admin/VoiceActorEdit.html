@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Voice Actor test</title>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="../../scripts/methods.js"></script>
+    <script src="../../scripts/voice_actor_edit/editVoiceActor.js"></script>
+    <script src="../../scripts/voice_actor_edit/editVoiceActorCharacter.js"></script>
+    <script src="../../scripts/voice_actor_edit/editName.js"></script>
+    <script src="../../scripts/voice_actor_edit/editSurname.js"></script>
+    <script src="../../scripts/voice_actor_edit/editSex.js"></script>
+    <script src="../../scripts/voice_actor_edit/editHome.js"></script>
+    <script src="../../scripts/voice_actor_edit/editBirthday.js"></script>
+    <script type="text/javascript">
+		$(function () {
+			$('#datepicker').datepicker();
+		});
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://shinden.pl/">Shinden</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../Home.html">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../AnimeList.html">Anime</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../CharacterList.html">Character</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../VoiceActorList.html">Voice Actor</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../Admin.html">Admin</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../Home.html">Account</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../Home.html">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="entry p-4">
+    <div class="container">
+        <p class="display-5">Edit Voice Actor</p>
+        <hr class="my-0">
+    </div>
+</div>
+<form id="edit_voice_actor_form" method="POST">
+    <div class="container content">
+        <div class="col-8">
+            <div class="card" id="edit-voice-actor-character-card">
+                <h5 class="card-header text-truncate">Edit character</h5>
+                <div class="card-body">
+                    <ul class='list-group' id="editVoiceActorCharacter"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="edit-voice-actor-button-card">
+                <div class="card-body">
+                    <div class="d-grid gap-2" id="editVoiceActorButton"></div>
+                </div>
+            </div>
+            <div class="card" id="edit-voice-actor-data-card">
+                <h5 class="card-header text-truncate">Edit voice actor personal data</h5>
+                <div class="card" id="edit-voice-actor-name-card">
+                    <div class="card-body">
+                        <p class="card-text text-truncate" id="editVoiceActorName"></p>
+                    </div>
+                </div>
+                <div class="card" id="edit-voice-actor-surname-card">
+                    <div class="card-body">
+                        <p class="card-text text-truncate" id="editVoiceActorSurname"></p>
+                    </div>
+                </div>
+                <div class="card" id="edit-voice-actor-birthday-card">
+                    <div class="card-body">
+                        <p class="card-text text-truncate" id="editVoiceActorBirthday"></p>
+                    </div>
+                </div>
+                <div class="card" id="edit-voice-actor-home-card">
+                    <div class="card-body">
+                        <p class="card-text text-truncate" id="editVoiceActorHome"></p>
+                    </div>
+                </div>
+                <div class="card" id="edit-voice-actor-sex-card">
+                    <div class="card-body">
+                        <p class="card-text text-truncate" id="editVoiceActorSex"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<footer class="footer mt-auto py-2">
+    <div class="container text-center">
+        <span class="text text-muted">ablewski@student.agh.edu.pl kryca@student.agh.edu.pl</span>
+    </div>
+</footer>
+</body>
+</html>
