@@ -5,7 +5,7 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(actor => {
-				const birth = isNull(getDate(actor.birth)).replaceAll('-', '/');
+				const birth = isNull(getDate(actor.birth));
 				const birthday =
 					'<div class="mt-1">' +
 					'<form>' +
