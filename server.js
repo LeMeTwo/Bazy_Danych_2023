@@ -366,15 +366,13 @@ app.post('/PostAnimeAndCharacterId', async function (req, res) {
 	animeMemory = {'aid': req.body.aid};
 	characterMemory = {'cid': req.body.cid};
 	console.log(req.body);
-	console.log(animeMemory);
-	console.log(characterMemory);
 	console.log('/PostAnimeAndCharacterID');
 	res.status(200);
 });
 
 app.post('/PostVoiceActorId', async function (req, res) {
 	voiceActorMemory = req.body;
-	console.log(characterMemory);
+	console.log(voiceActorMemory);
 	console.log('/PostVoiceActorId');
 	res.status(200);
 });
@@ -741,7 +739,7 @@ app.get('/GetMaxVid', async function (req, res) {
 
 app.get('/GetEditVid', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT vid FROM character WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+		'SELECT vid FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
 	));
 	console.log('/GetEditVid');
 	const jResponse = result.rows;
