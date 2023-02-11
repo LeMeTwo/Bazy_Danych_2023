@@ -48,6 +48,7 @@ $(function () {
 			text[1] = null;
 		}
 
+		// Prepare home format
 		let input = text[3].split(',');
 		let words = [];
 		let lines = [];
@@ -103,7 +104,7 @@ $(function () {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostEditVoiceActor')
 				.then(response => response.json());
 
 			alert('Voice actor edited');
