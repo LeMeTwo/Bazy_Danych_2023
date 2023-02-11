@@ -302,21 +302,20 @@ app.post('/PostEditAnime', async function (req, res) {
 	}
 
 	try {
-		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
+		const selectedTitle = await connection.query('SELECT * from anime where aid = ' + anime.aid + ';');
+
 		if (selectedTitle.rows.length) {
-			const pattern = /^[\d\{\}]+$/;
-			if (!pattern.test(anime.ep_num.toString())) {
-				return res.status(401).json({err: 'Wrong number of episodes'});
-			}
-
+			await connection.query('BEGIN');
 			let query = 'UPDATE anime set ';
-
+			console.log("Here1")
 			if (anime.aid) {
 				query += 'aid=\'' + anime.aid + '\', ';
 			}
+			console.log("Here2")
 			if (anime.title) {
 				query += 'title=\'' + anime.title + '\', ';
 			}
+			console.log("Here3")
 			if (anime.gid) {
 				query += 'gid=\'' + anime.gid + '\', ';
 			}
@@ -338,21 +337,58 @@ app.post('/PostEditAnime', async function (req, res) {
 			if (anime.ep_num) {
 				query += 'ep_num=\'' + anime.ep_num + '\', ';
 			}
-
+			if (anime.cid) {
+				query += 'cid=\'' + anime.cid + '\', ';
+			}
+			console.log("Here4")
 			query = query.slice(0, -2);
 			query += ' WHERE aid=\'' + anime.aid + '\';';
-
 			await connection.query(query);
+			await connection.query('COMMIT');
 			return res.status(200).json({msg: 'Anime edited'});
-		} else {
-			return res.status(400).json({err: 'Title is missing'});
 		}
 	} catch (error) {
-		console.error(error);
-		return res.status(501).json({err: 'Could not edit anime'});
+		console.log('/EditAnime Error');
+		console.log(error);
+		let query = 'UPDATE anime set ';
+		if (anime.aid) {
+			query += 'aid=\'' + anime.aid + '\', ';
+		}
+		if (anime.title) {
+			query += 'title=\'' + anime.title + '\', ';
+		}
+		if (anime.gid) {
+			query += 'gid=\'' + anime.gid + '\', ';
+		}
+		if (anime.tid) {
+			query += 'tid=\'' + anime.tid + '\', ';
+		}
+		if (anime.fid) {
+			query += 'fid=\'' + anime.fid + '\', ';
+		}
+		if (anime.pid) {
+			query += 'pid=\'' + anime.pid + '\', ';
+		}
+		if (anime.otid) {
+			query += 'otid=\'' + anime.otid + '\', ';
+		}
+		if (anime.oid) {
+			query += 'oid=\'' + anime.oid + '\', ';
+		}
+		if (anime.ep_num) {
+			query += 'ep_num=\'' + anime.ep_num + '\', ';
+		}
+		if (anime.cid) {
+			query += 'cid=\'' + anime.cid + '\', ';
+		}
+		query = query.slice(0, -2);
+		query += ' WHERE aid=\'' + anime.aid + '\';';
+		console.log(query);
+		await connection.query(query);
+		await connection.query('ROLLBACK');
+		return res.status(501);
 	}
 });
-
 app.post('/PostEditVoiceActor', async function (req, res) {
 	const anime = req.body;
 
@@ -384,29 +420,72 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			'SELECT * from voice_actor where vid = \'' + anime.vid + '\';'
 		);
 		if (selectedTitle.rows.length) {
-  
+
 			await connection.query('BEGIN');
-  
-			await connection.query(
-				'UPDATE voice_actor set ' +
-			'vid=' + anime.vid + ', ' +
-			'name=' + anime.name + ', ' +
-			'surname=' + anime.surname + ', ' +
-			'sex=' + anime.sex + ', ' +
-			'birth=' + anime.birth + ', ' +
-			'home=' + anime.home + ' ' +
-			'WHERE vid=' + anime.aid + ';'
-			);
-  
+
+			let query = 'UPDATE voice_actor set ';
+
+			if (anime.vid) {
+				query += 'vid=' + anime.vid + ', ';
+			}
+			if (anime.name) {
+				query += 'name=' + anime.name + ', ';
+			}
+			if (anime.surname) {
+				query += 'surname=' + anime.surname + ', ';
+			}
+			if (anime.sex) {
+				query += 'sex=' + anime.sex + ', ';
+			}
+			if (anime.birth) {
+				query += 'birth=' + anime.birth + ', ';
+			}
+			if (anime.home) {
+				query += 'home=' + anime.home + ', ';
+			}
+			if (anime.aid) {
+				query += 'aid=' + anime.aid + ', ';
+			}
+			query = query.slice(0, -2);
+			query += ' WHERE vid=' + anime.vid + ';';
+
+			await connection.query(query);
 			await connection.query('COMMIT');
-  
-			return res.status(501).json({err: 'Voice Actor edited'});
+			return res.status(200).json({msg: 'Voice Actor edited'});			
+
 		} else {
 			console.log('No character to edit found');
 			return res.status(400).json({err: 'Voice Actor is missing'});
 		}
 	} catch (error) {
 		console.log('/EditVoiceActor Error');
+		let query = 'UPDATE voice_actor set ';
+
+		if (anime.vid) {
+			query += 'vid=' + anime.vid + ', ';
+		}
+		if (anime.name) {
+			query += 'name=' + anime.name + ', ';
+		}
+		if (anime.surname) {
+			query += 'surname=' + anime.surname + ', ';
+		}
+		if (anime.sex) {
+			query += 'sex=' + anime.sex + ', ';
+		}
+		if (anime.birth) {
+			query += 'birth=' + anime.birth + ', ';
+		}
+		if (anime.home) {
+			query += 'home=' + anime.home + ', ';
+		}
+		if (anime.aid) {
+			query += 'aid=' + anime.aid + ', ';
+		}
+		query = query.slice(0, -2);
+		query += ' WHERE vid=' + anime.vid + ';';
+
+		console.log(query);
 		await connection.query('ROLLBACK');
 		return res.status(501);
 	}
@@ -437,30 +516,38 @@ app.post('/PostEditCharacter', async function (req, res) {
 		}
 	}
 
-	console.log('UPDATE character set ' +
-		'cid=' + anime.cid + ', ' +
-		'name=' + anime.name + ', ' +
-		'surname=' + anime.surname + ', ' +
-		'sex=' + anime.sex + ', ' +
-		'age=' + anime.age + ' ' +
-		'WHERE cid=' + anime.cid + ';');
-
-	try{
-		await connection.query('BEGIN');
-		await connection.query('UPDATE character set ' +
-			'cid=' + anime.cid + ', ' +
-			'name=' + anime.name + ', ' +
-			'surname=' + anime.surname + ', ' +
-			'sex=' + anime.sex + ', ' +
-			'age=' + anime.age + ' ' +
-			'WHERE cid=' + anime.cid + ';');
-  
-		await connection.query('COMMIT');
-  
-		return res.status(501).json({err: 'Character edited'});
+	try {
+		const selectedTitle = await connection.query('SELECT * from character where cid = ' + anime.cid + ';');
+		if (selectedTitle.rows.length) {
+			await connection.query('BEGIN');
+			let query = 'UPDATE character set ';
+			if (anime.cid) {
+				query += 'cid=' + anime.cid + ', ';
+			}
+			if (anime.name) {
+				query += 'name=' + anime.name + ', ';
+			}
+			if (anime.surname) {
+				query += 'surname=' + anime.surname + ', ';
+			}
+			if (anime.aid) {
+				query += 'aid=' + anime.aid + ', ';
+			}
+			if (anime.sex) {
+				query += 'sex=' + anime.sex + ', ';
+			}
+			if (anime.age) {
+				query += 'age=' + anime.age + ', ';
+			}
+			query = query.slice(0, -2);
+			query += ' WHERE cid=' + anime.cid + ';';
+			console.log(query);
+			await connection.query(query);
+			await connection.query('COMMIT');
+			return res.status(200).json({msg: 'Character edited'});
+		}
 	} catch (error) {
 		console.log('/EditCharacter Error');
-		console.log(error);
 		await connection.query('ROLLBACK');
 		return res.status(501);
 	}
