@@ -414,10 +414,8 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 	}
 
 	try {
-		console.log(req.body);
-
 		const selectedTitle = await connection.query(
-			'SELECT * from voice_actor where vid = \'' + anime.vid + '\';'
+			'SELECT * from voice_actor where vid = ' + anime.vid + ';'
 		);
 		if (selectedTitle.rows.length) {
 
@@ -458,6 +456,7 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			return res.status(400).json({err: 'Voice Actor is missing'});
 		}
 	} catch (error) {
+		console.log(error);
 		console.log('/EditVoiceActor Error');
 		let query = 'UPDATE voice_actor set ';
 
@@ -1065,7 +1064,7 @@ app.get('/GetMaxVid', async function (req, res) {
 
 app.get('/GetEditVid', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT vid FROM character WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
+		'SELECT vid FROM voice_actor WHERE vid = \'' + voiceActorMemory.vid + '\' ;'
 	));
 	console.log('/GetEditVid');
 	const jResponse = result.rows;
