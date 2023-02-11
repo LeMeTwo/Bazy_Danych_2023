@@ -8,13 +8,13 @@ $().ready(function () {
 });
 
 $(function () {
-	let cid = '';
+	let vid = '';
 	const maxVidUrl = 'http://localhost:8081/GetMaxVid';
 	fetch(maxVidUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(voiceActor => {
-				cid = isNull(voiceActor.max[0] + 1);
+				vid = isNull(voiceActor.max[0] + 1);
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -90,13 +90,13 @@ $(function () {
 		});
 
 		let data = {
-			'cid': '{' + cid + '}',
+			'vid': '{' + vid + '}',
 			'name': text[0],
 			'surname': text[1],
-			'date': text[2],
+			'birth': text[2],
 			'home': '{' + home + '}',
 			'sex': sex,
-			'aid': '{' + selected.join(',') + '}',
+			'cid': '{' + selected.join(',') + '}',
 		};
 
 		if (data.name !== '' && data.surname !== '') {
@@ -105,7 +105,7 @@ $(function () {
 			}
 			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
-
+			y;
 			alert('Voice actor added');
 			setTimeout(function () {
 				window.location.href = '../Admin.html';

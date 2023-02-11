@@ -8,13 +8,13 @@ $().ready(function () {
 });
 
 $(function () {
-	let cid = '';
+	let vid = '';
 	const editedVidUrl = 'http://localhost:8081/GetEditVid';
 	fetch(editedVidUrl)
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(voiceActor => {
-				cid = isNull(voiceActor.vid);
+				vid = isNull(voiceActor.vid);
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -90,13 +90,13 @@ $(function () {
 		});
 
 		let data = {
-			'cid': '{' + cid + '}',
+			'vid': '{' + vid + '}',
 			'name': text[0],
 			'surname': text[1],
-			'date': text[2],
+			'birth': text[2],
 			'home': '{' + home + '}',
 			'sex': sex,
-			'aid': '{' + selected.join(',') + '}',
+			'cid': '{' + selected.join(',') + '}',
 		};
 
 		if (data.name !== '' && data.surname !== '') {

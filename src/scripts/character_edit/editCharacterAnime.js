@@ -6,7 +6,7 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(anime => {
-				titleTab.push(isNull(anime.title));
+				titleTab.push(isNull(String(anime.aid)));
 			});
 		})
 		.catch(err => console.log(err)); //to file
@@ -17,7 +17,7 @@ $().ready(function () {
 		.then(data => {
 			data.forEach(anime => {
 				const id = anime.aid[0];
-				if (titleTab.includes(anime.title)) {
+				if (titleTab.includes(String(anime.aid))) {
 					const title =
 						'<li class="list-group-item">' +
 						'<div class="form-check">' +
