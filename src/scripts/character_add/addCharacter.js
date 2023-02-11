@@ -110,7 +110,7 @@ $(function () {
 			if (data.age == null) {
 				data.age = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostPostAddCharacter')
 				.then(response => response.json());
 
 			alert('Character added');

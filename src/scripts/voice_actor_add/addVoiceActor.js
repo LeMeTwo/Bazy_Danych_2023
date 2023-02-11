@@ -103,9 +103,9 @@ $(function () {
 			if (data.surname == null) {
 				data.surname = '';
 			}
-			postData(data, 'PostAnimeTest')
+			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
-
+			y;
 			alert('Voice actor added');
 			setTimeout(function () {
 				window.location.href = '../Admin.html';
