@@ -7,9 +7,9 @@ $().ready(function () {
 			data.forEach(character => {
 				const age =
 					'<div class="mb-3">' +
-					'<input type="text" class="form-control" aria-describedby="epNumHelp" ' +
+					'<input type="text" class="form-control" aria-describedby="ageHelp" ' +
 					'placeholder="Enter age" value="' + isNull(character.age) + '">' +
-					'<div id="epNumHelp" class="form-text text-muted">' + 'Must be an integer from 1 to 100.' + '</div>' +
+					'<div id="ageHelp" class="form-text text-muted">' + 'Must be an integer from 1 to 100.' + '</div>' +
 					'</div>';
 				$('#editCharacterAge').append(age);
 			});

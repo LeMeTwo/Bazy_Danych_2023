@@ -7,9 +7,9 @@ $().ready(function () {
 			data.forEach(character => {
 				const name =
 					'<div class="mb-3">' +
-					'<input type="text" class="form-control" aria-describedby="titleHelp" ' +
+					'<input type="text" class="form-control" aria-describedby="nameHelp" ' +
 					'placeholder="Enter name" value="' + isNull(character.name) + '">' +
-					'<div id="titleHelp" class="form-text text-muted">' + 'Maximum 20 characters long.' + '</div>' +
+					'<div id="nameHelp" class="form-text text-muted">' + 'Maximum 20 characters long.' + '</div>' +
 					'</div>';
 				$('#editCharacterName').append(name);
 			});
