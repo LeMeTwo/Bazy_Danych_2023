@@ -49,23 +49,32 @@ $(function () {
 				text[1] = '';
 			}
 		}
+		// No compulsion to add date
 
-		// Prepare home format
-		let input = text[3].split(',');
-		let words = [];
-		let lines = [];
+
+		// No compulsion to add home
 		let home = '';
-		for (let i = 0; i < input.length; i++) {
-			input[i] = input[i].trim();
-			words[i] = input[i].split(/\s+/);
-			lines[i] = '';
-			for (let j = 0; j < words[i].length; j++) {
-				lines[i] = lines[i] + words[i][j] + ' ';
-			}
-			lines[i] = lines[i].trim();
-			home = home + lines[i] + ',';
+		if (text[3].length === 0) {
+			home = null;
 		}
-		home = home.slice(0, -1);
+		if (home !== null) {
+			// Prepare home format
+			let input = text[3].split(',');
+			let words = [];
+			let lines = [];
+			for (let i = 0; i < input.length; i++) {
+				input[i] = input[i].trim();
+				words[i] = input[i].split(/\s+/);
+				lines[i] = '';
+				for (let j = 0; j < words[i].length; j++) {
+					lines[i] = lines[i] + words[i][j] + ' ';
+				}
+				lines[i] = lines[i].trim();
+				home = home + lines[i] + ',';
+			}
+			home = home.slice(0, -1);
+		}
+
 
 		// Add selected sex to the array
 		$('#add_voice_actor_form select').each(function () {
@@ -105,6 +114,9 @@ $(function () {
 		if (data.name !== '' && data.surname !== '') {
 			if (data.surname == null) {
 				data.surname = '';
+			}
+			if (data.home == null) {
+				data.home = '';
 			}
 			postData(data, 'PostAddVoiceActor')
 				.then(response => response.json());
