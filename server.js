@@ -265,9 +265,22 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 		if (selectedCharacter.rows.length) {
 			return res.status(400).json({err: 'Voice actor exists.'});
 		} else {
-			const birth = anime.birth || '';
-			const home = anime.home || '';
-			const cid = anime.cid || '';
+			var birth = anime.birth ? `'${anime.birth}'` : 'NULL';
+			var home = anime.home ? `'${anime.home}'` : 'NULL';
+			var cid = anime.cid || '';
+
+			console.log(`
+			INSERT INTO voice_actor 
+			VALUES (
+			  '${anime.vid}', 
+			  '${anime.name}', 
+			  '${anime.surname}',
+			  '${anime.sex}', 
+			   ${birth}, 
+			   ${home},
+			  '${cid}'
+			);
+		  	`);
 
 			await connection.query(`
 			INSERT INTO voice_actor 
@@ -276,8 +289,8 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 			  '${anime.name}', 
 			  '${anime.surname}',
 			  '${anime.sex}', 
-			  '${birth}', 
-			  '${home}',
+			   ${birth}, 
+			   ${home},
 			  '${cid}'
 			);
 		  	`);
