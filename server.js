@@ -301,7 +301,7 @@ app.post('/PostEditAnime', async function (req, res) {
 	}
 
 	try {
-		const selectedTitle = await connection.query('SELECT * from anime where aid = ' + anime.aid + ';');
+		const selectedTitle = await connection.query('SELECT * from anime where aid =\'' + anime.aid + '\';');
 
 		if (selectedTitle.rows.length) {
 			await connection.query('BEGIN');
