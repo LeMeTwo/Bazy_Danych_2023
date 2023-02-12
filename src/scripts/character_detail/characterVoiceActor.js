@@ -5,6 +5,9 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(voiceActor => {
+				if (voiceActor.surname === '') {
+					voiceActor.surname = null;
+				}
 				const id = voiceActor.vid[0];
 				const name =
 					'<p style="display: none">' + voiceActor.vid + ' ' + '</p>' +
