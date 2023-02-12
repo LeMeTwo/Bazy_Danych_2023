@@ -14,7 +14,7 @@ const {Client} = require('pg');
 const DATABASE_HOST = 'localhost';
 const DATABASE_USER = 'postgres';
 const DATABASE_PASSWORD = 'admin';
-const DATABASE_NAME = 'anime';
+const DATABASE_NAME = 'postgres';
 
 const connection = new Client({
 	user: DATABASE_USER,
