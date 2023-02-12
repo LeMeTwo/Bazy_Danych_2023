@@ -441,14 +441,23 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			if (anime.surname) {
 				query += 'surname=' + anime.surname + ', ';
 			}
+			else{
+				query += 'surname=NULL, ';
+			}
 			if (anime.sex) {
 				query += 'sex=' + anime.sex + ', ';
 			}
 			if (anime.birth) {
 				query += 'birth=' + anime.birth + ', ';
 			}
+			else{
+				query += 'birth=NULL, ';
+			}
 			if (anime.home) {
 				query += 'home=' + anime.home + ', ';
+			}
+			else{
+				query += 'home=NULL, ';
 			}
 			if (anime.aid) {
 				query += 'aid=' + anime.aid + ', ';
