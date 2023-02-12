@@ -105,3 +105,7 @@ function voiceActorDeleteAlert() {
 	}, 500);
 	setTimeout(this);
 }
+
+const reloadUsingLocationHash = () => {
+	window.location.hash = 'reload';
+};
