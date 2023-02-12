@@ -16,6 +16,9 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(character => {
+				if (character.surname === '') {
+					character.surname = null;
+				}
 				const id = character.cid[0];
 				if (characterTab.includes(String(character.cid))) {
 					const name =

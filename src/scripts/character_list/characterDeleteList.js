@@ -5,8 +5,11 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(character => {
+				if (character.surname === '') {
+					character.surname = null;
+				}
 				const id = character.cid[0];
-				const title =
+				const name =
 					'<li class="list-group-item d-flex flex-nowrap justify-content-between">' +
 					'<p style="display: none">' + isNull(character.cid) + ' ' + '</p>' +
 					'<h class="text-secondary text-truncate id=' + id + '">' +
@@ -16,7 +19,7 @@ $().ready(function () {
 					'class="btn btn-outline-secondary py-0">' + 'X' +
 					'</button>' +
 					'</li>';
-				$('#characterList').append(title);
+				$('#characterList').append(name);
 			});
 		})
 		.catch(err => console.log(err)); //to file
