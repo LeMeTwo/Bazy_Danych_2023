@@ -265,9 +265,9 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 		if (selectedCharacter.rows.length) {
 			return res.status(400).json({err: 'Voice actor exists.'});
 		} else {
-			var birth = anime.birth ? `'${anime.birth}'` : 'NULL';
-			var home = anime.home ? `'${anime.home}'` : 'NULL';
-			var cid = anime.cid || '';
+			let birth = anime.birth ? `'${anime.birth}'` : 'NULL';
+			let home = anime.home ? `'${anime.home}'` : 'NULL';
+			let cid = anime.cid || '';
 
 			console.log(`
 			INSERT INTO voice_actor 
