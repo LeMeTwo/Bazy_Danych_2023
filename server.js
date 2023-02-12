@@ -210,7 +210,8 @@ app.post('/PostAddCharacter', async function (req, res) {
 		} else {
 			if (anime.cid === 'Nan') {
 				anime.cid = {};
-			};
+			}
+			
 			let age = anime.age ? `'${anime.age}'` : 'NULL';
 			await connection.query(`
 			INSERT INTO character 
@@ -532,8 +533,7 @@ app.post('/PostEditCharacter', async function (req, res) {
 			}
 			if (anime.surname) {
 				query += 'surname=' + anime.surname + ', ';
-			}
-			else{
+			} else {
 				query += 'surname=NULL, ';
 			}
 			if (anime.aid) {
@@ -544,8 +544,7 @@ app.post('/PostEditCharacter', async function (req, res) {
 			}
 			if (anime.age) {
 				query += 'age=' + anime.age + ', ';
-			}
-			else{
+			} else {
 				query += 'age=NULL  ';
 			}
 			query = query.slice(0, -2);
@@ -940,7 +939,7 @@ app.get('/GetCharacterSex', async function (req, res) {
 
 app.get('/GetCharacterVoiceActor', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT v.vid, v.name, v.surname FROM voice_actor v inner join character c ON (c.vid @> v.vid) WHERE c.cid = \'' + characterMemory.cid + '\' ;'
+		'SELECT v.vid, v.name, v.surname FROM voice_actor v WHERE v.cid @> \'' + characterMemory.cid + '\' ;'
 	));
 	console.log('/GetCharacterVoiceActor');
 	const jResponse = result.rows;
@@ -983,7 +982,7 @@ app.get('/GetVoiceActorList', async function (req, res) {
 // Gets used by VoiceActorDetail.html and VoiceActorEdit.html
 app.get('/GetVoiceActorCharacterList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;')
+		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.aid @> c.aid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;')
 	);
 	console.log('/GetVoiceActorCharacterList');
 	const jResponse = result.rows;
