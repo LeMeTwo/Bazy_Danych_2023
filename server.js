@@ -56,72 +56,64 @@ const main = async () => {
 main().catch(console.error);
 
 app.post('/Register', async function (req, res) {
-	const anime = req.body;
+	const userData = req.body;
 	try {
 		console.log(req.body);
 	} catch (error) {
 		return res.status(400).json({err: 'error'});
 	}
 
-	const safetyRegex = /[^;+]+$/;
-	for (const key in anime) {
+	const safetyRegex = /^.*(--|;|--\+).*$/;
+	for (const key in userData) {
 		if (!safetyRegex.test(key)) {
 			console.log('Wrong ' + key);
 			return res.status(400).json({err: 'Forbidden character in attribute'});
 		}
-		if (!safetyRegex.test(anime[key])) {
-			console.log('Wrong ' + anime[key]);
+		if (!safetyRegex.test(userData[key])) {
+			console.log('Wrong ' + userData[key]);
 			return res.status(400).json({err: 'Forbidden character in body'});
 		}
 	}
 
 	try {
-		console.log('trying to register');
-		const selectedAccount = await connection.query('SELECT login from users where login = \'' + anime.login + '\';');
-		const selectedMail = await connection.query('SELECT mail from users where login = \'' + anime.mail + '\';');
-		if (selectedAccount.rows.length) {
-			return res.status(200).json({message: 'NameAlreadyTaken'});
+		console.log('trying to register user');
+		const checkIfExists = await connection.query('SELECT * from users where login = \'' + userData.login + '\';');
+		if (checkIfExists.rows.length) {
+			return res.status(400).json({err: 'Username already exists'});
 		}
-
-		if (selectedMail.rows.length) {
-			return res.status(200).json({message: 'MailAlreadyInUse'});
-		} else {
-			await connection.query(
-				'INSERT INTO users VALUES (' +
-				'\'' + anime.login + '\', \'' + anime.mail + '\', ' + anime.password + '\');'
-			);
-		}
+		await connection.query('INSERT INTO users (login, email, password) values (\'' + userData.login + '\', \'' + userData.email + '\', \'' + userData.password + '\');');
+		return res.status(200).json({message: 'Registration successful'});
 	} catch (error) {
 		return res.status(501);
 	}
 });
 
 app.post('/Login', async function (req, res) {
-	const anime = req.body;
+	const loginData = req.body;
 	try {
 		console.log(req.body);
 	} catch (error) {
 		return res.status(400).json({err: 'error'});
 	}
-
-	const safetyRegex = /[^;+]+$/;
-	for (const key in anime) {
+  
+	const safetyRegex = /^.*(--|;|--\+).*$/;
+	for (const key in loginData) {
 		if (!safetyRegex.test(key)) {
 			console.log('Wrong ' + key);
 			return res.status(400).json({err: 'Forbidden character in attribute'});
 		}
-		if (!safetyRegex.test(anime[key])) {
-			console.log('Wrong ' + anime[key]);
+		if (!safetyRegex.test(loginData[key])) {
+			console.log('Wrong ' + loginData[key]);
 			return res.status(400).json({err: 'Forbidden character in body'});
 		}
 	}
 
 	try {
-		console.log('SELECT * from anime where title = \'' + anime.title + '\';');
+		console.log('SELECT * from usersdb where login = \'' + loginData.login + '\';');
 		console.log('trying to login');
-		const selectedAccount = await connection.query('SELECT login, password, is_admin from users where login = \'' + anime.login + '\';');
+		const selectedAccount = await connection.query('SELECT login, password, is_admin from usersdb where login = \'' + loginData.login + '\';');
 		if (selectedAccount.rows.length) {
-			if (selectedAccount.rows[0].password === anime.password) {
+			if (selectedAccount.rows[0].password === loginData.password) {
 				if (selectedAccount.rows[0].is_admin === 1) {
 					return res.status(200).json({message: 'Admin=1'});
 				}
@@ -130,10 +122,10 @@ app.post('/Login', async function (req, res) {
 				return res.status(200).json({message: 'Login unsuccessful'});
 			}
 		} else {
-			return res.status(400).json({err: 'Wrong name or password'});
+			return res.status(400).json({err: 'Wrong login or password'});
 		}
 	} catch (error) {
-		return res.status(501);
+		return res.status(501).json({err: 'Unexpected error'});
 	}
 });
 
