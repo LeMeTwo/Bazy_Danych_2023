@@ -870,7 +870,7 @@ app.get('/GetCharacterList', async function (req, res) {
 // Gets used by CharacterDetail.html and CharacterEdit.html
 app.get('/GetCharacterTitleList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT aid, title FROM anime WHERE cid @> \'' + characterMemory.cid + '\' ;'
+		'SELECT aid, title FROM anime WHERE aid <@ (SELECT aid FROM character WHERE cid @> \'' + characterMemory.cid + '\') ;'
 	));
 	console.log('/GetCharacterTitleList');
 	const jResponse = result.rows;
@@ -963,8 +963,8 @@ app.get('/GetVoiceActorList', async function (req, res) {
 // Gets used by VoiceActorDetail.html and VoiceActorEdit.html
 app.get('/GetVoiceActorCharacterList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> \'' + voiceActorMemory.vid + '\' ;'
-	));
+		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;')
+	);
 	console.log('/GetVoiceActorCharacterList');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
