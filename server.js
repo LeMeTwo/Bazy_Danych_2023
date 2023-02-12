@@ -210,7 +210,8 @@ app.post('/PostAddCharacter', async function (req, res) {
 		} else {
 			if (anime.cid === 'Nan') {
 				anime.cid = {};
-			}
+			};
+			let age = anime.age ? `'${anime.age}'` : 'NULL';
 			await connection.query(`
 			INSERT INTO character 
 			VALUES (
@@ -219,7 +220,7 @@ app.post('/PostAddCharacter', async function (req, res) {
 				'${anime.surname}', 
 				'${anime.aid}', 
 				'${anime.sex}', 
-				'${anime.age}'
+				 ${age}
 			);
 			`);
 			return res.status(200).json({message: 'Character added.'});
