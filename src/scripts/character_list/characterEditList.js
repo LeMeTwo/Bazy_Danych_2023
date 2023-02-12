@@ -5,6 +5,9 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(character => {
+				if (character.surname === '') {
+					character.surname = null;
+				}
 				const id = character.cid[0];
 				const name =
 					'<li class="list-group-item">' +

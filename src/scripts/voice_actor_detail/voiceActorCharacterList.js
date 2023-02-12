@@ -5,6 +5,9 @@ $().ready(function () {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(character => {
+				if (character.surname === '') {
+					character.surname = null;
+				}
 				const cid = character.cid[0];
 				const aid = character.aid[0];
 				const name =
