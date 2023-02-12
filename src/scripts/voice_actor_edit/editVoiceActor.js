@@ -39,13 +39,15 @@ $(function () {
 			alert('Name can be maximum 20 characters long.');
 			text[0] = '';
 		}
-		if (text[1].length >= 21) {
-			alert('Surname can be maximum 20 characters long.');
-			text[1] = '';
-		}
 		// No compulsion to add a surname
 		if (text[1].length === 0) {
 			text[1] = null;
+		}
+		if (text[1] !== null) {
+			if (text[1].length >= 21) {
+				alert('Surname can be maximum 20 characters long.');
+				text[1] = '';
+			}
 		}
 
 		// Prepare home format
