@@ -39,20 +39,15 @@ $(function () {
 			alert('Name can be maximum 20 characters long.');
 			text[0] = '';
 		}
-		if (text[1].length >= 21) {
-			alert('Surname can be maximum 20 characters long.');
-			text[1] = '';
-		}
 		// No compulsion to add a surname
 		if (text[1].length === 0) {
 			text[1] = null;
 		}
-
-		// Prepare date format
-		if (text[2].length !== 0) {
-			let date = String(text[2]);
-			let parts = date.split('/');
-			text[2] = parts[2] + '/' + parts[0] + '/' + parts[1];
+		if (text[1] !== null) {
+			if (text[1].length >= 21) {
+				alert('Surname can be maximum 20 characters long.');
+				text[1] = '';
+			}
 		}
 
 		// Prepare home format

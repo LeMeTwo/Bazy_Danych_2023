@@ -29,7 +29,9 @@
     <script src="../../scripts/voice_actor_edit/editBirthday.js"></script>
     <script type="text/javascript">
 		$(function () {
-			$('#editDatepicker').datepicker();
+			$('#editDatepicker').datepicker({
+				format: 'yyyy-mm-dd'
+			});
 		});
     </script>
 </head>

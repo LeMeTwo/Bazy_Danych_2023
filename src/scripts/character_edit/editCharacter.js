@@ -39,30 +39,32 @@ $(function () {
 			alert('Name can be maximum 20 characters long.');
 			text[0] = '';
 		}
-		if (text[1].length >= 21) {
-			alert('Surname can be maximum 20 characters long.');
-			text[1] = '';
-		}
 		// No compulsion to add a surname
 		if (text[1].length === 0) {
 			text[1] = null;
+		}
+		if (text[1] !== null) {
+			if (text[1].length >= 21) {
+				alert('Surname can be maximum 20 characters long.');
+				text[1] = '';
+			}
 		}
 		// No compulsion to add age
 		if (text[2].length === 0) {
 			text[2] = null;
 		} else {
 			if (isNaN(text[2])) {
-				alert('Must be an integer from 1 to 1000000.');
+				alert('Age must be an integer from 1 to 1000000.');
 				text[2] = '';
 			} else {
 				text[2] = parseFloat(text[2]);
 				if (!Number.isSafeInteger(text[2] - parseInt(text[2]))) {
-					alert('Must be an integer from 1 to 1000000.');
+					alert('Age must be an integer from 1 to 1000000.');
 					text[2] = '';
 				} else {
 					text[2] = parseInt(text[2]);
 					if (text[2] <= 0 || text[2] >= 1000001) {
-						alert('Must be an integer from 1 to 1000000.');
+						alert('Age must be an integer from 1 to 1000000.');
 						text[2] = '';
 					}
 				}
