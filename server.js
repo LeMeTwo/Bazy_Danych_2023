@@ -14,7 +14,7 @@ const {Client} = require('pg');
 const DATABASE_HOST = 'localhost';
 const DATABASE_USER = 'postgres';
 const DATABASE_PASSWORD = 'admin';
-const DATABASE_NAME = 'postgres';
+const DATABASE_NAME = 'anime';
 
 const connection = new Client({
 	user: DATABASE_USER,
@@ -353,6 +353,7 @@ app.post('/PostEditAnime', async function (req, res) {
 			}
 			query = query.slice(0, -2);
 			query += ' WHERE aid=\'' + anime.aid + '\';';
+			console.log(query);
 			await connection.query(query);
 			await connection.query('COMMIT');
 			return res.status(200).json({msg: 'Anime edited.'});
@@ -456,11 +457,12 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			} else {
 				query += 'home=NULL, ';
 			}
-			if (anime.aid) {
-				query += 'aid=' + anime.aid + ', ';
+			if (anime.cid) {
+				query += 'cid=' + anime.cid + ', ';
 			}
 			query = query.slice(0, -2);
 			query += ' WHERE vid=' + anime.vid + ';';
+			console.log(query);
 			await connection.query(query);
 			await connection.query('COMMIT');
 			return res.status(200).json({msg: 'Voice Actor edited.'});
@@ -988,8 +990,8 @@ app.get('/GetVoiceActorList', async function (req, res) {
 // Gets used by VoiceActorDetail.html and VoiceActorEdit.html
 app.get('/GetVoiceActorCharacterList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.aid @> c.aid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;')
-	);
+		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c LEFT JOIN (SELECT aid, title FROM anime) as a ON (a.aid <@ c.aid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;'
+	));
 	console.log('/GetVoiceActorCharacterList');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
