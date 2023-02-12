@@ -96,7 +96,6 @@ app.post('/Register', async function (req, res) {
 	}
 });
 
-
 app.post('/Login', async function (req, res) {
 	const anime = req.body;
 	try {
@@ -148,42 +147,43 @@ app.post('/PostAnimeTest', async function (req, res) {
 // Posts used to alter the database
 app.post('/PostAddAnime', async function (req, res) {
 	const anime = req.body;
+	console.log('/PostAddAnime');
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
 
 	try {
 		const selectedTitle = await connection.query(`
 		SELECT * from anime where title = '${anime.title}';
-	  `);
+	  	`);
 		if (selectedTitle.rows.length) {
-			return res.status(400).json({err: 'Title exists'});
+			return res.status(400).json({err: 'Title exists.'});
 		} else {
 			const pattern = /^[\d\{\}]+$/;
 			if (!pattern.test(anime.ep_num.toString())) {
-				return res.status(401).json({err: 'Wrong number of episodes'});
+				return res.status(401).json({err: 'Wrong number of episodes.'});
 			}
 
 			await connection.query(`
-		  INSERT INTO anime 
-		  VALUES (
-			'${anime.aid}', 
-			'${anime.title}', 
-			'${anime.gid}', 
-			'${anime.tid}', 
-			'${anime.fid}', 
-			'${anime.pid}', 
-			'${anime.otid}', 
-			'${anime.oid}', 
-			${anime.ep_num}, 
-			NULL
-		  );
-		`);
-			return res.status(200).json({message: 'Anime added'});
+		  	INSERT INTO anime 
+			VALUES (
+				'${anime.aid}', 
+				'${anime.title}', 
+				'${anime.gid}', 
+				'${anime.tid}', 
+				'${anime.fid}', 
+				'${anime.pid}', 
+				'${anime.otid}',
+				'${anime.oid}', 
+				${anime.ep_num}, 
+				NULL
+		  	);
+			`);
+			return res.status(200).json({message: 'Anime added.'});
 		}
 	} catch (error) {
 		return res.status(501);
@@ -192,51 +192,51 @@ app.post('/PostAddAnime', async function (req, res) {
 
 app.post('/PostAddCharacter', async function (req, res) {
 	const anime = req.body;
-	console.log("/PostAddCharacter");
+	console.log('/PostAddCharacter');
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
 
 	try {
 		const selectedCharacter = await connection.query(`
 		SELECT * from character where cid = '${anime.cid}';
-	  `);
+	  	`);
 		if (selectedCharacter.rows.length) {
-			return res.status(400).json({err: 'Character exists'});
+			return res.status(400).json({err: 'Character exists.'});
 		} else {
-			if ( anime.cid == 'Nan'){
+			if (anime.cid === 'Nan') {
 				anime.cid = {};
-			}  
+			}
 			await connection.query(`
-		  INSERT INTO character 
-		  VALUES (
-			'${anime.cid}', 
-			'${anime.name}', 
-			'${anime.surname}', 
-			'${anime.aid}', 
-			'${anime.sex}', 
-			'${anime.age}'
-		  );
-		`);
-			return res.status(200).json({message: 'Character added'});
+			INSERT INTO character 
+			VALUES (
+				'${anime.cid}', 
+				'${anime.name}', 
+				'${anime.surname}', 
+				'${anime.aid}', 
+				'${anime.sex}', 
+				'${anime.age}'
+			);
+			`);
+			return res.status(200).json({message: 'Character added.'});
 		}
 	} catch (error) {
 		console.log(error);
 		console.log(`
 		INSERT INTO character 
 		VALUES (
-		  '${anime.cid}', 
-		  '${anime.name}', 
-		  '${anime.surname}', 
-		  '${anime.aid}', 
-		  '${anime.sex}', 
-		  '${anime.age}'
+			'${anime.cid}', 
+			'${anime.name}', 
+			'${anime.surname}', 
+			'${anime.aid}', 
+			'${anime.sex}', 
+			'${anime.age}'
 		);
-	  `);
+	  	`);
 		return res.status(501);
 	}
 });
@@ -245,27 +245,26 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 	const anime = req.body;
 	console.log('/PostAddVoiceActor');
 
-	if (!anime.vid || !anime.name || !anime.surname || !anime.sex) {
-		console.log('fizz');
-		return res.status(400).json({err: 'vid, name, surname, and sex are required fields'});
+	if (!anime.vid || !anime.name || !anime.sex) {
+		console.log('Required field unfilled.');
+		return res.status(400).json({err: 'vid, name and sex are required fields.'});
 	}
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
 			console.log('Forbidden character ' + safetyRegex.key + safetyRegex.anime[key]);
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
 
 	try {
 		const selectedCharacter = await connection.query(`
-		  SELECT * from voice_actor where vid = '${anime.vid}';
+		SELECT * from voice_actor where vid = '${anime.vid}';
 		`);
 		if (selectedCharacter.rows.length) {
-			return res.status(400).json({err: 'Voice actor exists'});
+			return res.status(400).json({err: 'Voice actor exists.'});
 		} else {
-			console.log('Adding VA');
 			const birth = anime.birth || '';
 			const home = anime.home || '';
 			const cid = anime.cid || '';
@@ -281,9 +280,8 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 			  '${home}',
 			  '${cid}'
 			);
-		  `);
-			console.log('VA added');
-			return res.status(200).json({message: 'Voice Actor added'});
+		  	`);
+			return res.status(200).json({message: 'Voice Actor added.'});
 		}
 	} catch (error) {
 		console.log(error);
@@ -293,29 +291,27 @@ app.post('/PostAddVoiceActor', async function (req, res) {
 
 app.post('/PostEditAnime', async function (req, res) {
 	const anime = req.body;
+	console.log('/PostEditAnime');
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
 
 	try {
-		const selectedTitle = await connection.query('SELECT * from anime where aid = ' + anime.aid + ';');
+		const selectedTitle = await connection.query('SELECT * from anime where aid =\'' + anime.aid + '\';');
 
 		if (selectedTitle.rows.length) {
 			await connection.query('BEGIN');
 			let query = 'UPDATE anime set ';
-			console.log("Here1")
 			if (anime.aid) {
 				query += 'aid=\'' + anime.aid + '\', ';
 			}
-			console.log("Here2")
 			if (anime.title) {
 				query += 'title=\'' + anime.title + '\', ';
 			}
-			console.log("Here3")
 			if (anime.gid) {
 				query += 'gid=\'' + anime.gid + '\', ';
 			}
@@ -340,16 +336,15 @@ app.post('/PostEditAnime', async function (req, res) {
 			if (anime.cid) {
 				query += 'cid=\'' + anime.cid + '\', ';
 			}
-			console.log("Here4")
 			query = query.slice(0, -2);
 			query += ' WHERE aid=\'' + anime.aid + '\';';
 			await connection.query(query);
 			await connection.query('COMMIT');
-			return res.status(200).json({msg: 'Anime edited'});
+			return res.status(200).json({msg: 'Anime edited.'});
 		}
 	} catch (error) {
-		console.log('/EditAnime Error');
 		console.log(error);
+		console.log('/EditAnime Error');
 		let query = 'UPDATE anime set ';
 		if (anime.aid) {
 			query += 'aid=\'' + anime.aid + '\', ';
@@ -389,13 +384,15 @@ app.post('/PostEditAnime', async function (req, res) {
 		return res.status(501);
 	}
 });
+
 app.post('/PostEditVoiceActor', async function (req, res) {
 	const anime = req.body;
+	console.log('/PostEditVoiceActor');
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
 
@@ -418,11 +415,8 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			'SELECT * from voice_actor where vid = ' + anime.vid + ';'
 		);
 		if (selectedTitle.rows.length) {
-
 			await connection.query('BEGIN');
-
 			let query = 'UPDATE voice_actor set ';
-
 			if (anime.vid) {
 				query += 'vid=' + anime.vid + ', ';
 			}
@@ -446,14 +440,11 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			}
 			query = query.slice(0, -2);
 			query += ' WHERE vid=' + anime.vid + ';';
-
 			await connection.query(query);
 			await connection.query('COMMIT');
-			return res.status(200).json({msg: 'Voice Actor edited'});			
-
+			return res.status(200).json({msg: 'Voice Actor edited.'});
 		} else {
-			console.log('No character to edit found');
-			return res.status(400).json({err: 'Voice Actor is missing'});
+			return res.status(400).json({err: 'Voice Actor is missing.'});
 		}
 	} catch (error) {
 		console.log(error);
@@ -483,7 +474,6 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 		}
 		query = query.slice(0, -2);
 		query += ' WHERE vid=' + anime.vid + ';';
-
 		console.log(query);
 		await connection.query('ROLLBACK');
 		return res.status(501);
@@ -492,15 +482,15 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 
 app.post('/PostEditCharacter', async function (req, res) {
 	const anime = req.body;
-	console.log(req.body);
+	console.log('/PostEditCharacter');
 
 	const safetyRegex = /^.*(--|;|--\+).*$/;
 	for (const key in anime) {
 		if (safetyRegex.test(key) || safetyRegex.test(anime[key])) {
-			return res.status(400).json({err: 'Forbidden character in attribute or body'});
+			return res.status(400).json({err: 'Forbidden character in attribute or body.'});
 		}
 	}
-  
+
 	for (const field in anime) {
 		if (!anime[field]) {
 			anime[field] = null;
@@ -543,9 +533,10 @@ app.post('/PostEditCharacter', async function (req, res) {
 			console.log(query);
 			await connection.query(query);
 			await connection.query('COMMIT');
-			return res.status(200).json({msg: 'Character edited'});
+			return res.status(200).json({msg: 'Character edited.'});
 		}
 	} catch (error) {
+		console.log(error);
 		console.log('/EditCharacter Error');
 		await connection.query('ROLLBACK');
 		return res.status(501);
@@ -554,38 +545,32 @@ app.post('/PostEditCharacter', async function (req, res) {
 
 app.post('/PostDeleteAnime', async function (req, res) {
 	const anime = req.body;
-	try {
-		console.log(req.body);
-	} catch (error) {
-		return res.status(400).json({err: 'error'});
-	}
+	console.log('/PostDeleteAnime');
 
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key)) {
 			console.log('Wrong ' + key);
-			return res.status(400).json({err: 'Forbidden character in attribute'});
+			return res.status(400).json({err: 'Forbidden character in attribute.'});
 		}
 		if (!safetyRegex.test(anime[key])) {
 			console.log('Wrong ' + anime[key]);
-			return res.status(400).json({err: 'Forbidden character in body'});
+			return res.status(400).json({err: 'Forbidden character in body.'});
 		}
 	}
 
 	try {
 		console.log('SELECT * from anime where aid = \'' + anime.aid + '\';');
-		console.log('trying to delete');
 		const selectedTitle = await connection.query('SELECT * from anime where aid = \'' + anime.aid + '\';');
 		if (selectedTitle.rows.length) {
 			await connection.query('DELETE from anime WHERE aid=\'' + anime.aid + '\';'
 			);
-			return res.status(501).json({err: 'Anime edited'});
+			return res.status(501).json({err: 'Anime deleted.'});
 		} else {
-			console.log('Anime already removed');
-			console.log('/DeleteAnime');
-			return res.status(400).json({err: 'Anime already removed'});
+			return res.status(400).json({err: 'Anime already removed.'});
 		}
 	} catch (error) {
+		console.log(error);
 		console.log('/DeleteAnime Error');
 		return res.status(501);
 	}
@@ -593,78 +578,65 @@ app.post('/PostDeleteAnime', async function (req, res) {
 
 app.post('/PostDeleteVoiceActor', async function (req, res) {
 	const anime = req.body;
-	try {
-		console.log(req.body);
-	} catch (error) {
-		return res.status(400).json({err: 'error'});
-	}
+	console.log('/PostDeleteVoiceActor');
 
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key)) {
 			console.log('Wrong ' + key);
-			return res.status(400).json({err: 'Forbidden character in attribute'});
+			return res.status(400).json({err: 'Forbidden character in attribute.'});
 		}
 		if (!safetyRegex.test(anime[key])) {
 			console.log('Wrong ' + anime[key]);
-			return res.status(400).json({err: 'Forbidden character in body'});
+			return res.status(400).json({err: 'Forbidden character in body.'});
 		}
 	}
 
 	try {
 		console.log('SELECT * from voice_actor where vid = \'' + anime.vid + '\';');
-		console.log('trying to delete');
 		const selectedTitle = await connection.query('SELECT * from voice_actor where vid = \'' + anime.vid + '\';');
 		if (selectedTitle.rows.length) {
 			await connection.query('DELETE from voice_actor WHERE vid=\'' + anime.vid + '\';'
 			);
-			return res.status(501).json({err: 'Voice Actor deleted'});
+			return res.status(501).json({err: 'Voice Actor deleted.'});
 		} else {
-			console.log('Voice Actor already removed');
-			console.log('/DeleteVoiceActor');
-			return res.status(400).json({err: 'Voice Actor already removed'});
+			return res.status(400).json({err: 'Voice Actor already removed.'});
 		}
 	} catch (error) {
-		console.log('/DeleteVoiceActor Error');
 		console.log(error);
+		console.log('/DeleteVoiceActor Error');
 		return res.status(501);
 	}
 });
 
 app.post('/PostDeleteCharacter', async function (req, res) {
 	const anime = req.body;
-	try {
-		console.log(req.body);
-	} catch (error) {
-		return res.status(400).json({err: 'error'});
-	}
+	console.log('/PostDeleteCharacter');
 
 	const safetyRegex = /[^;+]+$/;
 	for (const key in anime) {
 		if (!safetyRegex.test(key)) {
 			console.log('Wrong ' + key);
-			return res.status(400).json({err: 'Forbidden character in attribute'});
+			return res.status(400).json({err: 'Forbidden character in attribute.'});
 		}
 		if (!safetyRegex.test(anime[key])) {
 			console.log('Wrong ' + anime[key]);
-			return res.status(400).json({err: 'Forbidden character in body'});
+			return res.status(400).json({err: 'Forbidden character in body.'});
 		}
 	}
 
 	try {
 		console.log('SELECT * from character where cid = \'' + anime.cid + '\';');
-		console.log('trying to delete');
 		const selectedTitle = await connection.query('SELECT * from character where cid = \'' + anime.cid + '\';');
 		if (selectedTitle.rows.length) {
 			await connection.query('DELETE from character WHERE cid=\'' + anime.cid + '\';'
 			);
-			return res.status(501).json({err: 'Character deleted'});
+			return res.status(501).json({err: 'Character deleted.'});
 		} else {
-			console.log('Character already removed');
-			console.log('/DeleteCharacter');
-			return res.status(400).json({err: 'Character already removed'});
+			return res.status(400).json({err: 'Character already removed.'});
 		}
 	} catch (error) {
+		console.log(error);
 		console.log('/DeleteCharacter Error');
 		return res.status(501);
 	}
@@ -689,15 +661,13 @@ app.post('/PostAnimeAndCharacterId', async function (req, res) {
 	animeMemory = {'aid': req.body.aid};
 	characterMemory = {'cid': req.body.cid};
 	console.log(req.body);
-	console.log(animeMemory);
-	console.log(characterMemory);
 	console.log('/PostAnimeAndCharacterID');
 	res.status(200);
 });
 
 app.post('/PostVoiceActorId', async function (req, res) {
 	voiceActorMemory = req.body;
-	console.log(characterMemory);
+	console.log(voiceActorMemory);
 	console.log('/PostVoiceActorId');
 	res.status(200);
 });
@@ -900,7 +870,7 @@ app.get('/GetCharacterList', async function (req, res) {
 // Gets used by CharacterDetail.html and CharacterEdit.html
 app.get('/GetCharacterTitleList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT aid, title FROM anime WHERE cid @> \'' + characterMemory.cid + '\' ;'
+		'SELECT aid, title FROM anime WHERE aid <@ (SELECT aid FROM character WHERE cid @> \'' + characterMemory.cid + '\') ;'
 	));
 	console.log('/GetCharacterTitleList');
 	const jResponse = result.rows;
@@ -993,8 +963,8 @@ app.get('/GetVoiceActorList', async function (req, res) {
 // Gets used by VoiceActorDetail.html and VoiceActorEdit.html
 app.get('/GetVoiceActorCharacterList', async function (req, res) {
 	const result = (await connection.query(
-		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE vid @> \'' + voiceActorMemory.vid + '\' ;'
-	));
+		'SELECT c.cid, c.name, c.surname, a.aid, a.title FROM character c inner join anime a ON (a.cid @> c.cid) WHERE c.cid <@ (SELECT cid FROM voice_actor WHERE vid @> \'' + voiceActorMemory.vid + '\') ;')
+	);
 	console.log('/GetVoiceActorCharacterList');
 	const jResponse = result.rows;
 	res.setHeader('Content-Type', 'application/json');
