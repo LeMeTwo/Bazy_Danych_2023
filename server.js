@@ -533,6 +533,9 @@ app.post('/PostEditCharacter', async function (req, res) {
 			if (anime.surname) {
 				query += 'surname=' + anime.surname + ', ';
 			}
+			else{
+				query += 'surname=NULL, ';
+			}
 			if (anime.aid) {
 				query += 'aid=' + anime.aid + ', ';
 			}
@@ -541,6 +544,9 @@ app.post('/PostEditCharacter', async function (req, res) {
 			}
 			if (anime.age) {
 				query += 'age=' + anime.age + ', ';
+			}
+			else{
+				query += 'age=NULL  ';
 			}
 			query = query.slice(0, -2);
 			query += ' WHERE cid=' + anime.cid + ';';
