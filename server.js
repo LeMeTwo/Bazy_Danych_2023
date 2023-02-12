@@ -211,7 +211,7 @@ app.post('/PostAddCharacter', async function (req, res) {
 			if (anime.cid === 'Nan') {
 				anime.cid = {};
 			}
-			
+
 			let age = anime.age ? `'${anime.age}'` : 'NULL';
 			await connection.query(`
 			INSERT INTO character 
@@ -440,8 +440,7 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			}
 			if (anime.surname) {
 				query += 'surname=' + anime.surname + ', ';
-			}
-			else{
+			} else {
 				query += 'surname=NULL, ';
 			}
 			if (anime.sex) {
@@ -449,14 +448,12 @@ app.post('/PostEditVoiceActor', async function (req, res) {
 			}
 			if (anime.birth) {
 				query += 'birth=' + anime.birth + ', ';
-			}
-			else{
+			} else {
 				query += 'birth=NULL, ';
 			}
 			if (anime.home) {
 				query += 'home=' + anime.home + ', ';
-			}
-			else{
+			} else {
 				query += 'home=NULL, ';
 			}
 			if (anime.aid) {
